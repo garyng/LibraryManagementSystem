@@ -1,0 +1,962 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Edmx Version="3.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <Runtime>
+    <ConceptualModels>
+      <Schema Namespace="Libraryman.DataAccess" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Book" customannotation:ClrType="Libraryman.Entity.Book, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Barcode" />
+          </Key>
+          <Property Name="Barcode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Edition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PublishedAt" Type="DateTime" Nullable="false" />
+          <Property Name="Status" Type="Self.BookStatus" Nullable="false" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="PublisherId" Type="Int32" Nullable="false" />
+          <Property Name="LibraryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Authors" Relationship="Self.AuthorBook_Book" FromRole="AuthorBook_Book_Target" ToRole="AuthorBook_Book_Source" />
+          <NavigationProperty Name="Library" Relationship="Self.Library_Books" FromRole="Library_Books_Target" ToRole="Library_Books_Source" />
+          <NavigationProperty Name="Publisher" Relationship="Self.Publisher_Books" FromRole="Publisher_Books_Target" ToRole="Publisher_Books_Source" />
+          <NavigationProperty Name="Records" Relationship="Self.Record_Book" FromRole="Record_Book_Target" ToRole="Record_Book_Source" />
+          <NavigationProperty Name="Type" Relationship="Self.BookType_Books" FromRole="BookType_Books_Target" ToRole="BookType_Books_Source" />
+        </EntityType>
+        <EntityType Name="AuthorBook" customannotation:ClrType="Libraryman.Entity.AuthorBook, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="AuthorId" />
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="AuthorId" Type="Int32" Nullable="false" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Author" Relationship="Self.AuthorBook_Author" FromRole="AuthorBook_Author_Source" ToRole="AuthorBook_Author_Target" />
+          <NavigationProperty Name="Book" Relationship="Self.AuthorBook_Book" FromRole="AuthorBook_Book_Source" ToRole="AuthorBook_Book_Target" />
+        </EntityType>
+        <EntityType Name="Author" customannotation:ClrType="Libraryman.Entity.Author, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PublisherId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.AuthorBook_Author" FromRole="AuthorBook_Author_Target" ToRole="AuthorBook_Author_Source" />
+          <NavigationProperty Name="Publisher" Relationship="Self.Publisher_Authors" FromRole="Publisher_Authors_Target" ToRole="Publisher_Authors_Source" />
+        </EntityType>
+        <EntityType Name="Publisher" customannotation:ClrType="Libraryman.Entity.Publisher, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Authors" Relationship="Self.Publisher_Authors" FromRole="Publisher_Authors_Source" ToRole="Publisher_Authors_Target" />
+          <NavigationProperty Name="Books" Relationship="Self.Publisher_Books" FromRole="Publisher_Books_Source" ToRole="Publisher_Books_Target" />
+        </EntityType>
+        <EntityType Name="Library" customannotation:ClrType="Libraryman.Entity.Library, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DirectorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.Library_Books" FromRole="Library_Books_Source" ToRole="Library_Books_Target" />
+          <NavigationProperty Name="Director" Relationship="Self.Library_Director" FromRole="Library_Director_Source" ToRole="Library_Director_Target" />
+          <NavigationProperty Name="Staffs" Relationship="Self.Library_Staffs" FromRole="Library_Staffs_Source" ToRole="Library_Staffs_Target" />
+        </EntityType>
+        <EntityType Name="Staff" customannotation:ClrType="Libraryman.Entity.Staff, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Self.Gender" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="JobId" Type="Int32" Nullable="false" />
+          <Property Name="LibraryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Job" Relationship="Self.Job_Staffs" FromRole="Job_Staffs_Target" ToRole="Job_Staffs_Source" />
+          <NavigationProperty Name="Library" Relationship="Self.Staff_Library" FromRole="Staff_Library_Source" ToRole="Staff_Library_Target" />
+          <NavigationProperty Name="Records" Relationship="Self.Record_Staff" FromRole="Record_Staff_Target" ToRole="Record_Staff_Source" />
+        </EntityType>
+        <EntityType Name="Job" customannotation:ClrType="Libraryman.Entity.Job, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Staffs" Relationship="Self.Job_Staffs" FromRole="Job_Staffs_Source" ToRole="Job_Staffs_Target" />
+        </EntityType>
+        <EntityType Name="Record" customannotation:ClrType="Libraryman.Entity.Record, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Self.RecordType" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="StaffId" Type="Int32" Nullable="false" />
+          <Property Name="BookBarcode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Self.Record_Book" FromRole="Record_Book_Source" ToRole="Record_Book_Target" />
+          <NavigationProperty Name="Staff" Relationship="Self.Record_Staff" FromRole="Record_Staff_Source" ToRole="Record_Staff_Target" />
+          <NavigationProperty Name="User" Relationship="Self.User_Records" FromRole="User_Records_Target" ToRole="User_Records_Source" />
+        </EntityType>
+        <EntityType Name="User" customannotation:ClrType="Libraryman.Entity.User, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Self.Gender" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Addres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Records" Relationship="Self.User_Records" FromRole="User_Records_Source" ToRole="User_Records_Target" />
+          <NavigationProperty Name="Type" Relationship="Self.User_Type" FromRole="User_Type_Source" ToRole="User_Type_Target" />
+        </EntityType>
+        <EntityType Name="MembershipType" customannotation:ClrType="Libraryman.Entity.MembershipType, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="DateTime" Nullable="false" />
+          <Property Name="OverdueFine" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.User_Type" FromRole="User_Type_Target" ToRole="User_Type_Source" />
+        </EntityType>
+        <EntityType Name="BookType" customannotation:ClrType="Libraryman.Entity.BookType, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsBorrowable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.BookType_Books" FromRole="BookType_Books_Source" ToRole="BookType_Books_Target" />
+        </EntityType>
+        <EnumType Name="BookStatus" IsFlags="false" customannotation:ClrType="Libraryman.Entity.BookStatus, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" UnderlyingType="Int32">
+          <Member Name="Available" Value="0" />
+          <Member Name="NotAvailable" Value="1" />
+        </EnumType>
+        <EnumType Name="Gender" IsFlags="false" customannotation:ClrType="Libraryman.Entity.Gender, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" UnderlyingType="Int32">
+          <Member Name="Male" Value="0" />
+          <Member Name="Female" Value="1" />
+        </EnumType>
+        <EnumType Name="RecordType" IsFlags="false" customannotation:ClrType="Libraryman.Entity.RecordType, Libraryman.Entity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" UnderlyingType="Int32">
+          <Member Name="Borrowing" Value="0" />
+          <Member Name="Returning" Value="1" />
+        </EnumType>
+        <Association Name="Publisher_Authors">
+          <End Role="Publisher_Authors_Source" Type="Self.Publisher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Publisher_Authors_Target" Type="Self.Author" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher_Authors_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Publisher_Authors_Target">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Publisher_Books">
+          <End Role="Publisher_Books_Source" Type="Self.Publisher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Publisher_Books_Target" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher_Books_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Publisher_Books_Target">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AuthorBook_Author">
+          <End Role="AuthorBook_Author_Source" Type="Self.AuthorBook" Multiplicity="*" />
+          <End Role="AuthorBook_Author_Target" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="AuthorBook_Author_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthorBook_Author_Source">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AuthorBook_Book">
+          <End Role="AuthorBook_Book_Source" Type="Self.AuthorBook" Multiplicity="*" />
+          <End Role="AuthorBook_Book_Target" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+        </Association>
+        <Association Name="Library_Books">
+          <End Role="Library_Books_Source" Type="Self.Library" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Library_Books_Target" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library_Books_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Library_Books_Target">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Job_Staffs">
+          <End Role="Job_Staffs_Source" Type="Self.Job" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Job_Staffs_Target" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_Staffs_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job_Staffs_Target">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Staff_Library">
+          <End Role="Staff_Library_Source" Type="Self.Staff" Multiplicity="*" />
+          <End Role="Staff_Library_Target" Type="Self.Library" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Staff_Library_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff_Library_Source">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Record_Book">
+          <End Role="Record_Book_Source" Type="Self.Record" Multiplicity="*" />
+          <End Role="Record_Book_Target" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Record_Book_Target">
+              <PropertyRef Name="Barcode" />
+            </Principal>
+            <Dependent Role="Record_Book_Source">
+              <PropertyRef Name="BookBarcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Record_Staff">
+          <End Role="Record_Staff_Source" Type="Self.Record" Multiplicity="*" />
+          <End Role="Record_Staff_Target" Type="Self.Staff" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Record_Staff_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record_Staff_Source">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Records">
+          <End Role="User_Records_Source" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Records_Target" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Records_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Records_Target">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Type">
+          <End Role="User_Type_Source" Type="Self.User" Multiplicity="*" />
+          <End Role="User_Type_Target" Type="Self.MembershipType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+        </Association>
+        <Association Name="Library_Director">
+          <End Role="Library_Director_Source" Type="Self.Library" Multiplicity="*" />
+          <End Role="Library_Director_Target" Type="Self.Staff" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <ReferentialConstraint>
+            <Principal Role="Library_Director_Target">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Library_Director_Source">
+              <PropertyRef Name="DirectorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Library_Staffs">
+          <End Role="Library_Staffs_Source" Type="Self.Library" Multiplicity="0..1" />
+          <End Role="Library_Staffs_Target" Type="Self.Staff" Multiplicity="*" />
+        </Association>
+        <Association Name="BookType_Books">
+          <End Role="BookType_Books_Source" Type="Self.BookType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BookType_Books_Target" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookType_Books_Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookType_Books_Target">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LibraryContext" customannotation:UseClrTypes="true">
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="AuthorBooks" EntityType="Self.AuthorBook" />
+          <EntitySet Name="Authors" EntityType="Self.Author" />
+          <EntitySet Name="Publishers" EntityType="Self.Publisher" />
+          <EntitySet Name="Libraries" EntityType="Self.Library" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="Jobs" EntityType="Self.Job" />
+          <EntitySet Name="Records" EntityType="Self.Record" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="MembershipTypes" EntityType="Self.MembershipType" />
+          <EntitySet Name="BookTypes" EntityType="Self.BookType" />
+          <AssociationSet Name="Publisher_Authors" Association="Self.Publisher_Authors">
+            <End Role="Publisher_Authors_Source" EntitySet="Publishers" />
+            <End Role="Publisher_Authors_Target" EntitySet="Authors" />
+          </AssociationSet>
+          <AssociationSet Name="Publisher_Books" Association="Self.Publisher_Books">
+            <End Role="Publisher_Books_Source" EntitySet="Publishers" />
+            <End Role="Publisher_Books_Target" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorBook_Author" Association="Self.AuthorBook_Author">
+            <End Role="AuthorBook_Author_Source" EntitySet="AuthorBooks" />
+            <End Role="AuthorBook_Author_Target" EntitySet="Authors" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorBook_Book" Association="Self.AuthorBook_Book">
+            <End Role="AuthorBook_Book_Source" EntitySet="AuthorBooks" />
+            <End Role="AuthorBook_Book_Target" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="Library_Books" Association="Self.Library_Books">
+            <End Role="Library_Books_Source" EntitySet="Libraries" />
+            <End Role="Library_Books_Target" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="Job_Staffs" Association="Self.Job_Staffs">
+            <End Role="Job_Staffs_Source" EntitySet="Jobs" />
+            <End Role="Job_Staffs_Target" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="Staff_Library" Association="Self.Staff_Library">
+            <End Role="Staff_Library_Source" EntitySet="Staffs" />
+            <End Role="Staff_Library_Target" EntitySet="Libraries" />
+          </AssociationSet>
+          <AssociationSet Name="Record_Book" Association="Self.Record_Book">
+            <End Role="Record_Book_Source" EntitySet="Records" />
+            <End Role="Record_Book_Target" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="Record_Staff" Association="Self.Record_Staff">
+            <End Role="Record_Staff_Source" EntitySet="Records" />
+            <End Role="Record_Staff_Target" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="User_Records" Association="Self.User_Records">
+            <End Role="User_Records_Source" EntitySet="Users" />
+            <End Role="User_Records_Target" EntitySet="Records" />
+          </AssociationSet>
+          <AssociationSet Name="User_Type" Association="Self.User_Type">
+            <End Role="User_Type_Source" EntitySet="Users" />
+            <End Role="User_Type_Target" EntitySet="MembershipTypes" />
+          </AssociationSet>
+          <AssociationSet Name="Library_Director" Association="Self.Library_Director">
+            <End Role="Library_Director_Source" EntitySet="Libraries" />
+            <End Role="Library_Director_Target" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="Library_Staffs" Association="Self.Library_Staffs">
+            <End Role="Library_Staffs_Source" EntitySet="Libraries" />
+            <End Role="Library_Staffs_Target" EntitySet="Staffs" />
+          </AssociationSet>
+          <AssociationSet Name="BookType_Books" Association="Self.BookType_Books">
+            <End Role="BookType_Books_Source" EntitySet="BookTypes" />
+            <End Role="BookType_Books_Target" EntitySet="Books" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </ConceptualModels>
+    <Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodeFirstDatabase" CdmEntityContainer="LibraryContext">
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PublishedAt" ColumnName="PublishedAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+                <ScalarProperty Name="LibraryId" ColumnName="LibraryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthorBooks">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.AuthorBook">
+              <MappingFragment StoreEntitySet="AuthorBook">
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishers">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.Publisher">
+              <MappingFragment StoreEntitySet="Publisher">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libraries">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.Library">
+              <MappingFragment StoreEntitySet="Library">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="DirectorId" ColumnName="DirectorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="LibraryId" ColumnName="LibraryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.Job">
+              <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Records">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.Record">
+              <MappingFragment StoreEntitySet="Record">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="BookBarcode" ColumnName="BookBarcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Addres" ColumnName="Addres" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MembershipTypes">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.MembershipType">
+              <MappingFragment StoreEntitySet="MembershipType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="OverdueFine" ColumnName="OverdueFine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookTypes">
+            <EntityTypeMapping TypeName="Libraryman.DataAccess.BookType">
+              <MappingFragment StoreEntitySet="BookType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsBorrowable" ColumnName="IsBorrowable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AuthorBook_Book" TypeName="Libraryman.DataAccess.AuthorBook_Book" StoreEntitySet="AuthorBook">
+            <EndProperty Name="AuthorBook_Book_Target">
+              <ScalarProperty Name="Barcode" ColumnName="Book_Barcode" />
+            </EndProperty>
+            <EndProperty Name="AuthorBook_Book_Source">
+              <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+              <ScalarProperty Name="BookId" ColumnName="BookId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="User_Type" TypeName="Libraryman.DataAccess.User_Type" StoreEntitySet="User">
+            <EndProperty Name="User_Type_Target">
+              <ScalarProperty Name="Id" ColumnName="Type_Id" />
+            </EndProperty>
+            <EndProperty Name="User_Type_Source">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Library_Staffs" TypeName="Libraryman.DataAccess.Library_Staffs" StoreEntitySet="Staff">
+            <EndProperty Name="Library_Staffs_Source">
+              <ScalarProperty Name="Id" ColumnName="Library_Id" />
+            </EndProperty>
+            <EndProperty Name="Library_Staffs_Target">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="Library_Id" />
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </Mappings>
+    <StorageModels>
+      <Schema Namespace="CodeFirstDatabaseSchema" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Barcode" />
+          </Key>
+          <Property Name="Barcode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Edition" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PublishedAt" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="TypeId" Type="int" customannotation:Index="{ Name: IX_TypeId, Order: 0 }" Nullable="false" />
+          <Property Name="PublisherId" Type="int" customannotation:Index="{ Name: IX_PublisherId, Order: 0 }" Nullable="false" />
+          <Property Name="LibraryId" Type="int" customannotation:Index="{ Name: IX_LibraryId, Order: 0 }" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuthorBook">
+          <Key>
+            <PropertyRef Name="AuthorId" />
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="AuthorId" Type="int" customannotation:Index="{ Name: IX_AuthorId, Order: 0 }" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="Book_Barcode" Type="int" customannotation:Index="{ Name: IX_Book_Barcode, Order: 0 }" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="PublisherId" Type="int" customannotation:Index="{ Name: IX_PublisherId, Order: 0 }" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="ContactNumber" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Library">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Location" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="DirectorId" Type="int" customannotation:Index="{ Name: IX_DirectorId, Order: 0 }" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Salary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="JobId" Type="int" customannotation:Index="{ Name: IX_JobId, Order: 0 }" Nullable="false" />
+          <Property Name="LibraryId" Type="int" customannotation:Index="{ Name: IX_LibraryId, Order: 0 }" Nullable="false" />
+          <Property Name="Library_Id" Type="int" customannotation:Index="{ Name: IX_Library_Id, Order: 0 }" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" customannotation:Index="{ Name: IX_UserId, Order: 0 }" Nullable="false" />
+          <Property Name="StaffId" Type="int" customannotation:Index="{ Name: IX_StaffId, Order: 0 }" Nullable="false" />
+          <Property Name="BookBarcode" Type="int" customannotation:Index="{ Name: IX_BookBarcode, Order: 0 }" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Addres" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Type_Id" Type="int" customannotation:Index="{ Name: IX_Type_Id, Order: 0 }" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MembershipType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Duration" Type="datetime" Nullable="false" />
+          <Property Name="OverdueFine" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="IsBorrowable" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="Publisher_Authors">
+          <End Role="Publisher" Type="Self.Publisher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Author" Type="Self.Author" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Author">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Publisher_Books">
+          <End Role="Publisher" Type="Self.Publisher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AuthorBook_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorBook" Type="Self.AuthorBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AuthorBook">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AuthorBook_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuthorBook" Type="Self.AuthorBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Barcode" />
+            </Principal>
+            <Dependent Role="AuthorBook">
+              <PropertyRef Name="Book_Barcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Library_Books">
+          <End Role="Library" Type="Self.Library" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Job_Staffs">
+          <End Role="Job" Type="Self.Job" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Staff_Library">
+          <End Role="Library" Type="Self.Library" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="LibraryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Record_Book">
+          <End Role="Book" Type="Self.Book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Barcode" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="BookBarcode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Record_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Records">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User_Type">
+          <End Role="MembershipType" Type="Self.MembershipType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MembershipType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Library_Director">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Library" Type="Self.Library" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Library">
+              <PropertyRef Name="DirectorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Library_Staffs">
+          <End Role="Library" Type="Self.Library" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="Library_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookType_Books">
+          <End Role="BookType" Type="Self.BookType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CodeFirstDatabase">
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" Table="Books" />
+          <EntitySet Name="AuthorBook" EntityType="Self.AuthorBook" Schema="dbo" Table="AuthorBooks" />
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" Table="Authors" />
+          <EntitySet Name="Publisher" EntityType="Self.Publisher" Schema="dbo" Table="Publishers" />
+          <EntitySet Name="Library" EntityType="Self.Library" Schema="dbo" Table="Libraries" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" Table="Staffs" />
+          <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" Table="Jobs" />
+          <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" Table="Records" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" Table="Users" />
+          <EntitySet Name="MembershipType" EntityType="Self.MembershipType" Schema="dbo" Table="MembershipTypes" />
+          <EntitySet Name="BookType" EntityType="Self.BookType" Schema="dbo" Table="BookTypes" />
+          <AssociationSet Name="Publisher_Authors" Association="Self.Publisher_Authors">
+            <End Role="Publisher" EntitySet="Publisher" />
+            <End Role="Author" EntitySet="Author" />
+          </AssociationSet>
+          <AssociationSet Name="Publisher_Books" Association="Self.Publisher_Books">
+            <End Role="Publisher" EntitySet="Publisher" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorBook_Author" Association="Self.AuthorBook_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="AuthorBook" EntitySet="AuthorBook" />
+          </AssociationSet>
+          <AssociationSet Name="AuthorBook_Book" Association="Self.AuthorBook_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="AuthorBook" EntitySet="AuthorBook" />
+          </AssociationSet>
+          <AssociationSet Name="Library_Books" Association="Self.Library_Books">
+            <End Role="Library" EntitySet="Library" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="Job_Staffs" Association="Self.Job_Staffs">
+            <End Role="Job" EntitySet="Job" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="Staff_Library" Association="Self.Staff_Library">
+            <End Role="Library" EntitySet="Library" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="Record_Book" Association="Self.Record_Book">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="Record_Staff" Association="Self.Record_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="User_Records" Association="Self.User_Records">
+            <End Role="User" EntitySet="User" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="User_Type" Association="Self.User_Type">
+            <End Role="MembershipType" EntitySet="MembershipType" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="Library_Director" Association="Self.Library_Director">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Library" EntitySet="Library" />
+          </AssociationSet>
+          <AssociationSet Name="Library_Staffs" Association="Self.Library_Staffs">
+            <End Role="Library" EntitySet="Library" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="BookType_Books" Association="Self.BookType_Books">
+            <End Role="BookType" EntitySet="BookType" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </StorageModels>
+  </Runtime>
+  <Designer>
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="ProcessDependentTemplatesOnSave" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <Diagrams >
+      <Diagram DiagramId="e8af0daae1f94ef0858153d77a4f70de" Name="Diagram1">
+        <EntityTypeShape EntityType="Libraryman.DataAccess.Book" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.AuthorBook" Width="1.5" PointX="6" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.Author" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.Publisher" Width="1.5" PointX="6" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.Library" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.Staff" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.Job" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.Record" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.User" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.MembershipType" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Libraryman.DataAccess.BookType" Width="1.5" PointX="6" PointY="16.75" IsExpanded="true" />
+        <AssociationConnector Association="Libraryman.DataAccess.Publisher_Authors" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.Publisher_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.AuthorBook_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.AuthorBook_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.Library_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.Job_Staffs" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.Staff_Library" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.Record_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.Record_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.User_Records" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.User_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.Library_Director" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.Library_Staffs" ManuallyRouted="false" />
+        <AssociationConnector Association="Libraryman.DataAccess.BookType_Books" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</Edmx>
