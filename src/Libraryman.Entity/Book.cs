@@ -10,7 +10,7 @@ namespace Libraryman.Entity
 		public string Edition { get; set; }
 		public decimal Price { get; set; }
 		public string Description { get; set; }
-		public DateTime PublishedYear { get; set; }
+		public string PublishedYear { get; set; }
 		
 		public BookStatus Status { get; set; }
 

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraryman.DataAccess", "Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraryman.Entity", "Libraryman.Entity\Libraryman.Entity.csproj", "{485B0B2E-F44D-4F22-87CC-62BD2FD1FEC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraryman.Wpf", "Libraryman.Wpf\Libraryman.Wpf.csproj", "{5262FE1E-92D8-46B3-A51A-43AEC22C97F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{485B0B2E-F44D-4F22-87CC-62BD2FD1FEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{485B0B2E-F44D-4F22-87CC-62BD2FD1FEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{485B0B2E-F44D-4F22-87CC-62BD2FD1FEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5262FE1E-92D8-46B3-A51A-43AEC22C97F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5262FE1E-92D8-46B3-A51A-43AEC22C97F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5262FE1E-92D8-46B3-A51A-43AEC22C97F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5262FE1E-92D8-46B3-A51A-43AEC22C97F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
