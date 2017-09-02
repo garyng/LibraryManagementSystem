@@ -8,19 +8,12 @@ using Libraryman.Entity;
 
 namespace Libraryman.DataAccess
 {
-	public class LibraryContext : DbContext
+	public class LibrarymanContext : DbContext
 	{
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Book>()
 				.HasKey(b => b.Barcode);
-
-			modelBuilder.Entity<AuthorBook>()
-				.HasRequired(ab => ab.Book)
-				.WithMany(b => b.Authors);
-			modelBuilder.Entity<AuthorBook>()
-				.HasRequired(ab => ab.Author)
-				.WithMany(a => a.Books);
 
 			modelBuilder.Entity<User>()
 				.Property(u => u.Email)
@@ -30,6 +23,15 @@ namespace Libraryman.DataAccess
 
 			modelBuilder.Entity<AuthorBook>()
 				.HasKey(ab => new {ab.AuthorId, ab.BookId});
+			modelBuilder.Entity<AuthorBook>()
+				.HasRequired(ab => ab.Book)
+				.WithMany(b => b.Authors);
+			modelBuilder.Entity<AuthorBook>()
+				.HasRequired(ab => ab.Author)
+				.WithMany(a => a.Books);
+
+			modelBuilder.Entity<BorrowedBook>()
+				.HasKey(bb => new {bb.RecordId, bb.UserId, bb.BookBarcode});
 
 
 			base.OnModelCreating(modelBuilder);
