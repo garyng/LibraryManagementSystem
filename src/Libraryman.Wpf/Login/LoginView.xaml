@@ -4,10 +4,74 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Libraryman.Wpf.Login"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:Libraryman.Wpf.Controls"
+             xmlns:converters="http://schemas.kent.boogaart.com/converters"
              mc:Ignorable="d"
              d:DataContext="{Binding Source={StaticResource Locator}, Path=LoginViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="700">
 	<Grid>
-		<TextBlock Text="{Binding Title}" />
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition />
+			<ColumnDefinition />
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<md:Card
+			Grid.Column="1"
+			VerticalAlignment="Center">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Border
+					BorderBrush="{DynamicResource MaterialDesignDivider}"
+					BorderThickness="0 0 0 1">
+					<TextBlock
+						Text="Login"
+						TextAlignment="Center"
+						TextWrapping="Wrap"
+						Margin="16"
+						Foreground="{DynamicResource PrimaryHueDarkBrush}"
+						Style="{DynamicResource MaterialDesignHeadlineTextBlock}" />
+				</Border>
+				<TextBox
+					Grid.Row="1"
+					Margin="20 10"
+					Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+					Text="{Binding StaffId, UpdateSourceTrigger=PropertyChanged}">
+					<md:HintAssist.Hint>
+						<StackPanel
+							Orientation="Horizontal"
+							Margin="-2 0 0 0">
+							<md:PackIcon Kind="Account" />
+							<TextBlock
+								Margin="5 0"
+								Text="Staff Id" />
+						</StackPanel>
+					</md:HintAssist.Hint>
+				</TextBox>
+				<controls:BindablePasswordBox
+					Grid.Row="2"
+					Margin="20 10"
+					Password="{Binding StaffPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				<TextBlock
+					Grid.Row="3"
+					Margin="20 5"
+					TextWrapping="Wrap"
+					Text="Failed to login! Wrong Id/Password combination."
+					Foreground="{DynamicResource ValidationErrorBrush}"
+					Visibility="{Binding IsLoginSuccessful, Converter={converters:BooleanToVisibilityConverter IsReversed=True}}" />
+				<Button
+					Grid.Row="4"
+					Margin="20"
+					IsDefault="True"
+					Content="Login"
+					Command="{Binding LoginCommand}" />
+			</Grid>
+		</md:Card>
 	</Grid>
 </UserControl>

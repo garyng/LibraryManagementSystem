@@ -26,6 +26,7 @@ namespace Libraryman.Wpf
 				.SingleInstance();
 
 			cb.RegisterType<LoginViewModel>()
+				.AsSelf()
 				.As<ViewModelBase>()
 				.SingleInstance();
 
