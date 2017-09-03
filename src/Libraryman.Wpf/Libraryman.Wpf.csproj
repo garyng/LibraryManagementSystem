@@ -115,6 +115,7 @@
     <Compile Include="Login\LoginViewModel.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="ShellViewModel.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Page Include="Login\LoginView.xaml">
       <SubType>Designer</SubType>
