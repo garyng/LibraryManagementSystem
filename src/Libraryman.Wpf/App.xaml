@@ -4,6 +4,20 @@
              xmlns:local="clr-namespace:Libraryman.Wpf"
              StartupUri="ShellView.xaml">
 	<Application.Resources>
-		<local:ViewModelLocator x:Key="Locator" />
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
+					Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+				<ResourceDictionary
+					Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+				<ResourceDictionary
+					Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
+				<ResourceDictionary
+					Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Teal.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+
+			<local:ViewModelLocator x:Key="Locator" />
+						
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>

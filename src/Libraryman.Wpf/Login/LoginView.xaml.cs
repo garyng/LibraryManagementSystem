@@ -12,19 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Bogus;
-using Libraryman.DataAccess;
-using Libraryman.Entity;
-using MoreLinq;
 
-namespace Libraryman.Wpf
+namespace Libraryman.Wpf.Login
 {
 	/// <summary>
-	/// Interaction logic for ShellWindow.xaml
+	/// Interaction logic for LoginView.xaml
 	/// </summary>
-	public partial class ShellView : Window
+	public partial class LoginView : UserControl
 	{
-		public ShellView()
+		public LoginView()
 		{
 			InitializeComponent();
 		}
