@@ -31,11 +31,10 @@ namespace Libraryman.Wpf
 				.SingleInstance();
 
 			cb.RegisterType<NavigationTargetsRegistration>()
-				.AsSelf();
+				.AsSelf()
+				.AutoActivate();
 
 			this.Container = cb.Build();
-
-			this.Container.Resolve<NavigationTargetsRegistration>();
 
 			this.Container.Resolve<INavigationService<ViewModelBase>>()
 				.GoTo<LoginViewModel>();

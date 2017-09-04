@@ -14,11 +14,11 @@ namespace Libraryman.Wpf.Tests
 	public class NavigationServiceTests
 	{
 		// - should able to register as subscriber/navigation host
-		// should receive notification when navigated
+		// should receive notification when navigated => implemented through callbacks
 
 		// - should able to register viewmodel/navigation target
 		// - should not able to register repeating viewmodel/navigation target
-		// should able to go back
+		// - should able to go back
 		// - should able to navigate to a viewmodel
 
 

@@ -112,6 +112,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Command\AsyncCommandDispatcher.cs" />
+    <Compile Include="Command\CommandQueryResolver.cs" />
+    <Compile Include="Command\IAsyncCommandDispatcher.cs" />
+    <Compile Include="Command\IAsyncCommandHandler.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\ICommandQueryResolver.cs" />
     <Compile Include="Controls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
@@ -176,6 +182,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Libraryman.Common\Libraryman.Common.csproj">
+      <Project>{E0B068D1-76D9-4D66-B1D4-6F7B63EBE75C}</Project>
+      <Name>Libraryman.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Libraryman.DataAccess\Libraryman.DataAccess.csproj">
       <Project>{B77A7974-476E-46A7-AB25-5D43250A5EA8}</Project>
       <Name>Libraryman.DataAccess</Name>

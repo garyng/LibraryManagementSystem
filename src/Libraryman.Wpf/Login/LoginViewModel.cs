@@ -50,11 +50,11 @@ namespace Libraryman.Wpf.Login
 		public LoginViewModel()
 		{
 			LoginCommand = new RelayCommand(async () => await Login().ConfigureAwait(false), CanLogin);
+			IsLoginSuccessful = true;
 #if DEBUG
 			if (IsInDesignMode)
 			{
 				StaffId = "123123";
-				IsLoginSuccessful = true;
 			}
 #endif
 		}
