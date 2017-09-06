@@ -68,9 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LibrarymanContext.cs" />
-    <Compile Include="Migrations\201709021907114_Initial.cs" />
-    <Compile Include="Migrations\201709021907114_Initial.Designer.cs">
-      <DependentUpon>201709021907114_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201709061555376_Initial.cs" />
+    <Compile Include="Migrations\201709061555376_Initial.Designer.cs">
+      <DependentUpon>201709061555376_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,14 +80,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Libraryman.Common\Libraryman.Common.csproj">
+      <Project>{E0B068D1-76D9-4D66-B1D4-6F7B63EBE75C}</Project>
+      <Name>Libraryman.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Libraryman.Entity\Libraryman.Entity.csproj">
       <Project>{485B0B2E-F44D-4F22-87CC-62BD2FD1FEC0}</Project>
       <Name>Libraryman.Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709021907114_Initial.resx">
-      <DependentUpon>201709021907114_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709061555376_Initial.resx">
+      <DependentUpon>201709061555376_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

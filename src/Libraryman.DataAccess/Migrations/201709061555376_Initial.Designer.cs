@@ -13,7 +13,7 @@ namespace Libraryman.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201709021907114_Initial"; }
+            get { return "201709061555376_Initial"; }
         }
         
         string IMigrationMetadata.Source

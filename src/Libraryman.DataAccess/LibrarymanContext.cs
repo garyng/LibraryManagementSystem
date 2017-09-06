@@ -7,6 +7,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using Bogus;
+using Libraryman.Common.Extensions;
 using Libraryman.Entity;
 using MoreLinq;
 
@@ -18,7 +19,6 @@ namespace Libraryman.DataAccess
 		{
 			System.Data.Entity.Database.SetInitializer(new LibrarymanInitializer());
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
 
 			modelBuilder.Entity<Book>()
 				.HasKey(b => b.Barcode);
@@ -55,6 +55,7 @@ namespace Libraryman.DataAccess
 		public DbSet<User> Users { get; set; }
 		public DbSet<Record> Records { get; set; }
 		public DbSet<MembershipType> MembershipTypes { get; set; }
+		public DbSet<BorrowedBook> BorrowedBooks { get; set; }
 
 		private class LibrarymanInitializer : CreateDatabaseIfNotExists<LibrarymanContext>
 		{
@@ -73,6 +74,16 @@ namespace Libraryman.DataAccess
 					.RuleFor(s => s.LastLogin, f => f.Date.Past())
 					.RuleFor(s => s.Library, f => f.PickRandom(libraries))
 					.Generate(50);
+
+				staffs.Add(new Staff()
+				{
+					Name = "Gary Ng",
+					Gender = Gender.Male,
+					PhoneNumber = "+012-345677890",
+					PasswordHash = "garyng".ToSHA256(),
+					LastLogin = DateTime.Now,
+					Library = libraries[0]
+				});
 
 				var bookTypes = new List<BookType>()
 				{
@@ -151,6 +162,16 @@ namespace Libraryman.DataAccess
 					.RuleFor(r => r.Book, f => f.PickRandom(books))
 					.Generate(500);
 
+				var borrowedBooks = new Faker<BorrowedBook>()
+					.RuleFor(bb => bb.Book, f => f.PickRandom(books))
+					.RuleFor(bb => bb.Record, f => f.PickRandom(records))
+					.RuleFor(bb => bb.User, f => f.PickRandom(users))
+					.RuleFor(bb => bb.DueDate, f => f.Date.Recent())
+					.Generate(1000)
+					.DistinctBy(bb => new {bb.Book, bb.Record, bb.User, bb.DueDate});
+
+				context.Database.ExecuteSqlCommand("ALTER TABLE staff AUTO_INCREMENT=1000");
+				context.Database.ExecuteSqlCommand("ALTER TABLE user AUTO_INCREMENT=1000000");
 
 				context.Libraries.AddRange(libraries);
 				context.Staffs.AddRange(staffs);
@@ -162,6 +183,7 @@ namespace Libraryman.DataAccess
 				context.MembershipTypes.AddRange(membershipTypes);
 				context.Users.AddRange(users);
 				context.Records.AddRange(records);
+				context.BorrowedBooks.AddRange(borrowedBooks);
 
 				base.Seed(context);
 			}
