@@ -112,12 +112,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommandQueryResolver.cs" />
     <Compile Include="Command\AsyncCommandDispatcher.cs" />
-    <Compile Include="Command\CommandQueryResolver.cs" />
+    <Compile Include="Query\AsyncQueryDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandHandler.cs" />
+    <Compile Include="Query\IAsyncQueryDispatcher.cs" />
+    <Compile Include="Query\IAsyncQueryHandler.cs" />
     <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Command\ICommandQueryResolver.cs" />
+    <Compile Include="Query\IQuery.cs" />
+    <Compile Include="ICommandQueryResolver.cs" />
     <Compile Include="Controls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>

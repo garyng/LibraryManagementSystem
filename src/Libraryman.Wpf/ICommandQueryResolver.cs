@@ -1,4 +1,4 @@
-﻿namespace Libraryman.Wpf.Command
+﻿namespace Libraryman.Wpf
 {
 	/// <summary>
 	/// Act as a bridge to AutoFac

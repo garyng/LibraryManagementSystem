@@ -61,6 +61,7 @@ namespace Libraryman.Wpf.Login
 
 		private async Task Login()
 		{
+
 		}
 
 		private bool CanLogin()

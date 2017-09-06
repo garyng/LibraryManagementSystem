@@ -1,6 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Autofac;
 using FakeItEasy;
 using Libraryman.Common.Result;
@@ -52,7 +50,7 @@ namespace Libraryman.Wpf.Tests
 		}
 
 		[Test]
-		public async Task Should_CorrectlyCallHandler()
+		public async Task Should_CorrectlyCallCommandHandler()
 		{
 			// Arrange
 			ContainerBuilder cb = new ContainerBuilder();
@@ -72,7 +70,8 @@ namespace Libraryman.Wpf.Tests
 				.As<IAsyncCommandHandler<CreateFakeUser, Result<FakeUser>>>();
 
 			cb.RegisterType<AsyncCommandDispatcher>()
-				.As<IAsyncCommandDispatcher>();
+				.As<IAsyncCommandDispatcher>()
+				.SingleInstance();
 
 			IContainer container = cb.Build();
 

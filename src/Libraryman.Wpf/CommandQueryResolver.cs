@@ -1,6 +1,6 @@
 using Autofac;
 
-namespace Libraryman.Wpf.Command
+namespace Libraryman.Wpf
 {
 	public class CommandQueryResolver : ICommandQueryResolver
 	{
