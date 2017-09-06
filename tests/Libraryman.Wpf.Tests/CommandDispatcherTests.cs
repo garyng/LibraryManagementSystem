@@ -7,6 +7,8 @@ using NUnit.Framework;
 
 namespace Libraryman.Wpf.Tests
 {
+	[Category("Integration Test")]
+	[TestFixture]
 	public class CommandDispatcherTests
 	{
 		// - should able to resolve command handler

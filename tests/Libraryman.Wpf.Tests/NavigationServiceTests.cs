@@ -10,6 +10,7 @@ using NUnit.Framework;
 
 namespace Libraryman.Wpf.Tests
 {
+	[Category("Unit Test")]
 	[TestFixture]
 	public class NavigationServiceTests
 	{

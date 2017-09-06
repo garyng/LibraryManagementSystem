@@ -7,6 +7,8 @@ using NUnit.Framework;
 
 namespace Libraryman.Wpf.Tests
 {
+	[Category("Integration Test")]
+	[TestFixture]
 	public class QueryDispatcherTests
 	{
 		// should able to execute query
