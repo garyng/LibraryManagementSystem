@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Libraryman.Wpf"
              xmlns:login="clr-namespace:Libraryman.Wpf.Login"
+             xmlns:main="clr-namespace:Libraryman.Wpf.Main"
              StartupUri="ShellView.xaml">
 	<Application.Resources>
 		<ResourceDictionary>
@@ -20,6 +21,9 @@
 			<local:ViewModelLocator x:Key="Locator" />
 			<DataTemplate DataType="{x:Type login:LoginViewModel}">
 				<login:LoginView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type main:MainViewModel}">
+				<main:MainView />
 			</DataTemplate>
 		</ResourceDictionary>
 	</Application.Resources>

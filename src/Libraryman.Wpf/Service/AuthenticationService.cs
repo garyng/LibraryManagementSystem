@@ -20,7 +20,7 @@ namespace Libraryman.Wpf.Service
 			_queryDispatcher = queryDispatcher;
 		}
 
-
+		// todo: is this right? Returning true when login succeeded, but return Result.Fail if logged in failed. Should it be just false? Result.Fail is for error!
 		public async Task<Result<bool>> AuthenticateAsync(int staffId, SecureString password)
 		{
 			Result<Staff> getStaffResult = await _queryDispatcher

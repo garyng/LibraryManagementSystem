@@ -114,6 +114,10 @@
     </ApplicationDefinition>
     <Compile Include="CommandQueryResolver.cs" />
     <Compile Include="Command\AsyncCommandDispatcher.cs" />
+    <Compile Include="Main\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Query\AsyncQueryDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandHandler.cs" />
@@ -152,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Main\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

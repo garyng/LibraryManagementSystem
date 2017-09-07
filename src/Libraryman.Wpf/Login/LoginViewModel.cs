@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using Libraryman.Common.Result;
 using Libraryman.Entity;
 using Libraryman.Wpf.Extensions;
+using Libraryman.Wpf.Main;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Service;
 
@@ -16,6 +17,7 @@ namespace Libraryman.Wpf.Login
 	public class LoginViewModel : ViewModelBase
 	{
 		private readonly IAuthenticationService _authentication;
+		private AuthenticationState _as;
 		private string _staffId;
 
 		public string StaffId
@@ -56,12 +58,13 @@ namespace Libraryman.Wpf.Login
 			set => Set(ref _loginErrorMessage, value);
 		}
 
-
 		public RelayCommand LoginCommand { get; set; }
 
-		public LoginViewModel(IAuthenticationService authentication)
+		public LoginViewModel(INavigationService<ViewModelBase> navigation, IAuthenticationService authentication,
+			AuthenticationState @as) : base(navigation)
 		{
 			_authentication = authentication;
+			_as = @as;
 			LoginCommand = new RelayCommand(async () => await Login().ConfigureAwait(false), CanLogin);
 			IsLoginSuccessful = true;
 #if DEBUG
@@ -75,10 +78,17 @@ namespace Libraryman.Wpf.Login
 
 		private async Task Login()
 		{
-			Result<bool> result = await _authentication.AuthenticateAsync(int.Parse(_staffId), _staffPassword)
-				.OnSuccess(r => Console.WriteLine("Success!"))
-				.OnFailure(e => { LoginErrorMessage = e.Error; }).ConfigureAwait(false);
+			int staffId = int.Parse(_staffId);
+			Result<bool> result = await _authentication.AuthenticateAsync(staffId, _staffPassword)
+				.OnSuccess(r =>
+				{
+					_as.StaffId = staffId;
+					_navigation.GoTo<MainViewModel>();
+				})
+				.OnFailure(e => LoginErrorMessage = e.Error)
+				.ConfigureAwait(false);
 			IsLoginSuccessful = result.IsSuccess;
+			_as.IsLoggedIn = result.IsSuccess;
 		}
 
 		private bool CanLogin()

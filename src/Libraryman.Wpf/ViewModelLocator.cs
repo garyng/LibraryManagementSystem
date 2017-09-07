@@ -8,6 +8,7 @@ using Libraryman.DataAccess;
 using Libraryman.Entity;
 using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Login;
+using Libraryman.Wpf.Main;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;
@@ -19,6 +20,7 @@ namespace Libraryman.Wpf
 		public IContainer Container { get; }
 		public ShellViewModel ShellViewModel => this.Container.Resolve<ShellViewModel>();
 		public LoginViewModel LoginViewModel => this.Container.Resolve<LoginViewModel>();
+		public MainViewModel MainViewModel => this.Container.Resolve<MainViewModel>();
 
 		public ViewModelLocator()
 		{
@@ -32,6 +34,9 @@ namespace Libraryman.Wpf
 				.As<INavigationService<ViewModelBase>>()
 				.SingleInstance();
 
+			cb.RegisterType<AuthenticationState>()
+				.AsSelf()
+				.SingleInstance();
 			cb.RegisterType<LoginViewModel>()
 				.AsSelf()
 				.As<ViewModelBase>()
@@ -63,6 +68,11 @@ namespace Libraryman.Wpf
 
 			cb.RegisterType<AuthenticationService>()
 				.As<IAuthenticationService>();
+
+			cb.RegisterType<MainViewModel>()
+				.AsSelf()
+				.As<ViewModelBase>()
+				.SingleInstance();
 
 			this.Container = cb.Build();
 
