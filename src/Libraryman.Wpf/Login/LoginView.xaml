@@ -62,7 +62,7 @@
 					Grid.Row="3"
 					Margin="20 5"
 					TextWrapping="Wrap"
-					Text="Failed to login! Wrong Id/Password combination."
+					Text="{Binding LoginErrorMessage}"
 					Foreground="{DynamicResource ValidationErrorBrush}"
 					Visibility="{Binding IsLoginSuccessful, Converter={converters:BooleanToVisibilityConverter IsReversed=True}}" />
 				<Button
