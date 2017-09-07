@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationServiceTests.cs" />
     <Compile Include="CommandDispatcherTests.cs" />
     <Compile Include="NavigationServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +62,10 @@
     <ProjectReference Include="..\..\src\Libraryman.Common\Libraryman.Common.csproj">
       <Project>{E0B068D1-76D9-4D66-B1D4-6F7B63EBE75C}</Project>
       <Name>Libraryman.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Libraryman.Entity\Libraryman.Entity.csproj">
+      <Project>{485B0B2E-F44D-4F22-87CC-62BD2FD1FEC0}</Project>
+      <Name>Libraryman.Entity</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Libraryman.Wpf\Libraryman.Wpf.csproj">
       <Project>{5262FE1E-92D8-46B3-A51A-43AEC22C97F6}</Project>

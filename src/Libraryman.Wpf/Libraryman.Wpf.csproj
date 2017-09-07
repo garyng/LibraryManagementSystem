@@ -134,6 +134,16 @@
     </Compile>
     <Compile Include="Login\LoginViewModel.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
+    <Compile Include="Command\AsyncCommandHandlerBase.cs" />
+    <Compile Include="Query\AsyncQueryHandlerBase.cs" />
+    <Compile Include="Service\AuthenticationService.cs" />
+    <Compile Include="Service\AuthenticationState.cs" />
+    <Compile Include="CommandQueryHandlerBase.cs" />
+    <Compile Include="Query\GetStaffById.cs" />
+    <Compile Include="Query\GetStaffByIdQueryHandler.cs" />
+    <Compile Include="Service\IAuthenticationService.cs" />
+    <Compile Include="Command\UpdateLastLoginTimeByStaffId.cs" />
+    <Compile Include="Command\UpdateLastLoginTimeByStaffIdCommandHandler.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelLocator.cs" />
