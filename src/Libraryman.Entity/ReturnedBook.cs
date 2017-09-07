@@ -1,9 +1,8 @@
 using System;
-using System.Runtime.Remoting.Channels;
 
 namespace Libraryman.Entity
 {
-	public class BorrowedBook
+	public class ReturnedBook
 	{
 		public Record Record { get; set; }
 		public int RecordId { get; set; }
@@ -14,6 +13,9 @@ namespace Libraryman.Entity
 		public User User { get; set; }
 		public int UserId { get; set; }
 
-		public DateTime DueDate { get; set; }
+		public Record BorrowingRecord { get; set; }
+		public int BorrowingRecordId { get; set; }
+
+		public decimal OverdueFine { get; set; }
 	}
 }

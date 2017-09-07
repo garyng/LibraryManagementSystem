@@ -54,6 +54,7 @@
     <Compile Include="Publisher.cs" />
     <Compile Include="Record.cs" />
     <Compile Include="RecordType.cs" />
+    <Compile Include="ReturnedBook.cs" />
     <Compile Include="Staff.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
