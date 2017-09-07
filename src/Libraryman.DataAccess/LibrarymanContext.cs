@@ -107,7 +107,8 @@ namespace Libraryman.DataAccess
 
 				var books = new Faker<Book>()
 					.RuleFor(b => b.Title, f => f.Lorem.Sentence())
-					.RuleFor(b => b.Edition, f => f.PickRandom(new List<string>() {"1st Edition", "2nd Edition", "2rd Edition"}))
+					.RuleFor(b => b.ISBN, f => f.Random.ReplaceNumbers("###-##-#####-##-#"))
+					.RuleFor(b => b.Edition, f => f.PickRandom(new List<string>() {"1st Edition", "2nd Edition", "3rd Edition"}))
 					.RuleFor(b => b.Price, f => f.Random.Decimal(0, 100))
 					.RuleFor(b => b.Description, f => f.Lorem.Paragraphs())
 					.RuleFor(b => b.PublishedYear, f => f.Date.Past().Year.ToString())

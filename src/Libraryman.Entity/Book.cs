@@ -7,6 +7,8 @@ namespace Libraryman.Entity
 	public class Book
 	{
 		public int Barcode { get; set; }
+		[MaxLength(20)]
+		public string ISBN { get; set; }
 		[MaxLength(255)]
 		public string Title { get; set; }
 		[MaxLength(255)]
