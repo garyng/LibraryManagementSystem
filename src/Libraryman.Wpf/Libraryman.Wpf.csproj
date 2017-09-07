@@ -115,6 +115,10 @@
     </ApplicationDefinition>
     <Compile Include="CommandQueryResolver.cs" />
     <Compile Include="Command\AsyncCommandDispatcher.cs" />
+    <Compile Include="Controls\ReportCardControl.xaml.cs">
+      <DependentUpon>ReportCardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\DashboardInfo.cs" />
     <Compile Include="Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -122,6 +126,22 @@
     <Compile Include="Query\AsyncQueryDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandHandler.cs" />
+    <Compile Include="Query\GetTotalBookCount.cs" />
+    <Compile Include="Query\GetOverdueBookCount.cs" />
+    <Compile Include="Query\GetOverdueBookCountQueryHandler.cs" />
+    <Compile Include="Query\GetThisMonthIssuedBookCount.cs" />
+    <Compile Include="Query\GetThisMonthIssuedBookCountQueryHandler.cs" />
+    <Compile Include="Query\GetThisMonthReturnedBookCount.cs" />
+    <Compile Include="Query\GetThisMonthReturnedBookCountQueryHandler.cs" />
+    <Compile Include="Query\GetTodayIssuedBookCount.cs" />
+    <Compile Include="Query\GetTodayIssuedBookCountQueryHandler.cs" />
+    <Compile Include="Query\GetTodayReturnedBookCount.cs" />
+    <Compile Include="Query\GetTodayReturnedBookCountQueryHandler.cs" />
+    <Compile Include="Query\GetTotalBookCountQueryHandler.cs" />
+    <Compile Include="Query\GetTotalIssuedBookCount.cs" />
+    <Compile Include="Query\GetTotalIssuedBookCountQueryHandler.cs" />
+    <Compile Include="Query\GetTotalUserCount.cs" />
+    <Compile Include="Query\GetTotalUserCountQueryHandler.cs" />
     <Compile Include="Query\IAsyncQueryDispatcher.cs" />
     <Compile Include="Query\IAsyncQueryHandler.cs" />
     <Compile Include="Command\ICommand.cs" />
@@ -153,6 +173,10 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Page Include="Controls\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ReportCardControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

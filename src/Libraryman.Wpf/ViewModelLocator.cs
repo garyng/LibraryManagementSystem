@@ -64,6 +64,23 @@ namespace Libraryman.Wpf
 
 			cb.RegisterType<GetStaffByIdQueryHandler>()
 				.As<IAsyncQueryHandler<GetStaffById, Result<Staff>>>();
+			cb.RegisterType<GetTotalBookCountQueryHandler>()
+				.As<IAsyncQueryHandler<GetTotalBookCount, int>>();
+			cb.RegisterType<GetOverdueBookCountQueryHandler>()
+				.As<IAsyncQueryHandler<GetOverdueBookCount, int>>();
+			cb.RegisterType<GetTotalIssuedBookCountQueryHandler>()
+				.As<IAsyncQueryHandler<GetTotalIssuedBookCount, int>>();
+			cb.RegisterType<GetTotalUserCountQueryHandler>()
+				.As<IAsyncQueryHandler<GetTotalUserCount, int>>();
+			cb.RegisterType<GetTodayIssuedBookCountQueryHandler>()
+				.As<IAsyncQueryHandler<GetTodayIssuedBookCount, int>>();
+			cb.RegisterType<GetTodayReturnedBookCountQueryHandler>()
+				.As<IAsyncQueryHandler<GetTodayReturnedBookCount, int>>();
+			cb.RegisterType<GetThisMonthIssuedBookCountQueryHandler>()
+				.As<IAsyncQueryHandler<GetThisMonthIssuedBookCount, int>>();
+			cb.RegisterType<GetThisMonthReturnedBookCountQueryHandler>()
+				.As<IAsyncQueryHandler<GetThisMonthReturnedBookCount, int>>();
+
 			cb.RegisterType<UpdateLastLoginTimeByStaffIdCommandHandler>()
 				.As<IAsyncCommandHandler<UpdateLastLoginTimeByStaffId, Result>>();
 

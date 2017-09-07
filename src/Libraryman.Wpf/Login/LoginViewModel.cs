@@ -65,7 +65,7 @@ namespace Libraryman.Wpf.Login
 		{
 			_authentication = authentication;
 			_as = @as;
-			LoginCommand = new RelayCommand(async () => await Login().ConfigureAwait(false), CanLogin);
+			LoginCommand = new RelayCommand(async () => await Login().ConfigureAwait(true), CanLogin);
 			IsLoginSuccessful = true;
 #if DEBUG
 			if (IsInDesignMode)
@@ -85,8 +85,7 @@ namespace Libraryman.Wpf.Login
 					_as.StaffId = staffId;
 					_navigation.GoTo<DashboardViewModel>();
 				})
-				.OnFailure(e => LoginErrorMessage = e.Error)
-				.ConfigureAwait(false);
+				.OnFailure(e => LoginErrorMessage = e.Error).ConfigureAwait(true);
 			IsLoginSuccessful = result.IsSuccess;
 			_as.IsLoggedIn = result.IsSuccess;
 			_as.IsLoggedOut = result.IsFailure;

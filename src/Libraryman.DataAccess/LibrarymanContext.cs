@@ -14,7 +14,7 @@ namespace Libraryman.DataAccess
 	{
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-			System.Data.Entity.Database.SetInitializer(new LibrarymanInitializer());
+			// System.Data.Entity.Database.SetInitializer(new LibrarymanInitializer());
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
 			modelBuilder.Entity<Book>()
@@ -58,7 +58,7 @@ namespace Libraryman.DataAccess
 		public DbSet<BorrowedBook> BorrowedBooks { get; set; }
 		public DbSet<ReturnedBook> ReturnedBooks { get; set; }
 
-		private class LibrarymanInitializer : CreateDatabaseIfNotExists<LibrarymanContext>
+		private class LibrarymanInitializer : DropCreateDatabaseAlways<LibrarymanContext>
 		{
 			protected override void Seed(LibrarymanContext context)
 			{
@@ -104,7 +104,7 @@ namespace Libraryman.DataAccess
 					.RuleFor(p => p.Name, f => f.Company.CompanyName())
 					.RuleFor(p => p.ContactNumber, f => f.Phone.PhoneNumber("0#-### ####"))
 					.RuleFor(p => p.Address, f => f.Address.FullAddress())
-					.Generate(10);
+					.Generate(50);
 
 				var books = new Faker<Book>()
 					.RuleFor(b => b.Title, f => f.Lorem.Sentence())
@@ -118,17 +118,17 @@ namespace Libraryman.DataAccess
 					.RuleFor(b => b.Type, f => f.PickRandom(bookTypes))
 					.RuleFor(b => b.Publisher, f => f.PickRandom(publishers))
 					.RuleFor(b => b.Library, f => f.PickRandom(libraries))
-					.Generate(10);
+					.Generate(500);
 
 				var authors = new Faker<Author>()
 					.RuleFor(a => a.Name, f => f.Name.FullName())
 					.RuleFor(a => a.Publisher, f => f.PickRandom(publishers))
-					.Generate(10);
+					.Generate(100);
 
 				var authorBooks = new Faker<AuthorBook>()
 					.RuleFor(ab => ab.Author, f => f.PickRandom(authors))
 					.RuleFor(ab => ab.Book, f => f.PickRandom(books))
-					.Generate(20)
+					.Generate(500)
 					.DistinctBy(ab => new {ab.Book, ab.Author});
 
 				var membershipTypes = new List<MembershipType>()
@@ -155,22 +155,23 @@ namespace Libraryman.DataAccess
 					.RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber("+###-#########"))
 					.RuleFor(u => u.Email, f => f.Internet.Email())
 					.RuleFor(u => u.Type, f => f.PickRandom(membershipTypes))
-					.Generate(10);
+					.Generate(100);
 
 				var records = new Faker<Record>()
 					.RuleFor(r => r.Type, f => f.PickRandom<RecordType>())
-					.RuleFor(r => r.Timestamp, f => f.Date.Recent())
+					.RuleFor(r => r.Timestamp,
+						f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(10), DateTime.Now + TimeSpan.FromDays(10)))
 					.RuleFor(r => r.User, f => f.PickRandom(users))
 					.RuleFor(r => r.Staff, f => f.PickRandom(staffs))
 					.RuleFor(r => r.Book, f => f.PickRandom(books))
-					.Generate(100);
+					.Generate(1000);
 
 				var borrowedBooks = new Faker<BorrowedBook>()
 					.RuleFor(bb => bb.Book, f => f.PickRandom(books))
 					.RuleFor(bb => bb.Record, f => f.PickRandom(records.Where(r => r.Type == RecordType.Issue)))
 					.RuleFor(bb => bb.User, f => f.PickRandom(users))
 					.RuleFor(bb => bb.DueDate, f => f.Date.Recent(14))
-					.Generate(100)
+					.Generate(200)
 					.DistinctBy(bb => new {bb.Book, bb.Record, bb.User, bb.DueDate});
 
 				var returnedBooks = new Faker<ReturnedBook>()
@@ -179,8 +180,8 @@ namespace Libraryman.DataAccess
 					.RuleFor(rb => rb.User, f => f.PickRandom(users))
 					.RuleFor(rb => rb.BorrowingRecord, f => f.PickRandom(records.Where(r => r.Type == RecordType.Return)))
 					.RuleFor(rb => rb.OverdueFine, f => f.Random.Decimal(0.0M, 2.0M))
-					.Generate(100)
-					.DistinctBy(rb => new {rb.Book, rb.Record, rb.User});
+					.Generate(400)
+					.DistinctBy(rb => new {rb.Book, rb.Record, rb.User, rb.BorrowingRecord, rb.OverdueFine});
 
 				context.Database.ExecuteSqlCommand("ALTER TABLE staff AUTO_INCREMENT=1000");
 				context.Database.ExecuteSqlCommand("ALTER TABLE user AUTO_INCREMENT=1000000");

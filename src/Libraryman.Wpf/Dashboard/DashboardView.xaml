@@ -1,13 +1,121 @@
 ﻿<UserControl x:Class="Libraryman.Wpf.Dashboard.DashboardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Libraryman.Wpf.Dashboard"
-             mc:Ignorable="d" 
-			 d:DataContext="{Binding Source={StaticResource Locator}, Path=DashboardViewModel}"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:control="clr-namespace:Libraryman.Wpf.Controls"
+             mc:Ignorable="d"
+             d:DataContext="{Binding Source={StaticResource Locator}, Path=DashboardViewModel}"
+             d:DesignHeight="500" d:DesignWidth="700">
+	<Grid
+		VerticalAlignment="Stretch">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<TextBlock
+			HorizontalAlignment="Center"
+			Text="Overall Report"
+			Style="{DynamicResource MaterialDesignHeadlineTextBlock}" />
+		<Grid
+			Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<control:ReportCardControl
+				Margin="5"
+				VerticalAlignment="Stretch"
+				Title="{Binding DashboardInfo.TotalBooks}"
+				Subtitle="Total number of books"
+				PackIconKind="BookOpenPageVariant"
+				ColorZoneMode="PrimaryDark" />
+			<control:ReportCardControl
+				Grid.Column="1"
+				Margin="5"
+				VerticalAlignment="Stretch"
+				Title="{Binding DashboardInfo.TotalIssuedBooks}"
+				Subtitle="Total issued books"
+				PackIconKind="Share"
+				ColorZoneMode="Accent" />
+			<control:ReportCardControl
+				Grid.Column="2"
+				Margin="5"
+				VerticalAlignment="Stretch"
+				Title="{Binding DashboardInfo.TotalOverdueBooks}"
+				Subtitle="Total overdue books"
+				PackIconKind="ClockAlert"
+				ColorZoneMode="Light" />
+			<control:ReportCardControl
+				Grid.Column="3"
+				Margin="5"
+				VerticalAlignment="Stretch"
+				Title="{Binding DashboardInfo.TotalUsers}"
+				Subtitle="Total users"
+				PackIconKind="Account"
+				ColorZoneMode="Dark" />
+		</Grid>
+		<TextBlock
+			Grid.Row="2"
+			HorizontalAlignment="Center"
+			Text="Today's Report"
+			Style="{DynamicResource MaterialDesignHeadlineTextBlock}" />
+		<Grid
+			Grid.Row="3">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<control:ReportCardControl
+				Margin="5"
+				VerticalAlignment="Stretch"
+				Title="{Binding DashboardInfo.TodayIssueBook}"
+				Subtitle="Today's issued books"
+				PackIconKind="BookOpenPageVariant"
+				ColorZoneMode="PrimaryDark" />
+			<control:ReportCardControl
+				Grid.Column="1"
+				Margin="5"
+				VerticalAlignment="Stretch"
+				Title="{Binding DashboardInfo.TodayReturnedBooks}"
+				Subtitle="Today's returned books"
+				PackIconKind="Share"
+				ColorZoneMode="Accent" />
+		</Grid>
+		<TextBlock
+			Grid.Row="4"
+			HorizontalAlignment="Center"
+			Text="This Month's Report"
+			Style="{DynamicResource MaterialDesignHeadlineTextBlock}" />
+		<Grid
+			Grid.Row="5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<control:ReportCardControl
+				Margin="5"
+				VerticalAlignment="Stretch"
+				Title="{Binding DashboardInfo.ThisMonthIssuedBooks}"
+				Subtitle="This month's issued books"
+				PackIconKind="BookOpenPageVariant"
+				ColorZoneMode="Light" />
+			<control:ReportCardControl
+				Grid.Column="1"
+				Margin="5"
+				VerticalAlignment="Stretch"
+				Title="{Binding DashboardInfo.ThisMonthReturnedBooks}"
+				Subtitle="This month's returned books"
+				PackIconKind="Share"
+				ColorZoneMode="Dark" />
+		</Grid>
+	</Grid>
 </UserControl>
