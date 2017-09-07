@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Libraryman.Wpf.Main
+namespace Libraryman.Wpf.Dashboard
 {
 	/// <summary>
-	/// Interaction logic for MainView.xaml
+	/// Interaction logic for DashboardView.xaml
 	/// </summary>
-	public partial class MainView : UserControl
+	public partial class DashboardView : UserControl
 	{
-		public MainView()
+		public DashboardView()
 		{
 			InitializeComponent();
 		}

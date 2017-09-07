@@ -7,8 +7,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Libraryman.Common.Result;
 using Libraryman.Entity;
+using Libraryman.Wpf.Dashboard;
 using Libraryman.Wpf.Extensions;
-using Libraryman.Wpf.Main;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Service;
 
@@ -83,12 +83,13 @@ namespace Libraryman.Wpf.Login
 				.OnSuccess(r =>
 				{
 					_as.StaffId = staffId;
-					_navigation.GoTo<MainViewModel>();
+					_navigation.GoTo<DashboardViewModel>();
 				})
 				.OnFailure(e => LoginErrorMessage = e.Error)
 				.ConfigureAwait(false);
 			IsLoginSuccessful = result.IsSuccess;
 			_as.IsLoggedIn = result.IsSuccess;
+			_as.IsLoggedOut = result.IsFailure;
 		}
 
 		private bool CanLogin()

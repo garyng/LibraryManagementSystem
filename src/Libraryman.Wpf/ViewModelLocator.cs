@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using Autofac;
-using GalaSoft.MvvmLight;
 using Libraryman.Common.Result;
 using Libraryman.DataAccess;
 using Libraryman.Entity;
 using Libraryman.Wpf.Command;
+using Libraryman.Wpf.Dashboard;
 using Libraryman.Wpf.Login;
-using Libraryman.Wpf.Main;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;
@@ -20,11 +19,13 @@ namespace Libraryman.Wpf
 		public IContainer Container { get; }
 		public ShellViewModel ShellViewModel => this.Container.Resolve<ShellViewModel>();
 		public LoginViewModel LoginViewModel => this.Container.Resolve<LoginViewModel>();
-		public MainViewModel MainViewModel => this.Container.Resolve<MainViewModel>();
+		public DashboardViewModel DashboardViewModel => this.Container.Resolve<DashboardViewModel>();
 
 		public ViewModelLocator()
 		{
 			var cb = new ContainerBuilder();
+
+
 			cb.RegisterType<ShellViewModel>()
 				.As<INavigationHost<ViewModelBase>>()
 				.AsSelf()
@@ -69,7 +70,7 @@ namespace Libraryman.Wpf
 			cb.RegisterType<AuthenticationService>()
 				.As<IAuthenticationService>();
 
-			cb.RegisterType<MainViewModel>()
+			cb.RegisterType<DashboardViewModel>()
 				.AsSelf()
 				.As<ViewModelBase>()
 				.SingleInstance();
