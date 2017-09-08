@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Documents;
 
 namespace Libraryman.Wpf.Navigation
 {
@@ -26,28 +27,39 @@ namespace Libraryman.Wpf.Navigation
 
 		public void GoTo<TTarget>() where TTarget : class, TViewModel
 		{
-			GoTo<TTarget>((_) => { });
+			GoTo<TTarget>(_ => { });
 		}
 
 		public void GoTo<TTarget>(Action<TTarget> setup) where TTarget : class, TViewModel
 		{
 			INavigationTarget target = _targets.FirstOrDefault(t => t.GetType() == typeof(TTarget));
-			if (target != null)
-			{
-				_host.SetCurrentViewModel(target as TViewModel);
-				setup?.Invoke(target as TTarget);
+			if (target == null) return;
 
-				if (_current != null)
-				{
-					_history.Push(_current);
-				}
-				_current = target;
-			}
+			GoTo(target as TTarget, setup);
 		}
+
+		public void GoTo<TTarget>(TTarget target) where TTarget : class, TViewModel
+		{
+			GoTo(target, _ => { });
+		}
+
+		public void GoTo<TTarget>(TTarget target, Action<TTarget> setup) where TTarget : class, TViewModel
+		{
+			if (_targets.All(t => t != target)) return;
+
+			setup?.Invoke(target);
+			_host.SetCurrentViewModel(target);
+			if (_current != null)
+			{
+				_history.Push(_current);
+			}
+			_current = target;
+		}
+
 
 		public void GoBack()
 		{
-			GoBack((_) => { });
+			GoBack(_ => { });
 		}
 
 		public void GoBack(Action<TViewModel> setup)
@@ -64,6 +76,7 @@ namespace Libraryman.Wpf.Navigation
 			if (!(target is TTarget)) return;
 
 			target = _history.Pop();
+
 			setup?.Invoke(target as TTarget);
 			_host.SetCurrentViewModel(target as TViewModel);
 			_current = target;

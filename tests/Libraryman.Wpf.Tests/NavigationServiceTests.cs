@@ -105,6 +105,58 @@ namespace Libraryman.Wpf.Tests
 		}
 
 		[Test]
+		public void Should_AbleToGotoSpecificInstanceOfViewModel()
+		{
+			// Arrange
+			var viewModel1 = new ViewModel1();
+			var viewModel2 = new ViewModel2();
+			var viewModel3 = new ViewModel3();
+
+			_navigationService.Register(viewModel1);
+			_navigationService.Register(viewModel2);
+			_navigationService.Register(viewModel3);
+
+			// Act
+			_navigationService.GoTo(viewModel1);
+
+			// Assert
+			A.CallTo(() => _navigationHost.SetCurrentViewModel(viewModel1))
+				.MustHaveHappened(Repeated.Exactly.Once);
+		}
+
+		[Test]
+		public void Should_NotAbleToGoToNotRegisteredViewModelInstance()
+		{
+			// Arrange
+			var viewModel1 = new ViewModel1();
+			var viewModel2 = new ViewModel2();
+
+			_navigationService.Register(viewModel1);
+
+			// Act
+			_navigationService.GoTo(viewModel1);
+			_navigationService.GoTo(viewModel2);
+
+			// Assert
+			A.CallTo(() => _navigationHost.SetCurrentViewModel(A<FakeViewModelBase>._))
+				.MustHaveHappened(Repeated.Exactly.Once);
+		}
+
+		[Test]
+		public void Should_CallSetupOnTarget_When_GoToSpecificInstanceOfViewModel()
+		{
+			// Arrange
+			var viewModel1 = new ViewModel1();
+			_navigationService.Register(viewModel1);
+
+			// Act
+			_navigationService.GoTo(viewModel1, vm => vm.Dummy = "Testing");
+
+			// Assert
+			Assert.That(viewModel1.Dummy, Is.EqualTo("Testing"));
+		}
+
+		[Test]
 		public void Should_NotAbleToGoBack_When_OnlyNavigatedToOneViewModel()
 		{
 			// Arrange
@@ -228,7 +280,6 @@ namespace Libraryman.Wpf.Tests
 			// Assert
 			Assert.That(viewModel1.Dummy, Is.EqualTo("ViewModel1"));
 			Assert.That(viewModel3.Dummy, Is.EqualTo("ViewModel3"));
-
 		}
 	}
 }
