@@ -36,7 +36,7 @@ namespace Libraryman.DataAccess
 				.WithMany(a => a.Books);
 
 			modelBuilder.Entity<BorrowedBook>()
-				.HasKey(bb => new {bb.RecordId, bb.UserId, bb.BookBarcode});
+				.HasKey(bb => new { bb.RecordId, bb.UserId, bb.BookBarcode });
 
 			modelBuilder.Entity<ReturnedBook>()
 				.HasKey(rb => new {rb.RecordId, rb.UserId, rb.BookBarcode});
@@ -157,31 +157,51 @@ namespace Libraryman.DataAccess
 					.RuleFor(u => u.Type, f => f.PickRandom(membershipTypes))
 					.Generate(100);
 
-				var records = new Faker<Record>()
-					.RuleFor(r => r.Type, f => f.PickRandom<RecordType>())
-					.RuleFor(r => r.Timestamp,
-						f => f.Date.Between(DateTime.Now - TimeSpan.FromDays(10), DateTime.Now + TimeSpan.FromDays(10)))
-					.RuleFor(r => r.User, f => f.PickRandom(users))
-					.RuleFor(r => r.Staff, f => f.PickRandom(staffs))
-					.RuleFor(r => r.Book, f => f.PickRandom(books))
-					.Generate(1000);
+				//var records = new Faker<Record>()
+				//	.RuleFor(r => r.Type, f => f.PickRandom<RecordType>())
+				//	.RuleFor(r => r.Timestamp,
+				//		f => f.Date.Recent(100))
+				//	.RuleFor(r => r.User, f => f.PickRandom(users))
+				//	.RuleFor(r => r.Staff, f => f.PickRandom(staffs))
+				//	.RuleFor(r => r.Book, f => f.PickRandom(books))
+				//	.Generate(500);
 
 				var borrowedBooks = new Faker<BorrowedBook>()
-					.RuleFor(bb => bb.Book, f => f.PickRandom(books))
-					.RuleFor(bb => bb.Record, f => f.PickRandom(records.Where(r => r.Type == RecordType.Issue)))
-					.RuleFor(bb => bb.User, f => f.PickRandom(users))
-					.RuleFor(bb => bb.DueDate, f => f.Date.Recent(14))
-					.Generate(200)
-					.DistinctBy(bb => new {bb.Book, bb.Record, bb.User, bb.DueDate});
+					.RuleFor(bb => bb.Record, f => new Faker<Record>()
+						.RuleFor(r => r.Type, rf => RecordType.Issue)
+						.RuleFor(r => r.Timestamp, rf => DateTime.Now)
+						.RuleFor(r => r.User, rf => rf.PickRandom(users))
+						.RuleFor(r => r.Staff, rf => rf.PickRandom(staffs))
+						.RuleFor(r => r.Book, rf => rf.PickRandom(books))
+						.Generate())
+					.RuleFor(bb => bb.Book, (f, bb) => bb.Record.Book)
+					.RuleFor(bb => bb.User, (f, bb) => bb.Record.User)
+					.RuleFor(bb => bb.DueDate, (f, bb) => bb.Record.Timestamp + TimeSpan.FromDays(14))
+					.Generate(200);
 
 				var returnedBooks = new Faker<ReturnedBook>()
-					.RuleFor(rb => rb.Book, f => f.PickRandom(books))
-					.RuleFor(rb => rb.Record, f => f.PickRandom(records))
-					.RuleFor(rb => rb.User, f => f.PickRandom(users))
-					.RuleFor(rb => rb.BorrowingRecord, f => f.PickRandom(records.Where(r => r.Type == RecordType.Return)))
-					.RuleFor(rb => rb.OverdueFine, f => f.Random.Decimal(0.0M, 2.0M))
-					.Generate(400)
-					.DistinctBy(rb => new {rb.Book, rb.Record, rb.User, rb.BorrowingRecord, rb.OverdueFine});
+					.RuleFor(rb => rb.Record, f => new Faker<Record>()
+						.RuleFor(r => r.Type, rf => RecordType.Return)
+						.RuleFor(r => r.Timestamp, rf => rf.Date.Recent(100))
+						.RuleFor(r => r.User, rf => rf.PickRandom(users))
+						.RuleFor(r => r.Staff, rf => rf.PickRandom(staffs))
+						.RuleFor(r => r.Book, rf => rf.PickRandom(books))
+						.Generate())
+					.RuleFor(rb => rb.Book, (f, rb) => rb.Record.Book)
+					.RuleFor(rb => rb.User, (f, rb) => rb.Record.User)
+					.RuleFor(rb => rb.BorrowingRecord, (f, rb) => new Faker<Record>()
+						.RuleFor(r => r.Type, rf => RecordType.Issue)
+						.RuleFor(r => r.Timestamp,
+							rf => rf.Date.Between(rb.Record.Timestamp - TimeSpan.FromDays(30), rb.Record.Timestamp))
+						.RuleFor(r => r.User, rf => rf.PickRandom(users))
+						.RuleFor(r => r.Staff, rf => rf.PickRandom(staffs))
+						.RuleFor(r => r.Book, rf => rf.PickRandom(books))
+						.Generate())
+					.RuleFor(rb => rb.OverdueFine,
+						(f, rb) => (rb.Record.Timestamp - rb.BorrowingRecord.Timestamp).Days * rb.Record.User.Type.OverdueFine)
+					.Generate(400);
+				//.DistinctBy(rb => rb.BorrowingRecord)
+				//.DistinctBy(rb => rb.Record);
 
 				context.Database.ExecuteSqlCommand("ALTER TABLE staff AUTO_INCREMENT=1000");
 				context.Database.ExecuteSqlCommand("ALTER TABLE user AUTO_INCREMENT=1000000");
@@ -195,7 +215,7 @@ namespace Libraryman.DataAccess
 				context.AuthorBooks.AddRange(authorBooks);
 				context.MembershipTypes.AddRange(membershipTypes);
 				context.Users.AddRange(users);
-				context.Records.AddRange(records);
+				// context.Records.AddRange(records);
 				context.BorrowedBooks.AddRange(borrowedBooks);
 				context.ReturnedBooks.AddRange(returnedBooks);
 
