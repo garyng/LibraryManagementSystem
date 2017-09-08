@@ -117,5 +117,22 @@
 				PackIconKind="Share"
 				ColorZoneMode="Dark" />
 		</Grid>
+		<Button
+			Grid.RowSpan="6"
+			Margin="5"
+			Height="32"
+			Width="32"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Right"
+			ToolTip="Reload Data"
+			Style="{DynamicResource MaterialDesignToolButton}"
+			Command="{Binding LoadDashboardInfoCommand}">
+			<md:PackIcon
+				Height="24"
+				Width="24"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				Kind="Reload" />
+		</Button>
 	</Grid>
 </UserControl>
