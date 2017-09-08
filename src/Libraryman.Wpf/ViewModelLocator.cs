@@ -12,8 +12,10 @@ using Libraryman.Wpf.Login;
 using Libraryman.Wpf.Main;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
+using Libraryman.Wpf.Return;
 using Libraryman.Wpf.Service;
 using Libraryman.Wpf.Shell;
+using Optional;
 
 namespace Libraryman.Wpf
 {
@@ -28,11 +30,11 @@ namespace Libraryman.Wpf
 
 		public LoginViewModel LoginViewModel => this.Container.Resolve<LoginViewModel>();
 		public DashboardViewModel DashboardViewModel => this.Container.Resolve<DashboardViewModel>();
+		public ReturnViewModel ReturnViewModel => this.Container.Resolve<ReturnViewModel>();
 
 		public ViewModelLocator()
 		{
 			var cb = new ContainerBuilder();
-
 
 			cb.RegisterType<NavigationService<ViewModelBase>>()
 				.As<INavigationService<ViewModelBase>>()
@@ -96,14 +98,23 @@ namespace Libraryman.Wpf
 				.As<IAsyncQueryHandler<GetThisMonthIssuedBookCount, int>>();
 			cb.RegisterType<GetThisMonthReturnedBookCountQueryHandler>()
 				.As<IAsyncQueryHandler<GetThisMonthReturnedBookCount, int>>();
+			cb.RegisterType<GetBorrowedBookDetailsByBarcodeQueryHandler>()
+				.As<IAsyncQueryHandler<GetBorrowedBookDetailsByBarcode, Option<BorrowedBook>>>();
 
 			cb.RegisterType<UpdateLastLoginTimeByStaffIdCommandHandler>()
 				.As<IAsyncCommandHandler<UpdateLastLoginTimeByStaffId, Result>>();
+			cb.RegisterType<ReturnBorrowedBookByRecordIdCommandHandler>()
+				.As<IAsyncCommandHandler<ReturnBorrowedBookByRecordId, Result>>();
 
 			cb.RegisterType<AuthenticationService>()
 				.As<IAuthenticationService>();
 
 			cb.RegisterType<DashboardViewModel>()
+				.AsSelf()
+				.As<ViewModelBase>()
+				.SingleInstance();
+
+			cb.RegisterType<ReturnViewModel>()
 				.AsSelf()
 				.As<ViewModelBase>()
 				.SingleInstance();

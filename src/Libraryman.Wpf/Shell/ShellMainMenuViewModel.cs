@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Command;
 using Libraryman.Wpf.Dashboard;
 using Libraryman.Wpf.Navigation;
+using Libraryman.Wpf.Return;
 
 namespace Libraryman.Wpf.Shell
 {
@@ -26,6 +27,7 @@ namespace Libraryman.Wpf.Shell
 		{
 			MainMenuEntries = new ObservableCollection<MainMenuEntry>();
 			MainMenuEntries.Add(new MainMenuEntry("Dashboard", new RelayCommand(Go<DashboardViewModel>)));
+			MainMenuEntries.Add(new MainMenuEntry("Returning", new RelayCommand(Go<ReturnViewModel>)));
 #if DEBUG
 			if (IsInDesignModeStatic)
 			{

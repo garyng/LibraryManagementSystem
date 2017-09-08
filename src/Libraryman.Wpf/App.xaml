@@ -6,6 +6,7 @@
              xmlns:dashboard="clr-namespace:Libraryman.Wpf.Dashboard"
              xmlns:main="clr-namespace:Libraryman.Wpf.Main"
              xmlns:shell="clr-namespace:Libraryman.Wpf.Shell"
+             xmlns:return="clr-namespace:Libraryman.Wpf.Return"
              StartupUri="ShellView.xaml">
 	<Application.Resources>
 		<ResourceDictionary>
@@ -35,6 +36,9 @@
 			</DataTemplate>
 			<DataTemplate DataType="{x:Type dashboard:DashboardViewModel}">
 				<dashboard:DashboardView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type return:ReturnViewModel}">
+				<return:ReturnView />
 			</DataTemplate>
 		</ResourceDictionary>
 	</Application.Resources>

@@ -87,6 +87,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Optional, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Optional.3.2.0\lib\net461\Optional.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -120,6 +123,9 @@
     <Compile Include="Command\AsyncCommandDispatcher.cs" />
     <Compile Include="Controls\ReportCardControl.xaml.cs">
       <DependentUpon>ReportCardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SearchControl.xaml.cs">
+      <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\DashboardInfo.cs" />
     <Compile Include="Dashboard\DashboardView.xaml.cs">
@@ -168,6 +174,12 @@
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Command\AsyncCommandHandlerBase.cs" />
     <Compile Include="Query\AsyncQueryHandlerBase.cs" />
+    <Compile Include="Converters\OptionalToVisibilityConverter.cs" />
+    <Compile Include="Converters\OptionalToVisibilityConverterExtension.cs" />
+    <Compile Include="Return\ReturnView.xaml.cs">
+      <DependentUpon>ReturnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Return\ReturnViewModel.cs" />
     <Compile Include="Service\AuthenticationService.cs" />
     <Compile Include="Service\AuthenticationState.cs" />
     <Compile Include="CommandQueryHandlerBase.cs" />
@@ -194,6 +206,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\SearchControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dashboard\DashboardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -203,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Main\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Return\ReturnView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

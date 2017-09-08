@@ -8,9 +8,10 @@
          mc:Ignorable="d"
          d:DesignHeight="200" d:DesignWidth="200">
 	<Grid
-		d:DataContext="{d:DesignInstance {x:Type local:DebugReportCardControl}, d:IsDesignTimeCreatable=True}"
+		d:DataContext="{d:DesignInstance {x:Type local:DesignReportCardControl}, d:IsDesignTimeCreatable=True}"
 		DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=md:Card}}">
 		<md:ColorZone
+			CornerRadius="2"
 			VerticalAlignment="Stretch"
 			Mode="{Binding ColorZoneMode}">
 			<StackPanel

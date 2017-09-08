@@ -66,7 +66,7 @@ namespace Libraryman.Wpf.Controls
 
 #if DEBUG
 
-	public class DebugReportCardControl
+	public class DesignReportCardControl
 	{
 		public string Title { get; set; } = "Title";
 		public string Subtitle { get; set; } = "Subtitle";
