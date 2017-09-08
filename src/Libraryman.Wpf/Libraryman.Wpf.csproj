@@ -139,6 +139,9 @@
     <Compile Include="Query\AsyncQueryDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandHandler.cs" />
+    <Compile Include="Command\ReturnBorrowedBookByRecordId.cs" />
+    <Compile Include="Query\GetBorrowedBookDetailsByBarcode.cs" />
+    <Compile Include="Query\GetBorrowedBookDetailsByBarcodeQueryHandler.cs" />
     <Compile Include="Query\GetTotalBookCount.cs" />
     <Compile Include="Query\GetOverdueBookCount.cs" />
     <Compile Include="Query\GetOverdueBookCountQueryHandler.cs" />
@@ -176,6 +179,8 @@
     <Compile Include="Query\AsyncQueryHandlerBase.cs" />
     <Compile Include="Converters\OptionalToVisibilityConverter.cs" />
     <Compile Include="Converters\OptionalToVisibilityConverterExtension.cs" />
+    <Compile Include="Command\ReturnBorrowedBookByRecordIdCommandHandler.cs" />
+    <Compile Include="Return\BorrowedBookInfo.cs" />
     <Compile Include="Return\ReturnView.xaml.cs">
       <DependentUpon>ReturnView.xaml</DependentUpon>
     </Compile>
