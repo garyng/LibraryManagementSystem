@@ -37,6 +37,9 @@
     <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.Mef, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mef.4.0.0\lib\net45\Autofac.Integration.Mef.dll</HintPath>
+    </Reference>
     <Reference Include="Bogus, Version=17.0.1.0, Culture=neutral, PublicKeyToken=fa1bb3f3f218129a, processorArchitecture=MSIL">
       <HintPath>..\packages\Bogus.17.0.1\lib\net40\Bogus.dll</HintPath>
     </Reference>
@@ -123,6 +126,10 @@
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\DashboardViewModel.cs" />
+    <Compile Include="Main\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Main\MainViewModel.cs" />
     <Compile Include="Query\AsyncQueryDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandDispatcher.cs" />
     <Compile Include="Command\IAsyncCommandHandler.cs" />
@@ -169,7 +176,14 @@
     <Compile Include="Service\IAuthenticationService.cs" />
     <Compile Include="Command\UpdateLastLoginTimeByStaffId.cs" />
     <Compile Include="Command\UpdateLastLoginTimeByStaffIdCommandHandler.cs" />
-    <Compile Include="ShellViewModel.cs" />
+    <Compile Include="Shell\ShellHeaderViewModel.cs" />
+    <Compile Include="Shell\ShellHeaderView.xaml.cs">
+      <DependentUpon>ShellHeaderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\ShellMainMenuView.xaml.cs">
+      <DependentUpon>ShellMainMenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell\ShellMainMenuViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Page Include="Controls\BindablePasswordBox.xaml">
@@ -188,6 +202,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Main\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -200,6 +218,14 @@
       <DependentUpon>ShellView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Shell\ShellHeaderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell\ShellMainMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -16,5 +16,6 @@ namespace Libraryman.Wpf.Query
 			var handler = _resolver.Resolve<IAsyncQueryHandler<TQuery, TQueryResult>>();
 			return await handler.HandleAsync(query).ConfigureAwait(false);
 		}
+	
 	}
 }

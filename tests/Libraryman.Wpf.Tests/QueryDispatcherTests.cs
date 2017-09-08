@@ -26,7 +26,6 @@ namespace Libraryman.Wpf.Tests
 			public string Name { get; set; }
 		}
 
-
 		private class GetFakeUserByIdQueryHandler : IAsyncQueryHandler<GetFakeUserById, Result<FakeUser>>
 		{
 			public Task<Result<FakeUser>> HandleAsync(GetFakeUserById query)

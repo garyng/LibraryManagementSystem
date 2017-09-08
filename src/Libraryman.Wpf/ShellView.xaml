@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:Libraryman.Wpf"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:c="http://schemas.kent.boogaart.com/converters"
-        DataContext="{Binding Source={StaticResource Locator}, Path=ShellViewModel}"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Normal"
@@ -19,43 +18,21 @@
         Title="Libraryman" Height="500" Width="700">
 	<md:DialogHost>
 		<md:DrawerHost
-			IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+			IsLeftDrawerOpen="{Binding Source={StaticResource Locator}, Path=ShellHeaderViewModel.IsHamburgerButtonToggled}">
 			<md:DrawerHost.LeftDrawerContent>
-				<Button
-					Content="asd" />
+				<ContentControl
+					Content="{Binding Source={StaticResource Locator}, Path=ShellMainMenuViewModel}" />
 			</md:DrawerHost.LeftDrawerContent>
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
-				<DockPanel
-					LastChildFill="False"
-					Visibility="{Binding AuthenticationState.IsLoggedIn, Converter={c:BooleanToVisibilityConverter}}">
-					<ToggleButton
-						x:Name="MenuToggleButton"
-						Width="24"
-						Height="24"
-						Margin="10"
-						Cursor="Hand"
-						Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
-						IsChecked="False" />
-					<md:PackIcon
-						DockPanel.Dock="Right"
-						Width="24"
-						Height="24"
-						Opacity="0.6"
-						Margin="10"
-						VerticalAlignment="Center"
-						Kind="Account" />
-					<TextBlock
-						DockPanel.Dock="Right"
-						VerticalAlignment="Center"
-						Text="{Binding AuthenticationState.StaffId, StringFormat={}{0}}" />
-				</DockPanel>
+				<ContentControl
+					Content="{Binding Source={StaticResource Locator}, Path=ShellHeaderViewModel}" />
 				<ContentControl
 					Grid.Row="1"
-					Content="{Binding CurrentViewModel}" />
+					Content="{Binding Source={StaticResource Locator}, Path=MainViewModel}" />
 			</Grid>
 		</md:DrawerHost>
 	</md:DialogHost>

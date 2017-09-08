@@ -36,30 +36,31 @@ namespace Libraryman.Wpf.Dashboard
 
 		private async Task LoadDashboardInfo()
 		{
+			// todo: dispatch async overload without parameter?
 			DashboardInfo.TotalBooks =
 				await _queryDispatcher.DispatchAsync<GetTotalBookCount, int>(new GetTotalBookCount())
-					.ConfigureAwait(false);
+					.ConfigureAwait(true);
 			DashboardInfo.TotalOverdueBooks =
 				await _queryDispatcher.DispatchAsync<GetOverdueBookCount, int>(new GetOverdueBookCount())
-					.ConfigureAwait(false);
+					.ConfigureAwait(true);
 			DashboardInfo.TotalIssuedBooks =
 				await _queryDispatcher.DispatchAsync<GetTotalIssuedBookCount, int>(new GetTotalIssuedBookCount())
-					.ConfigureAwait(false);
+					.ConfigureAwait(true);
 			DashboardInfo.TotalUsers =
 				await _queryDispatcher.DispatchAsync<GetTotalUserCount, int>(new GetTotalUserCount())
-					.ConfigureAwait(false);
+					.ConfigureAwait(true);
 			DashboardInfo.TodayIssueBook =
 				await _queryDispatcher.DispatchAsync<GetTodayIssuedBookCount, int>(new GetTodayIssuedBookCount())
-					.ConfigureAwait(false);
+					.ConfigureAwait(true);
 			DashboardInfo.TodayReturnedBooks =
 				await _queryDispatcher.DispatchAsync<GetTodayReturnedBookCount, int>(new GetTodayReturnedBookCount())
-					.ConfigureAwait(false);
+					.ConfigureAwait(true);
 			DashboardInfo.ThisMonthIssuedBooks =
 				await _queryDispatcher.DispatchAsync<GetThisMonthIssuedBookCount, int>(new GetThisMonthIssuedBookCount())
-					.ConfigureAwait(false);
+					.ConfigureAwait(true);
 			DashboardInfo.ThisMonthReturnedBooks =
 				await _queryDispatcher.DispatchAsync<GetThisMonthReturnedBookCount, int>(new GetThisMonthReturnedBookCount())
-					.ConfigureAwait(false);
+					.ConfigureAwait(true);
 		}
 	}
 }

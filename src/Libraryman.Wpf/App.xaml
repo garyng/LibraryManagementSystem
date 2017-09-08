@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Libraryman.Wpf"
              xmlns:login="clr-namespace:Libraryman.Wpf.Login"
              xmlns:dashboard="clr-namespace:Libraryman.Wpf.Dashboard"
+             xmlns:main="clr-namespace:Libraryman.Wpf.Main"
+             xmlns:shell="clr-namespace:Libraryman.Wpf.Shell"
              StartupUri="ShellView.xaml">
 	<Application.Resources>
 		<ResourceDictionary>
@@ -19,6 +21,15 @@
 			</ResourceDictionary.MergedDictionaries>
 
 			<local:ViewModelLocator x:Key="Locator" />
+			<DataTemplate DataType="{x:Type main:MainViewModel}">
+				<main:MainView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type shell:ShellHeaderViewModel}">
+				<shell:ShellHeaderView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type shell:ShellMainMenuViewModel}">
+				<shell:ShellMainMenuView />
+			</DataTemplate>
 			<DataTemplate DataType="{x:Type login:LoginViewModel}">
 				<login:LoginView />
 			</DataTemplate>

@@ -2,22 +2,30 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using Autofac;
+using Autofac.Features.AttributeFilters;
 using Libraryman.Common.Result;
 using Libraryman.DataAccess;
 using Libraryman.Entity;
 using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Dashboard;
 using Libraryman.Wpf.Login;
+using Libraryman.Wpf.Main;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;
+using Libraryman.Wpf.Shell;
 
 namespace Libraryman.Wpf
 {
 	public class ViewModelLocator
 	{
 		public IContainer Container { get; }
-		public ShellViewModel ShellViewModel => this.Container.Resolve<ShellViewModel>();
+
+		public MainViewModel MainViewModel => this.Container.Resolve<MainViewModel>();
+
+		public ShellHeaderViewModel ShellHeaderViewModel => this.Container.Resolve<ShellHeaderViewModel>();
+		public ShellMainMenuViewModel ShellMainMenuViewModel => this.Container.Resolve<ShellMainMenuViewModel>();
+
 		public LoginViewModel LoginViewModel => this.Container.Resolve<LoginViewModel>();
 		public DashboardViewModel DashboardViewModel => this.Container.Resolve<DashboardViewModel>();
 
@@ -26,13 +34,21 @@ namespace Libraryman.Wpf
 			var cb = new ContainerBuilder();
 
 
-			cb.RegisterType<ShellViewModel>()
-				.As<INavigationHost<ViewModelBase>>()
+			cb.RegisterType<NavigationService<ViewModelBase>>()
+				.As<INavigationService<ViewModelBase>>()
+				.SingleInstance();
+
+			cb.RegisterType<ShellHeaderViewModel>()
 				.AsSelf()
 				.SingleInstance();
 
-			cb.RegisterType<NavigationService<ViewModelBase>>()
-				.As<INavigationService<ViewModelBase>>()
+			cb.RegisterType<ShellMainMenuViewModel>()
+				.AsSelf()
+				.SingleInstance();
+
+			cb.RegisterType<MainViewModel>()
+				.As<INavigationHost<ViewModelBase>>()
+				.AsSelf()
 				.SingleInstance();
 
 			cb.RegisterType<AuthenticationState>()
