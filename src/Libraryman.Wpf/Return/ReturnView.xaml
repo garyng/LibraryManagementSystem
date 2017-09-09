@@ -17,44 +17,13 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<Grid
+		<controls:SearchControl
 			VerticalAlignment="Center"
-			HorizontalAlignment="Center">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition />
-				<ColumnDefinition Width="Auto" />
-			</Grid.ColumnDefinitions>
-			<md:PackIcon
-				Kind="Magnify"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				Opacity="0.6"
-				Margin="10 10 5 10" />
-			<TextBox
-				Grid.Column="1"
-				Margin="5 5 0 5"
-				Padding="5"
-				VerticalAlignment="Center"
-				md:HintAssist.Hint="Search barcode..."
-				md:TextFieldAssist.DecorationVisibility="Collapsed"
-				BorderThickness="0"
-				MinWidth="200"
-				MaxWidth="400"
-				Text="{Binding BarcodeSearchString, UpdateSourceTrigger=PropertyChanged}" />
-			<Button
-				Grid.Column="2"
-				Margin="0 10 10 10"
-				IsDefault="True"
-				Style="{DynamicResource MaterialDesignToolForegroundButton}"
-				Command="{Binding SearchCommand}">
-				<md:PackIcon
-					VerticalAlignment="Center"
-					HorizontalAlignment="Center"
-					Kind="Send"
-					Opacity="0.6" />
-			</Button>
-		</Grid>
+			HorizontalAlignment="Center"
+			Hint="Search barcode..."
+			PackIconKind="Magnify"
+			Text="{Binding BarcodeSearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			Command="{Binding SearchCommand}" />
 		<Grid
 			Grid.Row="1"
 			Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter}}">
