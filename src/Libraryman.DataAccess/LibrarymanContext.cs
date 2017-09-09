@@ -136,7 +136,7 @@ namespace Libraryman.DataAccess
 				{
 					new MembershipType()
 					{
-						Name = "NonMember",
+						Name = "Non Member",
 						Duration = TimeSpan.FromDays(14),
 						MaximumBooks = 5,
 						OverdueFine = 0.20M
