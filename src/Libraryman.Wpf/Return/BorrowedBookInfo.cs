@@ -13,6 +13,7 @@ namespace Libraryman.Wpf.Return
 
 		public int UserId { get; set; }
 		public string UserName { get; set; }
+		public string UserType { get; set; }
 
 		public int RecordId { get; set; }
 		public DateTime BorrowedDate { get; set; }
@@ -35,6 +36,7 @@ namespace Libraryman.Wpf.Return
 			PublishedYear = borrowedBookDetails.Book.PublishedYear;
 			UserId = borrowedBookDetails.UserId;
 			UserName = borrowedBookDetails.User.Name;
+			UserType = borrowedBookDetails.User.Type.Name;
 			BorrowedDate = borrowedBookDetails.Record.Timestamp;
 			RecordId = borrowedBookDetails.RecordId;
 			StaffId = borrowedBookDetails.Record.StaffId;

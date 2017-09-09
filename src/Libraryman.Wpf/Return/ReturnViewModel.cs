@@ -77,6 +77,7 @@ namespace Libraryman.Wpf.Return
 					PublishedYear = "2017",
 					UserId = 1000002,
 					UserName = "Username",
+					UserType = "Member",
 					BorrowedDate = DateTime.Today,
 					RecordId = 1,
 					StaffId = 1001,

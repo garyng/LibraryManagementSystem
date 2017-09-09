@@ -73,9 +73,9 @@
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 					<TextBlock
 						Grid.Row="0"
@@ -134,9 +134,9 @@
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 					<TextBlock
 						Grid.Row="0"
@@ -145,13 +145,26 @@
 						TextWrapping="Wrap"
 						Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
 						Text="{Binding BookSearchResult.UserName}" />
-					<TextBlock
+					<StackPanel
 						Grid.Row="1"
 						Grid.Column="0"
-						Padding="10 0"
-						TextWrapping="Wrap"
-						Style="{DynamicResource MaterialDesignBody2TextBlock}"
-						Text="{Binding BookSearchResult.UserId}" />
+						Orientation="Horizontal">
+						<TextBlock
+							Padding="10 0"
+							TextWrapping="Wrap"
+							VerticalAlignment="Center"
+							Style="{DynamicResource MaterialDesignBody2TextBlock}"
+							Text="{Binding BookSearchResult.UserId}" />
+						<md:ColorZone
+							Mode="Light"
+							VerticalAlignment="Center"
+							CornerRadius="2">
+							<TextBlock
+								Padding="10 0"
+								TextWrapping="Wrap"
+								Text="{Binding BookSearchResult.UserType}" />
+						</md:ColorZone>
+					</StackPanel>
 					<TextBlock
 						Grid.Row="2"
 						Grid.Column="0"
@@ -170,7 +183,7 @@
 						Grid.Column="1"
 						VerticalAlignment="Center"
 						HorizontalAlignment="Right"
-						Margin="5">
+						Margin="0">
 						<TextBlock
 							Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
 							HorizontalAlignment="Right">
@@ -214,8 +227,8 @@
 			</md:ColorZone>
 			<Button
 				Grid.Row="3"
-				Content="RETURN" 
-				Command="{Binding ReturnBookCommand}"/>
+				Content="RETURN"
+				Command="{Binding ReturnBookCommand}" />
 		</Grid>
 		<Grid
 			Grid.Row="2"
