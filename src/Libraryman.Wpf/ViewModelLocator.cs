@@ -41,14 +41,6 @@ namespace Libraryman.Wpf
 				.As<INavigationService<ViewModelBase>>()
 				.SingleInstance();
 
-			cb.RegisterType<ShellHeaderViewModel>()
-				.AsSelf()
-				.SingleInstance();
-
-			cb.RegisterType<ShellMainMenuViewModel>()
-				.AsSelf()
-				.SingleInstance();
-
 			cb.RegisterType<MainViewModel>()
 				.As<INavigationHost<ViewModelBase>>()
 				.AsSelf()
@@ -56,10 +48,6 @@ namespace Libraryman.Wpf
 
 			cb.RegisterType<AuthenticationState>()
 				.AsSelf()
-				.SingleInstance();
-			cb.RegisterType<LoginViewModel>()
-				.AsSelf()
-				.As<ViewModelBase>()
 				.SingleInstance();
 
 			cb.RegisterType<NavigationTargetsRegistration>()
@@ -88,23 +76,19 @@ namespace Libraryman.Wpf
 			cb.RegisterAssemblyTypes(asm)
 				.AsClosedTypesOf(typeof(IAsyncCommandHandler<,>))
 				.AsImplementedInterfaces();
+			cb.RegisterAssemblyTypes(asm)
+				.AssignableTo<INavigationTarget>()
+				.AsSelf()
+				.As<ViewModelBase>()
+				.SingleInstance();
 
 			cb.RegisterType<AuthenticationService>()
 				.As<IAuthenticationService>();
 
-			cb.RegisterType<DashboardViewModel>()
-				.AsSelf()
-				.As<ViewModelBase>()
-				.SingleInstance();
-
-			cb.RegisterType<ReturnViewModel>()
-				.AsSelf()
-				.As<ViewModelBase>()
-				.SingleInstance();
-
 			this.Container = cb.Build();
 
 			this.Container.Resolve<INavigationService<ViewModelBase>>()
+				// .GoTo<SearchUserViewModel>();
 				.GoTo<LoginViewModel>();
 
 			//using (var context = new LibrarymanContext())
