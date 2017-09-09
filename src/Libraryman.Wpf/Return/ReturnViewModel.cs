@@ -51,9 +51,9 @@ namespace Libraryman.Wpf.Return
 			set => Set(ref _isFound, value);
 		}
 
-		private BorrowedBookInfo _bookSearchResult;
+		private BorrowedBookDto _bookSearchResult;
 
-		public BorrowedBookInfo BookSearchResult
+		public BorrowedBookDto BookSearchResult
 		{
 			get => _bookSearchResult;
 			set => Set(ref _bookSearchResult, value);
@@ -75,7 +75,7 @@ namespace Libraryman.Wpf.Return
 #if DEBUG
 			if (IsInDesignModeStatic)
 			{
-				BookSearchResult = new BorrowedBookInfo()
+				BookSearchResult = new BorrowedBookDto()
 				{
 					BookBarcode = 123,
 					BookISBN = "431-22-11408-34-4",
@@ -111,7 +111,7 @@ namespace Libraryman.Wpf.Return
 			IsFound = result.Match(
 				some: bb =>
 				{
-					BookSearchResult = new BorrowedBookInfo(bb);
+					BookSearchResult = new BorrowedBookDto(bb);
 					return Option.Some(true);
 				},
 				none: () => Option.Some(false));

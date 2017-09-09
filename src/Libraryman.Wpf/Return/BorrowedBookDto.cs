@@ -3,7 +3,7 @@ using Libraryman.Entity;
 
 namespace Libraryman.Wpf.Return
 {
-	public class BorrowedBookInfo
+	public class BorrowedBookDto
 	{
 		public int BookBarcode { get; set; }
 		public string BookISBN { get; set; }
@@ -23,11 +23,11 @@ namespace Libraryman.Wpf.Return
 		public bool IsOverdue { get; set; }
 		public decimal OverdueFine { get; set; }
 
-		public BorrowedBookInfo()
+		public BorrowedBookDto()
 		{
 		}
 
-		public BorrowedBookInfo(BorrowedBook borrowedBookDetails)
+		public BorrowedBookDto(BorrowedBook borrowedBookDetails)
 		{
 			BookBarcode = borrowedBookDetails.BookBarcode;
 			BookISBN = borrowedBookDetails.Book.ISBN;

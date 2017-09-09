@@ -26,8 +26,7 @@ namespace Libraryman.Wpf.Query
 					// should be single or default
 					.FirstOrDefaultAsync(bb => bb.BookBarcode == query.Barcode)
 					.ConfigureAwait(false);
-
-			return result == null ? Option.None<BorrowedBook>() : Option.Some(result);
+			return result.SomeNotNull();
 		}
 	}
 }

@@ -183,7 +183,7 @@
     <Compile Include="Converters\OptionalToVisibilityConverter.cs" />
     <Compile Include="Converters\OptionalToVisibilityConverterExtension.cs" />
     <Compile Include="Command\ReturnBorrowedBookByRecordIdCommandHandler.cs" />
-    <Compile Include="Return\BorrowedBookInfo.cs" />
+    <Compile Include="Return\BorrowedBookDto.cs" />
     <Compile Include="Return\ReturnView.xaml.cs">
       <DependentUpon>ReturnView.xaml</DependentUpon>
     </Compile>
