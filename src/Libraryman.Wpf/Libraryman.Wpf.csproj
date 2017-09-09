@@ -121,6 +121,9 @@
     </ApplicationDefinition>
     <Compile Include="CommandQueryResolver.cs" />
     <Compile Include="Command\AsyncCommandDispatcher.cs" />
+    <Compile Include="Controls\ErrorMessageControl.xaml.cs">
+      <DependentUpon>ErrorMessageControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ReportCardControl.xaml.cs">
       <DependentUpon>ReportCardControl.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Page Include="Controls\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ErrorMessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

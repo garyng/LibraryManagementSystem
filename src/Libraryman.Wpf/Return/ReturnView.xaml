@@ -28,10 +28,10 @@
 			Grid.Row="1"
 			Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter}}">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 			<md:ColorZone
 				Mode="Accent">
@@ -83,7 +83,7 @@
 							Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
 							HorizontalAlignment="Right">
 							<TextBlock.Text>
-								<Binding Path="BookSearchResult.BookBarcode" StringFormat="#{0}" />
+								<Binding Path="BookSearchResult.BookBarcode"/>
 							</TextBlock.Text>
 						</TextBlock>
 						<TextBlock
@@ -237,39 +237,16 @@
 				Content="RETURN"
 				Command="{Binding ReturnBookCommand}" />
 		</Grid>
-		<Grid
+		<controls:ErrorMessageControl
 			Grid.Row="2"
 			Margin="10"
 			Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<md:PackIcon
-				Kind="AlertCircleOutline"
-				Width="64"
-				Height="64"
-				Opacity="0.5"
-				Margin="10"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Center"
-				Foreground="{DynamicResource ValidationErrorBrush}" />
-			<TextBlock
-				Grid.Column="1"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Center"
-				Margin="10"
-				TextWrapping="Wrap"
-				Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
-				Foreground="{DynamicResource ValidationErrorBrush}"
-				Opacity="0.6">
-				<TextBlock.Text>
-					<MultiBinding
-						StringFormat="Book #{0} is either does not exist, or it is not issued.">
-						<Binding Path="BarcodeSearchString" />
-					</MultiBinding>
-				</TextBlock.Text>
-			</TextBlock>
-		</Grid>
+			<controls:ErrorMessageControl.ErrorMessage>
+				<MultiBinding
+					StringFormat="Book #{0} is either does not exist, or it is not issued.">
+					<Binding Path="BarcodeSearchString" />
+				</MultiBinding>
+			</controls:ErrorMessageControl.ErrorMessage>
+		</controls:ErrorMessageControl>
 	</Grid>
 </UserControl>
