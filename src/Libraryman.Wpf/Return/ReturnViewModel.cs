@@ -33,6 +33,13 @@ namespace Libraryman.Wpf.Return
 				{
 					IsFound = Option.None<bool>();
 				}
+				
+				// if previous search = not found
+				// then changing the search string will hide the warning
+				if (IsFound.Contains(false) && BarcodeSearchString.Length > 0)
+				{
+					IsFound = Option.None<bool>();
+				}
 			}
 		}
 
