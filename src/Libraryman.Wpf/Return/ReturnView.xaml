@@ -243,7 +243,7 @@
 			Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
 			<controls:ErrorMessageControl.ErrorMessage>
 				<MultiBinding
-					StringFormat="Book #{0} is either does not exist, or it is not issued.">
+					StringFormat="Book #{0} does not exist, or it is not issued.">
 					<Binding Path="BarcodeSearchString" />
 				</MultiBinding>
 			</controls:ErrorMessageControl.ErrorMessage>

@@ -9,6 +9,7 @@ using Libraryman.DataAccess;
 using Libraryman.Entity;
 using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Dashboard;
+using Libraryman.Wpf.Issue;
 using Libraryman.Wpf.Login;
 using Libraryman.Wpf.Main;
 using Libraryman.Wpf.Navigation;
@@ -32,6 +33,8 @@ namespace Libraryman.Wpf
 		public LoginViewModel LoginViewModel => this.Container.Resolve<LoginViewModel>();
 		public DashboardViewModel DashboardViewModel => this.Container.Resolve<DashboardViewModel>();
 		public ReturnViewModel ReturnViewModel => this.Container.Resolve<ReturnViewModel>();
+		public SearchUserViewModel SearchUserViewModel => this.Container.Resolve<SearchUserViewModel>();
+
 
 		public ViewModelLocator()
 		{

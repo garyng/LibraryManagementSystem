@@ -130,11 +130,20 @@
     <Compile Include="Controls\SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\GenderToPackIconKindConverter.cs" />
     <Compile Include="Dashboard\DashboardInfo.cs" />
     <Compile Include="Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\DashboardViewModel.cs" />
+    <Compile Include="Issue\IssueView.xaml.cs">
+      <DependentUpon>IssueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Issue\IssueViewModel.cs" />
+    <Compile Include="Issue\SearchUserView.xaml.cs">
+      <DependentUpon>SearchUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Issue\SearchUserViewModel.cs" />
     <Compile Include="Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -223,6 +232,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dashboard\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Issue\IssueView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Issue\SearchUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

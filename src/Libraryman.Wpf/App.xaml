@@ -7,6 +7,7 @@
              xmlns:main="clr-namespace:Libraryman.Wpf.Main"
              xmlns:shell="clr-namespace:Libraryman.Wpf.Shell"
              xmlns:return="clr-namespace:Libraryman.Wpf.Return"
+             xmlns:issue="clr-namespace:Libraryman.Wpf.Issue"
              StartupUri="ShellView.xaml">
 	<Application.Resources>
 		<ResourceDictionary>
@@ -39,6 +40,12 @@
 			</DataTemplate>
 			<DataTemplate DataType="{x:Type return:ReturnViewModel}">
 				<return:ReturnView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type issue:IssueViewModel}">
+				<issue:IssueView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type issue:SearchUserViewModel}">
+				<issue:SearchUserView />
 			</DataTemplate>
 		</ResourceDictionary>
 	</Application.Resources>

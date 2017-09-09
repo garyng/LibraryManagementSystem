@@ -1,0 +1,212 @@
+﻿<UserControl x:Class="Libraryman.Wpf.Issue.SearchUserView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Libraryman.Wpf.Issue"
+             xmlns:controls="clr-namespace:Libraryman.Wpf.Controls"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:c="http://schemas.kent.boogaart.com/converters"
+             xmlns:lc="clr-namespace:Libraryman.Wpf.Converters"
+             mc:Ignorable="d"
+             d:DataContext="{Binding Source={StaticResource Locator}, Path=SearchUserViewModel}"
+             d:DesignHeight="500" d:DesignWidth="500">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<controls:SearchControl
+			VerticalAlignment="Center"
+			HorizontalAlignment="Center"
+			Hint="Search user ID..."
+			PackIconKind="Magnify"
+			Text="{Binding Path=SearchString}"
+			Command="{Binding SearchCommand}" />
+		<Grid
+			Grid.Row="1"
+			Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter}}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<md:ColorZone
+				Grid.Row="0"
+				Mode="Accent">
+				<Grid
+					Margin="5">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						Padding="10 0"
+						TextWrapping="Wrap"
+						Style="{DynamicResource MaterialDesignDisplay3TextBlock}"
+						Text="{Binding SearchResult.UserName}" />
+					<StackPanel
+						Grid.Row="1"
+						Grid.Column="0"
+						Orientation="Horizontal">
+						<TextBlock
+							Padding="10 0"
+							TextWrapping="Wrap"
+							VerticalAlignment="Center"
+							Style="{DynamicResource MaterialDesignBody2TextBlock}"
+							Text="{Binding SearchResult.UserId}" />
+						<md:ColorZone
+							Mode="PrimaryMid"
+							VerticalAlignment="Center"
+							CornerRadius="2"
+							Margin="5">
+							<TextBlock
+								Padding="5 2"
+								TextWrapping="Wrap"
+								VerticalAlignment="Center"
+								Text="{Binding SearchResult.MembershipType}" />
+						</md:ColorZone>
+					</StackPanel>
+					<StackPanel
+						Grid.Row="2"
+						Grid.Column="0"
+						Orientation="Horizontal">
+						<TextBlock
+							Padding="10 0"
+							TextWrapping="Wrap"
+							Text="{Binding SearchResult.Email}" />
+						<TextBlock
+							Padding="5 0"
+							TextWrapping="Wrap"
+							Text="{Binding SearchResult.PhoneNumber}" />
+					</StackPanel>
+					<md:PackIcon
+						Grid.Row="0"
+						Grid.RowSpan="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="2"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Right"
+						Width="80"
+						Height="80"
+						Opacity="0.2"
+						Kind="{Binding SearchResult.UserGender, Converter={lc:GenderToPackIconKindConverter}}" />
+				</Grid>
+			</md:ColorZone>
+			<Grid
+				Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<md:ColorZone
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					Mode="Light">
+					<Grid
+						Margin="10"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<TextBlock
+							Padding="10 0"
+							TextWrapping="Wrap"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Bottom"
+							Text="Borrowed" />
+						<TextBlock
+							Grid.Row="1"
+							Padding="10 0"
+							TextWrapping="Wrap"
+							HorizontalAlignment="Center"
+							Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
+							Text="{Binding SearchResult.TotalRecordCount}" />
+						<TextBlock
+							Grid.Row="2"
+							Padding="10 0"
+							TextWrapping="Wrap"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Top"
+							Text="books in total" />
+						<md:PackIcon
+							Grid.Row="0"
+							Grid.RowSpan="3"
+							Margin="5"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Right"
+							Width="80"
+							Height="80"
+							Opacity="0.2"
+							Kind="LibraryBooks" />
+					</Grid>
+				</md:ColorZone>
+				<md:ColorZone
+					Grid.Column="1"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					Mode="Dark">
+					<Grid
+						Margin="10"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<TextBlock
+							Padding="10 0"
+							TextWrapping="Wrap"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Bottom"
+							Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
+							Text="{Binding SearchResult.InHandBooksCount}" />
+						<TextBlock
+							Grid.Row="1"
+							Padding="10 0"
+							TextWrapping="Wrap"
+							HorizontalAlignment="Center"
+							Text="books in hand" />
+						<md:PackIcon
+							Grid.Row="0"
+							Grid.RowSpan="2"
+							Margin="5"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Right"
+							Width="80"
+							Height="80"
+							Opacity="0.2"
+							Kind="BookOpenPageVariant" />
+					</Grid>
+				</md:ColorZone>
+			</Grid>
+			<Button
+				Grid.Row="2"
+				Content="NEXT"
+				Command="{Binding IssueBookCommand}" />
+		</Grid>
+		<controls:ErrorMessageControl
+			Grid.Row="2"
+			Margin="10"
+			Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
+			<controls:ErrorMessageControl.ErrorMessage>
+				<MultiBinding
+					StringFormat="User with id '{0}' not found.">
+					<Binding Path="SearchString" />
+				</MultiBinding>
+			</controls:ErrorMessageControl.ErrorMessage>
+		</controls:ErrorMessageControl>
+	</Grid>
+</UserControl>
