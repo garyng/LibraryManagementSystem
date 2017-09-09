@@ -1,7 +1,7 @@
 using System;
 using Libraryman.Entity;
 
-namespace Libraryman.Wpf.Return
+namespace Libraryman.Wpf.Dto
 {
 	public class BorrowedBookDto
 	{

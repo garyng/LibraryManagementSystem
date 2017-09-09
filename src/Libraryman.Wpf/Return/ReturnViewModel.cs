@@ -7,6 +7,7 @@ using Libraryman.Common.Result;
 using Libraryman.DataAccess;
 using Libraryman.Entity;
 using Libraryman.Wpf.Command;
+using Libraryman.Wpf.Dto;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;

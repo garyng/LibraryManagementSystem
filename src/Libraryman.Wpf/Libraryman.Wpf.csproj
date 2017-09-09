@@ -136,6 +136,8 @@
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\DashboardViewModel.cs" />
+    <Compile Include="Query\GetUserDetailsById.cs" />
+    <Compile Include="Query\GetUserDetailsByIdQueryHandler.cs" />
     <Compile Include="Issue\IssueView.xaml.cs">
       <DependentUpon>IssueView.xaml</DependentUpon>
     </Compile>
@@ -144,6 +146,7 @@
       <DependentUpon>SearchUserView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Issue\SearchUserViewModel.cs" />
+    <Compile Include="Dto\UserDto.cs" />
     <Compile Include="Main\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -192,7 +195,7 @@
     <Compile Include="Converters\OptionalToVisibilityConverter.cs" />
     <Compile Include="Converters\OptionalToVisibilityConverterExtension.cs" />
     <Compile Include="Command\ReturnBorrowedBookByRecordIdCommandHandler.cs" />
-    <Compile Include="Return\BorrowedBookDto.cs" />
+    <Compile Include="Dto\BorrowedBookDto.cs" />
     <Compile Include="Return\ReturnView.xaml.cs">
       <DependentUpon>ReturnView.xaml</DependentUpon>
     </Compile>
