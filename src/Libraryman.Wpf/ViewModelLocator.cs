@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Reflection;
 using Autofac;
 using Autofac.Features.AttributeFilters;
 using Libraryman.Common.Result;
@@ -80,31 +81,13 @@ namespace Libraryman.Wpf
 				.As<IAsyncQueryDispatcher>()
 				.SingleInstance();
 
-			cb.RegisterType<GetStaffByIdQueryHandler>()
-				.As<IAsyncQueryHandler<GetStaffById, Result<Staff>>>();
-			cb.RegisterType<GetTotalBookCountQueryHandler>()
-				.As<IAsyncQueryHandler<GetTotalBookCount, int>>();
-			cb.RegisterType<GetOverdueBookCountQueryHandler>()
-				.As<IAsyncQueryHandler<GetOverdueBookCount, int>>();
-			cb.RegisterType<GetTotalIssuedBookCountQueryHandler>()
-				.As<IAsyncQueryHandler<GetTotalIssuedBookCount, int>>();
-			cb.RegisterType<GetTotalUserCountQueryHandler>()
-				.As<IAsyncQueryHandler<GetTotalUserCount, int>>();
-			cb.RegisterType<GetTodayIssuedBookCountQueryHandler>()
-				.As<IAsyncQueryHandler<GetTodayIssuedBookCount, int>>();
-			cb.RegisterType<GetTodayReturnedBookCountQueryHandler>()
-				.As<IAsyncQueryHandler<GetTodayReturnedBookCount, int>>();
-			cb.RegisterType<GetThisMonthIssuedBookCountQueryHandler>()
-				.As<IAsyncQueryHandler<GetThisMonthIssuedBookCount, int>>();
-			cb.RegisterType<GetThisMonthReturnedBookCountQueryHandler>()
-				.As<IAsyncQueryHandler<GetThisMonthReturnedBookCount, int>>();
-			cb.RegisterType<GetBorrowedBookDetailsByBarcodeQueryHandler>()
-				.As<IAsyncQueryHandler<GetBorrowedBookDetailsByBarcode, Option<BorrowedBook>>>();
-
-			cb.RegisterType<UpdateLastLoginTimeByStaffIdCommandHandler>()
-				.As<IAsyncCommandHandler<UpdateLastLoginTimeByStaffId, Result>>();
-			cb.RegisterType<ReturnBorrowedBookByRecordIdCommandHandler>()
-				.As<IAsyncCommandHandler<ReturnBorrowedBookByRecordId, Result>>();
+			Assembly asm = Assembly.GetExecutingAssembly();
+			cb.RegisterAssemblyTypes(asm)
+				.AsClosedTypesOf(typeof(IAsyncQueryHandler<,>))
+				.AsImplementedInterfaces();
+			cb.RegisterAssemblyTypes(asm)
+				.AsClosedTypesOf(typeof(IAsyncCommandHandler<,>))
+				.AsImplementedInterfaces();
 
 			cb.RegisterType<AuthenticationService>()
 				.As<IAuthenticationService>();
