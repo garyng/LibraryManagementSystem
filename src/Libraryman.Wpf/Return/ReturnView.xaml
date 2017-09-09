@@ -22,7 +22,7 @@
 			HorizontalAlignment="Center"
 			Hint="Search barcode..."
 			PackIconKind="Magnify"
-			Text="{Binding BarcodeSearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			Text="{Binding BarcodeSearchString}"
 			Command="{Binding SearchCommand}" />
 		<Grid
 			Grid.Row="1"

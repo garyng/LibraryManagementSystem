@@ -31,7 +31,12 @@ namespace Libraryman.Wpf.Controls
 		}
 
 		public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
-			"Text", typeof(string), typeof(SearchControl), new PropertyMetadata(default(string)));
+			"Text", typeof(string), typeof(SearchControl),
+			new FrameworkPropertyMetadata()
+			{
+				BindsTwoWayByDefault = true,
+				DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+			});
 
 		public string Text
 		{
