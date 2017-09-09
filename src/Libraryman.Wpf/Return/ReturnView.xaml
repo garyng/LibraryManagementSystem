@@ -28,10 +28,10 @@
 			Grid.Row="1"
 			Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter}}">
 			<Grid.RowDefinitions>
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
-				<RowDefinition />
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<md:ColorZone
 				Mode="Accent">
@@ -51,7 +51,7 @@
 						Grid.Column="0"
 						Padding="10 10 10 0"
 						TextWrapping="Wrap"
-						Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+						Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
 						Text="{Binding BookSearchResult.BookTitle}" />
 					<TextBlock
 						Grid.Row="1"
@@ -91,6 +91,18 @@
 							HorizontalAlignment="Right"
 							Text="Book Barcode" />
 					</StackPanel>
+					<md:PackIcon
+						Grid.Row="0"
+						Grid.RowSpan="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="2"
+						Margin="10"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						Width="80"
+						Height="80"
+						Opacity="0.2"
+						Kind="BookOpenPageVariant" />
 				</Grid>
 			</md:ColorZone>
 			<md:ColorZone
@@ -165,14 +177,30 @@
 							HorizontalAlignment="Right"
 							Text="Record ID" />
 					</StackPanel>
+					<md:PackIcon
+						Grid.Row="0"
+						Grid.RowSpan="3"
+						Grid.Column="0"
+						Grid.ColumnSpan="2"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						Width="80"
+						Height="80"
+						Opacity="0.2"
+						Kind="Account" />
 				</Grid>
 			</md:ColorZone>
 			<md:ColorZone
 				Mode="Light"
 				Grid.Row="2"
 				Visibility="{Binding BookSearchResult.IsOverdue, Converter={c:BooleanToVisibilityConverter}}">
-				<StackPanel
+				<Grid
 					Margin="5">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
 					<TextBlock
 						Padding="10 0"
 						Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
@@ -184,6 +212,7 @@
 						</TextBlock.Text>
 					</TextBlock>
 					<TextBlock
+						Grid.Row="1"
 						Padding="10 0"
 						TextWrapping="Wrap">
 						<TextBlock.Text>
@@ -192,7 +221,16 @@
 							</MultiBinding>
 						</TextBlock.Text>
 					</TextBlock>
-				</StackPanel>
+					<md:PackIcon
+						Grid.Row="0"
+						Grid.RowSpan="3"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Right"
+						Width="80"
+						Height="80"
+						Opacity="0.2"
+						Kind="ClockAlert" />
+				</Grid>
 			</md:ColorZone>
 			<Button
 				Grid.Row="3"

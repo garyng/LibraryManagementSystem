@@ -23,6 +23,7 @@ namespace Libraryman.DataAccess
 			modelBuilder.Entity<User>()
 				.Property(u => u.Email)
 				.IsOptional();
+
 			modelBuilder.Entity<User>()
 				.HasRequired(u => u.Type);
 
@@ -36,7 +37,7 @@ namespace Libraryman.DataAccess
 				.WithMany(a => a.Books);
 
 			modelBuilder.Entity<BorrowedBook>()
-				.HasKey(bb => new { bb.RecordId, bb.UserId, bb.BookBarcode });
+				.HasKey(bb => new {bb.RecordId, bb.UserId, bb.BookBarcode});
 
 			modelBuilder.Entity<ReturnedBook>()
 				.HasKey(rb => new {rb.RecordId, rb.UserId, rb.BookBarcode});
