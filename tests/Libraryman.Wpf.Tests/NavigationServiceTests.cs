@@ -25,6 +25,7 @@ namespace Libraryman.Wpf.Tests
 
 		public class FakeViewModelBase : INavigationTarget
 		{
+			public bool GoBackOnly { get; } = false;
 		}
 
 		private INavigationHost<FakeViewModelBase> _navigationHost;

@@ -18,7 +18,18 @@
 			Margin="10"
 			Cursor="Hand"
 			Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
-			IsChecked="{Binding IsHamburgerButtonToggled}" />
+			IsChecked="{Binding IsHamburgerButtonToggled}"
+			Visibility="{Binding Source={StaticResource Locator}, Path=MainViewModel.CurrentViewModel.GoBackOnly, Converter={c:BooleanToVisibilityConverter IsReversed=True}}" />
+		<Button
+			IsCancel="True"
+			Style="{DynamicResource MaterialDesignToolForegroundButton}"
+			Visibility="{Binding Source={StaticResource Locator}, Path=MainViewModel.CurrentViewModel.GoBackOnly, Converter={c:BooleanToVisibilityConverter}}"
+			Command="{Binding GoBackCommand}">
+			<md:PackIcon
+				Width="24"
+				Height="24"
+				Kind="ArrowLeft"/>
+		</Button>
 		<md:PackIcon
 			DockPanel.Dock="Right"
 			Width="24"

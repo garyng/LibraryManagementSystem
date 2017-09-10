@@ -1,4 +1,5 @@
-﻿using Libraryman.Wpf.Navigation;
+﻿using GalaSoft.MvvmLight.Command;
+using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Service;
 
 namespace Libraryman.Wpf.Shell
@@ -15,9 +16,12 @@ namespace Libraryman.Wpf.Shell
 
 		public AuthenticationState AuthenticationState { get; }
 
+		public RelayCommand GoBackCommand { get; set; }
+
 		public ShellHeaderViewModel(INavigationService<ViewModelBase> navigation, AuthenticationState @as) : base(navigation)
 		{
 			AuthenticationState = @as;
+			GoBackCommand = new RelayCommand(OnGoBack);
 #if DEBUG
 			if (IsInDesignModeStatic)
 			{
@@ -25,6 +29,13 @@ namespace Libraryman.Wpf.Shell
 			}
 
 #endif
+		}
+		private void OnGoBack()
+		{
+			if (_navigation.CanGoBack())
+			{
+				_navigation.GoBack();
+			}
 		}
 	}
 }
