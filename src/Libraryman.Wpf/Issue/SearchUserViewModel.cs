@@ -56,6 +56,7 @@ namespace Libraryman.Wpf.Issue
 		{
 			_queryDispatcher = queryDispatcher;
 			SearchCommand = new RelayCommand(async () => await OnSearch().ConfigureAwait(false), CanSearch);
+			IssueBookCommand = new RelayCommand(OnGoToIssueBook);
 #if DEBUG
 			if (IsInDesignModeStatic)
 			{
@@ -92,6 +93,11 @@ namespace Libraryman.Wpf.Issue
 					return Option.Some(true);
 				},
 				none: () => Option.Some(false));
+		}
+
+		private void OnGoToIssueBook()
+		{
+			_navigation.GoTo<IssueViewModel>();
 		}
 	}
 }
