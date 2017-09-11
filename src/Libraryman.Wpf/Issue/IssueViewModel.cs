@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -18,107 +17,6 @@ using MoreLinq;
 
 namespace Libraryman.Wpf.Issue
 {
-	public class RecordDto
-	{
-		public int RecordId { get; set; }
-		public RecordType RecordType { get; set; }
-		public DateTime Timestamp { get; set; }
-		public int StaffId { get; set; }
-		public string StaffName { get; set; }
-		public int BookBarcode { get; set; }
-		public string BookISBN { get; set; }
-		public string BookTitle { get; set; }
-		public string BookEdition { get; set; }
-		public string BookPrice { get; set; }
-		public string BookDescription { get; set; }
-		public string BookPublishedYear { get; set; }
-		public string BookStatus { get; set; }
-		public string BookType { get; set; }
-		public string PublisherName { get; set; }
-		public IEnumerable<string> AuthorNames { get; set; }
-
-		public RecordDto()
-		{
-		}
-
-		public RecordDto(Record record)
-		{
-			RecordId = record.Id;
-			RecordType = record.Type;
-			Timestamp = record.Timestamp;
-			StaffId = record.StaffId;
-			StaffName = record.Staff.Name;
-			BookBarcode = record.Book.Barcode;
-			BookISBN = record.Book.ISBN;
-			BookTitle = record.Book.Title;
-			BookEdition = record.Book.Edition;
-			BookPrice = record.Book.Price.ToString("0.00");
-			BookDescription = record.Book.Description;
-			BookPublishedYear = record.Book.PublishedYear;
-			BookStatus = record.Book.Status.ToString();
-			BookType = record.Book.Type.Name;
-			PublisherName = record.Book.Publisher.Name;
-			AuthorNames = record.Book.Authors.Select(a => a.Author.Name);
-		}
-	}
-
-	public class GetAllRecordByUserId : IQuery
-	{
-		public int UserId { get; set; }
-	}
-
-	public class GetAllRecordByUserIdQueryHandler : AsyncQueryHandlerBase<GetAllRecordByUserId, IEnumerable<Record>>
-	{
-		public GetAllRecordByUserIdQueryHandler(LibrarymanContext context) : base(context)
-		{
-		}
-
-		public override async Task<IEnumerable<Record>> HandleAsync(GetAllRecordByUserId query)
-		{
-			List<Record> records = await _context
-				.Records
-				.AsNoTracking()
-				.Include(r => r.Staff)
-				.Include(r => r.Book)
-				.Include(r => r.Book.Type)
-				.Include(r => r.Book.Publisher)
-				.Include(r => r.Book.Authors.Select(a => a.Author))
-				.Where(r => r.UserId == query.UserId)
-				.ToListAsync()
-				.ConfigureAwait(false);
-			return records?.Count > 0 ? records : new List<Record>();
-		}
-	}
-
-	public class GetAllBorrowedBooksByUserId : IQuery
-	{
-		public int UserId { get; set; }
-	}
-
-	public class GetAllBorrowedBooksByUserIdQueryHandler : AsyncQueryHandlerBase<GetAllBorrowedBooksByUserId,
-		IEnumerable<BorrowedBook>>
-	{
-		public GetAllBorrowedBooksByUserIdQueryHandler(LibrarymanContext context) : base(context)
-		{
-		}
-
-		public override async Task<IEnumerable<BorrowedBook>> HandleAsync(GetAllBorrowedBooksByUserId query)
-		{
-			List<BorrowedBook> borrowedBooks = await _context
-				.BorrowedBooks
-				.AsNoTracking()
-				.Include(bb => bb.Record)
-				.Include(bb => bb.Book)
-				.Include(bb => bb.User)
-				.Include(bb => bb.User.Type)
-				.Where(bb => bb.UserId == query.UserId)
-				.ToListAsync()
-				.ConfigureAwait(false);
-
-			return borrowedBooks?.Count > 0 ? borrowedBooks : new List<BorrowedBook>();
-		}
-	}
-
 	public class IssueViewModel : ViewModelBase
 	{
 		private readonly IAsyncQueryDispatcher _queryDispatcher;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bogus;
 using Libraryman.Entity;
+using Libraryman.Wpf.Dto;
 using Libraryman.Wpf.Issue;
 
 namespace Libraryman.Wpf.Faker

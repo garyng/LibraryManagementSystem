@@ -154,6 +154,11 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Faker\BorrowedBookDtoFaker.cs" />
     <Compile Include="Faker\RecordDtoFaker.cs" />
+    <Compile Include="Dto\RecordDto.cs" />
+    <Compile Include="Query\GetAllRecordByUserId.cs" />
+    <Compile Include="Query\GetAllBorrowedBooksByUserId.cs" />
+    <Compile Include="Query\GetAllBorrowedBooksByUserIdQueryHandler.cs" />
+    <Compile Include="Query\GetAllRecordByUserIdQueryHandler.cs" />
     <Compile Include="Query\GetUserDetailsById.cs" />
     <Compile Include="Query\GetUserDetailsByIdQueryHandler.cs" />
     <Compile Include="Issue\IssueView.xaml.cs">

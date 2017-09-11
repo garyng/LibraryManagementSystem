@@ -67,8 +67,7 @@
 				Visibility="{Binding Records.Count, Converter={lc:CollectionCountToVisibilityConverter IsReversed=True}}"
 				Message="Much emptiness..." />
 		</Grid>
-		
-		
+
 		<GridSplitter
 			Height="2"
 			HorizontalAlignment="Stretch"
@@ -81,11 +80,26 @@
 			</Grid.RowDefinitions>
 			<md:ColorZone
 				Mode="PrimaryDark">
-				<TextBlock
-					TextWrapping="Wrap"
-					Margin="15"
-					Text="Books In Hand"
-					Style="{DynamicResource MaterialDesignDisplay1TextBlock}" />
+				<DockPanel>
+					<Button
+						DockPanel.Dock="Right"
+						Margin="10"
+						Width="40"
+						Height="40"
+						Style="{DynamicResource MaterialDesignToolForegroundButton}">
+						<md:PackIcon
+							VerticalAlignment="Center"
+							HorizontalAlignment="Center"
+							Width="32"
+							Height="32"
+							Kind="Plus" />
+					</Button>
+					<TextBlock
+						TextWrapping="Wrap"
+						Margin="15"
+						Text="Books In Hand"
+						Style="{DynamicResource MaterialDesignDisplay1TextBlock}" />
+				</DockPanel>
 			</md:ColorZone>
 			<Grid
 				Grid.Row="1"
@@ -118,6 +132,6 @@
 				Visibility="{Binding BorrowedBooks.Count, Converter={lc:CollectionCountToVisibilityConverter IsReversed=True}}"
 				Message="Much emptiness... Why not add something here?" />
 		</Grid>
-		
+
 	</Grid>
 </UserControl>

@@ -127,12 +127,12 @@ namespace Libraryman.Wpf
 	{
 		private readonly INavigationService<ViewModelBase> _navigation;
 		private readonly LoginViewModel _login;
-		private readonly SearchUserViewModel _search;
+		private readonly SearchUserViewModel _searchUser;
 
-		public AutomateGui(LoginViewModel login, SearchUserViewModel search)
+		public AutomateGui(LoginViewModel login, SearchUserViewModel searchUser)
 		{
 			_login = login;
-			_search = search;
+			_searchUser = searchUser;
 		}
 
 		public void Automate()
@@ -142,9 +142,9 @@ namespace Libraryman.Wpf
 			
 			_login.LoginCommand.Execute(null);
 
-			_search.SearchString = "1000000";
-			_search.SearchCommand.Execute(null);
-			_search.IssueBookCommand.Execute(null);
+			_searchUser.SearchString = "1000000";
+			_searchUser.SearchCommand.Execute(null);
+			_searchUser.IssueBookCommand.Execute(null);
 
 		}
 	}

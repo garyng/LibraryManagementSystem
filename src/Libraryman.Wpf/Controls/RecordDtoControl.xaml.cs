@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Libraryman.Entity;
+using Libraryman.Wpf.Dto;
 using Libraryman.Wpf.Faker;
 using Libraryman.Wpf.Issue;
 
