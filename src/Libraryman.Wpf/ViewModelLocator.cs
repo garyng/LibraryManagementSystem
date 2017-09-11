@@ -142,7 +142,7 @@ namespace Libraryman.Wpf
 			
 			_login.LoginCommand.Execute(null);
 
-			_search.SearchString = "1000005";
+			_search.SearchString = "1000000";
 			_search.SearchCommand.Execute(null);
 			_search.IssueBookCommand.Execute(null);
 

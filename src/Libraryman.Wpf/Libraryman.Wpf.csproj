@@ -127,6 +127,9 @@
     <Compile Include="Controls\ErrorMessageControl.xaml.cs">
       <DependentUpon>ErrorMessageControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\IsEmptyMessageControl.xaml.cs">
+      <DependentUpon>IsEmptyMessageControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RecordDtoControl.xaml.cs">
       <DependentUpon>RecordDtoControl.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,7 @@
     <Compile Include="Controls\UserInfoControl.xaml.cs">
       <DependentUpon>UserInfoControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\CountToVisibilityConverter.cs" />
     <Compile Include="Converters\DateToDaysFromTodayConverter.cs" />
     <Compile Include="Converters\GenderToPackIconKindConverter.cs" />
     <Compile Include="Converters\RecordTypeToPackIconKindConverter.cs" />
@@ -240,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ErrorMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\IsEmptyMessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

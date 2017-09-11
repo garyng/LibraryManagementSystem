@@ -93,6 +93,7 @@
 						Style="{DynamicResource MaterialDesignBody1TextBlock}"
 						Text="{Binding BorrowedBookDto.BookISBN}" />
 					<TextBlock
+						Margin="10 0"
 						TextWrapping="Wrap"
 						VerticalAlignment="Center"
 						Style="{DynamicResource MaterialDesignBody1TextBlock}"

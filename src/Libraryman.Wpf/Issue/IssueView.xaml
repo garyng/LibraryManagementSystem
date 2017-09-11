@@ -27,11 +27,14 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<TextBlock
-				TextWrapping="Wrap"
-				Margin="15"
-				Text="History"
-				Style="{DynamicResource MaterialDesignDisplay1TextBlock}" />
+			<md:ColorZone
+				Mode="PrimaryMid">
+				<TextBlock
+					TextWrapping="Wrap"
+					Margin="15"
+					Text="History"
+					Style="{DynamicResource MaterialDesignDisplay1TextBlock}" />
+			</md:ColorZone>
 			<Grid
 				Grid.Row="1"
 				Margin="15 0 0 0">
@@ -39,7 +42,8 @@
 					HorizontalScrollBarVisibility="Disabled"
 					VerticalScrollBarVisibility="Auto">
 					<ItemsControl
-						ItemsSource="{Binding Records}">
+						ItemsSource="{Binding Records}"
+						Visibility="{Binding Records.Count, Converter={lc:CollectionCountToVisibilityConverter}}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
 								<Border
@@ -54,22 +58,35 @@
 					</ItemsControl>
 				</ScrollViewer>
 			</Grid>
+			<c:IsEmptyMessageControl
+				Grid.Row="1"
+				Margin="10"
+				Opacity="0.5"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				Visibility="{Binding Records.Count, Converter={lc:CollectionCountToVisibilityConverter IsReversed=True}}"
+				Message="Much emptiness..." />
 		</Grid>
+		
+		
 		<GridSplitter
-			Height="3"
+			Height="2"
 			HorizontalAlignment="Stretch"
 			Grid.Row="2" />
 		<Grid
 			Grid.Row="3">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<TextBlock
-				TextWrapping="Wrap"
-				Margin="15"
-				Text="Books In Hand"
-				Style="{DynamicResource MaterialDesignDisplay1TextBlock}" />
+			<md:ColorZone
+				Mode="PrimaryDark">
+				<TextBlock
+					TextWrapping="Wrap"
+					Margin="15"
+					Text="Books In Hand"
+					Style="{DynamicResource MaterialDesignDisplay1TextBlock}" />
+			</md:ColorZone>
 			<Grid
 				Grid.Row="1"
 				Margin="15 0 0 0">
@@ -92,6 +109,15 @@
 					</ItemsControl>
 				</ScrollViewer>
 			</Grid>
+			<c:IsEmptyMessageControl
+				Grid.Row="1"
+				Margin="10"
+				Opacity="0.5"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				Visibility="{Binding BorrowedBooks.Count, Converter={lc:CollectionCountToVisibilityConverter IsReversed=True}}"
+				Message="Much emptiness... Why not add something here?" />
 		</Grid>
+		
 	</Grid>
 </UserControl>
