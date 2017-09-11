@@ -11,50 +11,22 @@ namespace Libraryman.Wpf.Issue
 	public class SearchUserViewModel : ViewModelBase
 	{
 		private readonly IAsyncQueryDispatcher _queryDispatcher;
-		private string _searchString;
 
-		public string SearchString
-		{
-			get => _searchString;
-			set
-			{
-				Set(ref _searchString, value);
-				SearchCommand?.RaiseCanExecuteChanged();
-				// if the search string change, reset to none to hide either the error message view/the result view
-				IsFound = Option.None<bool>();
-			}
-		}
-
-		private Option<bool> _isFound;
-
-		public Option<bool> IsFound
-		{
-			get => _isFound;
-			set => Set(ref _isFound, value);
-		}
-
-		private UserDto _searchResult;
-
-		public UserDto SearchResult
-		{
-			get => _searchResult;
-			set => Set(ref _searchResult, value);
-		}
-
-		public RelayCommand SearchCommand { get; set; }
 		public RelayCommand IssueBookCommand { get; set; }
+		public EntitySearcher<UserDto> Searcher { get; set; }
+
 
 		public SearchUserViewModel(INavigationService<ViewModelBase> navigation,
 			IAsyncQueryDispatcher queryDispatcher)
 			: base(navigation)
 		{
 			_queryDispatcher = queryDispatcher;
-			SearchCommand = new RelayCommand(async () => await OnSearch().ConfigureAwait(false), CanSearch);
+			Searcher = new EntitySearcher<UserDto>(async (search) => await OnSearch(search).ConfigureAwait(false));
 			IssueBookCommand = new RelayCommand(OnGoToIssueBook);
 #if DEBUG
 			if (IsInDesignModeStatic)
 			{
-				SearchResult = new UserDto()
+				Searcher.SearchResult = new UserDto()
 				{
 					UserId = 100001,
 					Email = "email@email.com",
@@ -69,31 +41,19 @@ namespace Libraryman.Wpf.Issue
 #endif
 		}
 
-		private bool CanSearch()
+		private async Task<Option<UserDto>> OnSearch(string searchString)
 		{
-			return _searchString?.Length > 0 && int.TryParse(_searchString, out int _);
-		}
-
-		private async Task OnSearch()
-		{
-			Option<User> result = await _queryDispatcher.DispatchAsync<GetUserDetailsById, Option<User>>(
-					new GetUserDetailsById() {UserId = int.Parse(_searchString)})
+			Option<User> option = await _queryDispatcher.DispatchAsync<GetUserDetailsById, Option<User>>(
+					new GetUserDetailsById() {UserId = int.Parse(searchString)})
 				.ConfigureAwait(false);
-
-			IsFound = result.Match(
-				some: user =>
-				{
-					SearchResult = new UserDto(user);
-					return Option.Some(true);
-				},
-				none: () => Option.Some(false));
+			return option.Map(user => new UserDto(user));
 		}
 
 		private void OnGoToIssueBook()
 		{
 			_navigation.GoTo<IssueViewModel>(vm =>
 			{
-				vm.User = SearchResult;
+				vm.User = Searcher.SearchResult;
 				vm.LoadDetailsCommand?.Execute(null);
 			});
 		}

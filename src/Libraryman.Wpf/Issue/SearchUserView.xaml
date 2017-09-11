@@ -25,11 +25,11 @@
 				HorizontalAlignment="Center"
 				Hint="Search user ID..."
 				PackIconKind="Magnify"
-				Text="{Binding Path=SearchString}"
-				Command="{Binding SearchCommand}" />
+				Text="{Binding Path=Searcher.SearchString}"
+				Command="{Binding Searcher.SearchCommand}" />
 			<Grid
 				Grid.Row="1"
-				Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter}}">
+				Visibility="{Binding Searcher.IsFound, Converter={lc:OptionalToVisibilityConverter}}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
@@ -38,7 +38,7 @@
 				<controls:UserInfoControl
 					BackgroundColorZoneMode="Accent"
 					MemberBadgeColorZoneMode="PrimaryMid"
-					User="{Binding SearchResult}"></controls:UserInfoControl>
+					User="{Binding Searcher.SearchResult}"></controls:UserInfoControl>
 				<Grid
 					Grid.Row="1">
 					<Grid.ColumnDefinitions>
@@ -70,7 +70,7 @@
 								TextWrapping="Wrap"
 								HorizontalAlignment="Center"
 								Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
-								Text="{Binding SearchResult.TotalRecordCount}" />
+								Text="{Binding Searcher.SearchResult.TotalRecordCount}" />
 							<TextBlock
 								Grid.Row="2"
 								Padding="10 0"
@@ -109,7 +109,7 @@
 								HorizontalAlignment="Center"
 								VerticalAlignment="Bottom"
 								Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
-								Text="{Binding SearchResult.InHandBooksCount}" />
+								Text="{Binding Searcher.SearchResult.InHandBooksCount}" />
 							<TextBlock
 								Grid.Row="1"
 								Padding="10 0"
@@ -137,11 +137,11 @@
 			<controls:ErrorMessageControl
 				Grid.Row="2"
 				Margin="10"
-				Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
+				Visibility="{Binding Searcher.IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
 				<controls:ErrorMessageControl.ErrorMessage>
 					<MultiBinding
 						StringFormat="User with id '{0}' not found.">
-						<Binding Path="SearchString" />
+						<Binding Path="Searcher.SearchString" />
 					</MultiBinding>
 				</controls:ErrorMessageControl.ErrorMessage>
 			</controls:ErrorMessageControl>

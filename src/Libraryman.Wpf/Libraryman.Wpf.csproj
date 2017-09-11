@@ -151,6 +151,7 @@
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\DashboardViewModel.cs" />
+    <Compile Include="EntitySearcher.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Faker\BorrowedBookDtoFaker.cs" />
     <Compile Include="Faker\RecordDtoFaker.cs" />
