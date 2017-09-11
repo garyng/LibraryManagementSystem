@@ -16,6 +16,7 @@ namespace Libraryman.Wpf.Query
 		{
 			User user = await _context
 				.Users
+				.AsNoTracking()
 				.Include(u => u.Type)
 				.Include(u => u.Records)
 				.Include(u => u.BorrowedBooks)

@@ -13,7 +13,9 @@ namespace Libraryman.Wpf.Query
 		public override async Task<int> HandleAsync(GetTotalUserCount query)
 		{
 			return await _context
-				.Users.CountAsync()
+				.Users
+				.AsNoTracking()
+				.CountAsync()
 				.ConfigureAwait(false);
 		}
 	}

@@ -15,6 +15,7 @@ namespace Libraryman.Wpf.Query
 		{
 			return await _context
 				.BorrowedBooks
+				.AsNoTracking()
 				.CountAsync(bb => DateTime.Now > bb.DueDate)
 				.ConfigureAwait(false);
 		}

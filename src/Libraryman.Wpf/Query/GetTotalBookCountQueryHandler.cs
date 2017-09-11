@@ -12,7 +12,11 @@ namespace Libraryman.Wpf.Query
 
 		public override async Task<int> HandleAsync(GetTotalBookCount query)
 		{
-			return await _context.Books.CountAsync().ConfigureAwait(false);
+			return await _context
+				.Books
+				.AsNoTracking()
+				.CountAsync()
+				.ConfigureAwait(false);
 		}
 	}
 }

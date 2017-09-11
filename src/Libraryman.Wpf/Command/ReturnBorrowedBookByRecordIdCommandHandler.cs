@@ -18,6 +18,7 @@ namespace Libraryman.Wpf.Command
 			Record record = await _context
 				.Records
 				.Include(r => r.User)
+				.Include(r => r.User.Type)
 				.Include(r => r.Staff)
 				.Include(r => r.Book)
 				.SingleOrDefaultAsync(r => r.Id == command.RecordId)

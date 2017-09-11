@@ -22,7 +22,7 @@ namespace Libraryman.Wpf.Query
 					.Include(bb => bb.Book)
 					.Include(bb => bb.User)
 					.Include(bb => bb.User.Type)
-					// .AsNoTracking()
+					.AsNoTracking()
 					// should be single or default
 					.FirstOrDefaultAsync(bb => bb.BookBarcode == query.Barcode)
 					.ConfigureAwait(false);

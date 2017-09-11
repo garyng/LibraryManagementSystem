@@ -77,6 +77,7 @@ namespace Libraryman.Wpf.Issue
 		{
 			List<Record> records = await _context
 				.Records
+				.AsNoTracking()
 				.Include(r => r.Staff)
 				.Include(r => r.Book)
 				.Include(r => r.Book.Type)
@@ -105,9 +106,11 @@ namespace Libraryman.Wpf.Issue
 		{
 			List<BorrowedBook> borrowedBooks = await _context
 				.BorrowedBooks
+				.AsNoTracking()
 				.Include(bb => bb.Record)
 				.Include(bb => bb.Book)
 				.Include(bb => bb.User)
+				.Include(bb => bb.User.Type)
 				.Where(bb => bb.UserId == query.UserId)
 				.ToListAsync()
 				.ConfigureAwait(false);
@@ -146,7 +149,6 @@ namespace Libraryman.Wpf.Issue
 			set => Set(ref _borrowedBooks, value);
 		}
 
-		
 
 		public RelayCommand LoadDetailsCommand { get; set; }
 
@@ -188,7 +190,8 @@ namespace Libraryman.Wpf.Issue
 				.OrderByDescending(r => r.Timestamp);
 			Records = records.ToObservableCollection();
 
-			IOrderedEnumerable<BorrowedBookDto> borrowedBooks = (await _queryDispatcher.DispatchAsync<GetAllBorrowedBooksByUserId, IEnumerable<BorrowedBook>>(
+			IOrderedEnumerable<BorrowedBookDto> borrowedBooks = (await _queryDispatcher
+					.DispatchAsync<GetAllBorrowedBooksByUserId, IEnumerable<BorrowedBook>>(
 						new GetAllBorrowedBooksByUserId() {UserId = _user.UserId})
 					.ConfigureAwait(false))
 				.Select(bb => new BorrowedBookDto(bb))

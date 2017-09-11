@@ -19,6 +19,7 @@ namespace Libraryman.Wpf.Query
 			DateTime now = DateTime.Now;
 			List<Record> records = await _context
 				.Records
+				.AsNoTracking()
 				.Where(r => r.Type == RecordType.Issue)
 				.ToListAsync()
 				.ConfigureAwait(false);

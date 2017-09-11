@@ -15,6 +15,7 @@ namespace Libraryman.Wpf.Query
 		{
 			return await _context
 				.Records
+				.AsNoTracking()
 				.CountAsync(r => r.Type == RecordType.Issue)
 				.ConfigureAwait(false);
 		}
