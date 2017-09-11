@@ -51,6 +51,11 @@ namespace Libraryman.Wpf
 			SearchCommand = new RelayCommand(async () => await OnSearch().ConfigureAwait(false), CanSearch);
 		}
 
+		public void ClearSearchString()
+		{
+			SearchString = "";
+		}
+
 		private bool CanSearch()
 		{
 			return _canSearchFunc(_searchString);

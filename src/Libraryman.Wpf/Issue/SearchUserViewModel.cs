@@ -21,7 +21,7 @@ namespace Libraryman.Wpf.Issue
 			: base(navigation)
 		{
 			_queryDispatcher = queryDispatcher;
-			Searcher = new EntitySearcher<UserDto>(async (search) => await OnSearch(search).ConfigureAwait(false));
+			Searcher = new EntitySearcher<UserDto>(async search => await OnSearch(search).ConfigureAwait(false));
 			IssueBookCommand = new RelayCommand(OnGoToIssueBook);
 #if DEBUG
 			if (IsInDesignModeStatic)
@@ -56,6 +56,7 @@ namespace Libraryman.Wpf.Issue
 				vm.User = Searcher.SearchResult;
 				vm.LoadDetailsCommand?.Execute(null);
 			});
+			Searcher.ClearSearchString();
 		}
 	}
 }

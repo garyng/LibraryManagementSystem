@@ -25,11 +25,11 @@
 				HorizontalAlignment="Center"
 				Hint="Search barcode..."
 				PackIconKind="Magnify"
-				Text="{Binding BarcodeSearchString}"
-				Command="{Binding SearchCommand}" />
+				Text="{Binding Searcher.SearchString}"
+				Command="{Binding Searcher.SearchCommand}" />
 			<Grid
 				Grid.Row="1"
-				Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter}}">
+				Visibility="{Binding Searcher.IsFound, Converter={lc:OptionalToVisibilityConverter}}">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
@@ -55,7 +55,7 @@
 							Padding="10 10 10 0"
 							TextWrapping="Wrap"
 							Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
-							Text="{Binding BookSearchResult.BookTitle}" />
+							Text="{Binding Searcher.SearchResult.BookTitle}" />
 						<TextBlock
 							Grid.Row="1"
 							Grid.Column="0"
@@ -64,8 +64,8 @@
 							Style="{DynamicResource MaterialDesignBody2TextBlock}">
 							<TextBlock.Text>
 								<MultiBinding StringFormat="{}{0} ({1})">
-									<Binding Path="BookSearchResult.BookEdition" />
-									<Binding Path="BookSearchResult.PublishedYear" />
+									<Binding Path="Searcher.SearchResult.BookEdition" />
+									<Binding Path="Searcher.SearchResult.PublishedYear" />
 								</MultiBinding>
 							</TextBlock.Text>
 						</TextBlock>
@@ -74,7 +74,7 @@
 							Grid.Column="0"
 							Padding="10 0 10 10"
 							TextWrapping="Wrap"
-							Text="{Binding BookSearchResult.BookISBN}" />
+							Text="{Binding Searcher.SearchResult.BookISBN}" />
 						<StackPanel
 							Grid.Row="0"
 							Grid.RowSpan="3"
@@ -86,7 +86,7 @@
 								Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
 								HorizontalAlignment="Right">
 								<TextBlock.Text>
-									<Binding Path="BookSearchResult.BookBarcode"/>
+									<Binding Path="Searcher.SearchResult.BookBarcode"/>
 								</TextBlock.Text>
 							</TextBlock>
 							<TextBlock
@@ -128,7 +128,7 @@
 							Padding="10 0 10 0"
 							TextWrapping="Wrap"
 							Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
-							Text="{Binding BookSearchResult.UserName}" />
+							Text="{Binding Searcher.SearchResult.UserName}" />
 						<StackPanel
 							Grid.Row="1"
 							Grid.Column="0"
@@ -138,7 +138,7 @@
 								TextWrapping="Wrap"
 								VerticalAlignment="Center"
 								Style="{DynamicResource MaterialDesignBody2TextBlock}"
-								Text="{Binding BookSearchResult.UserId}" />
+								Text="{Binding Searcher.SearchResult.UserId}" />
 							<md:ColorZone
 								Mode="Light"
 								VerticalAlignment="Center"
@@ -146,7 +146,7 @@
 								<TextBlock
 									Padding="10 0"
 									TextWrapping="Wrap"
-									Text="{Binding BookSearchResult.UserType}" />
+									Text="{Binding Searcher.SearchResult.UserType}" />
 							</md:ColorZone>
 						</StackPanel>
 						<TextBlock
@@ -156,8 +156,8 @@
 							TextWrapping="Wrap">
 							<TextBlock.Text>
 								<MultiBinding StringFormat="Handled by staff {0} on {1:dd/MM/yyyy}">
-									<Binding Path="BookSearchResult.StaffId" />
-									<Binding Path="BookSearchResult.BorrowedDate" />
+									<Binding Path="Searcher.SearchResult.StaffId" />
+									<Binding Path="Searcher.SearchResult.BorrowedDate" />
 								</MultiBinding>
 							</TextBlock.Text>
 						</TextBlock>
@@ -172,7 +172,7 @@
 								Style="{DynamicResource MaterialDesignDisplay2TextBlock}"
 								HorizontalAlignment="Right">
 								<TextBlock.Text>
-									<Binding Path="BookSearchResult.RecordId" StringFormat="#{0}" />
+									<Binding Path="Searcher.SearchResult.RecordId" StringFormat="#{0}" />
 								</TextBlock.Text>
 							</TextBlock>
 							<TextBlock
@@ -196,7 +196,7 @@
 				<md:ColorZone
 					Mode="Light"
 					Grid.Row="2"
-					Visibility="{Binding BookSearchResult.IsOverdue, Converter={c:BooleanToVisibilityConverter}}">
+					Visibility="{Binding Searcher.SearchResult.IsOverdue, Converter={c:BooleanToVisibilityConverter}}">
 					<Grid
 						Margin="5">
 						<Grid.RowDefinitions>
@@ -210,7 +210,7 @@
 							Foreground="{DynamicResource ValidationErrorBrush}">
 							<TextBlock.Text>
 								<MultiBinding StringFormat="RM {0:0.00}">
-									<Binding Path="BookSearchResult.OverdueFine" />
+									<Binding Path="Searcher.SearchResult.OverdueFine" />
 								</MultiBinding>
 							</TextBlock.Text>
 						</TextBlock>
@@ -220,7 +220,7 @@
 							TextWrapping="Wrap">
 							<TextBlock.Text>
 								<MultiBinding StringFormat="Due {0:dd/MM/yyyy}">
-									<Binding Path="BookSearchResult.DueDate" />
+									<Binding Path="Searcher.SearchResult.DueDate" />
 								</MultiBinding>
 							</TextBlock.Text>
 						</TextBlock>
@@ -237,17 +237,17 @@
 				</md:ColorZone>
 				<Button
 					Grid.Row="3"
-					Content="RETURN"
+					Content="Return"
 					Command="{Binding ReturnBookCommand}" />
 			</Grid>
 			<controls:ErrorMessageControl
 				Grid.Row="2"
 				Margin="10"
-				Visibility="{Binding IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
+				Visibility="{Binding Searcher.IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
 				<controls:ErrorMessageControl.ErrorMessage>
 					<MultiBinding
 						StringFormat="Book #{0} does not exist, or it is not issued.">
-						<Binding Path="BarcodeSearchString" />
+						<Binding Path="Searcher.SearchString" />
 					</MultiBinding>
 				</controls:ErrorMessageControl.ErrorMessage>
 			</controls:ErrorMessageControl>

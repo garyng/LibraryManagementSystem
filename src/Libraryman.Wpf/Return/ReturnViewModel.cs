@@ -21,39 +21,8 @@ namespace Libraryman.Wpf.Return
 		private readonly IAsyncQueryDispatcher _queryDispatcher;
 		private readonly IAsyncCommandDispatcher _commandDispatcher;
 
-		private string _barcodeSearchString;
-
-		public string BarcodeSearchString
-		{
-			get => _barcodeSearchString;
-			set
-			{
-				Set(ref _barcodeSearchString, value);
-				SearchCommand?.RaiseCanExecuteChanged();
-				// if the search string change, reset to none to hide either the error message view/the result view
-				IsFound = Option.None<bool>();
-			}
-		}
-
-		private Option<bool> _isFound;
-
-		public Option<bool> IsFound
-		{
-			get => _isFound;
-			set => Set(ref _isFound, value);
-		}
-
-		private BorrowedBookDto _bookSearchResult;
-
-		public BorrowedBookDto BookSearchResult
-		{
-			get => _bookSearchResult;
-			set => Set(ref _bookSearchResult, value);
-		}
-
-
-		public RelayCommand SearchCommand { get; set; }
 		public RelayCommand ReturnBookCommand { get; set; }
+		public EntitySearcher<BorrowedBookDto> Searcher { get; set; }
 
 		public ReturnViewModel(INavigationService<ViewModelBase> navigation, AuthenticationState @as,
 			IAsyncQueryDispatcher queryDispatcher, IAsyncCommandDispatcher commandDispatcher) : base(navigation)
@@ -61,13 +30,12 @@ namespace Libraryman.Wpf.Return
 			_as = @as;
 			_queryDispatcher = queryDispatcher;
 			_commandDispatcher = commandDispatcher;
-			SearchCommand = new RelayCommand(async () => await OnSearch().ConfigureAwait(false), CanSearch);
+			Searcher = new EntitySearcher<BorrowedBookDto>(async search => await OnSearch(search).ConfigureAwait(false));
 			ReturnBookCommand = new RelayCommand(async () => await OnReturnBook().ConfigureAwait(false));
-			_isFound = Option.None<bool>();
 #if DEBUG
 			if (IsInDesignModeStatic)
 			{
-				BookSearchResult = new BorrowedBookDto()
+				Searcher.SearchResult = new BorrowedBookDto()
 				{
 					BookBarcode = 123,
 					BookISBN = "431-22-11408-34-4",
@@ -88,36 +56,24 @@ namespace Libraryman.Wpf.Return
 #endif
 		}
 
-		private bool CanSearch()
-		{
-			return _barcodeSearchString?.Length > 0 && int.TryParse(_barcodeSearchString, out int _);
-		}
-
-		private async Task OnSearch()
+		private async Task<Option<BorrowedBookDto>> OnSearch(string searchString)
 		{
 			Option<BorrowedBook> result = await _queryDispatcher
 				.DispatchAsync<GetBorrowedBookDetailsByBarcode, Option<BorrowedBook>>(
-					new GetBorrowedBookDetailsByBarcode() {Barcode = int.Parse(_barcodeSearchString)})
+					new GetBorrowedBookDetailsByBarcode() {Barcode = int.Parse(searchString)})
 				.ConfigureAwait(false);
-
-			IsFound = result.Match(
-				some: bb =>
-				{
-					BookSearchResult = new BorrowedBookDto(bb);
-					return Option.Some(true);
-				},
-				none: () => Option.Some(false));
+			return result.Map(bb => new BorrowedBookDto(bb));
 		}
 
 		private async Task OnReturnBook()
 		{
 			await _commandDispatcher.DispatchAsync<ReturnBorrowedBookByRecordId, Result>(new ReturnBorrowedBookByRecordId()
 				{
-					RecordId = BookSearchResult.RecordId,
+					RecordId = Searcher.SearchResult.RecordId,
 					StaffId = _as.StaffId
 				})
 				.ConfigureAwait(false);
-			BarcodeSearchString = "";
+			Searcher.ClearSearchString();
 		}
 	}
 }
