@@ -20,14 +20,8 @@ namespace Libraryman.Wpf.Issue
 			{
 				Set(ref _searchString, value);
 				SearchCommand?.RaiseCanExecuteChanged();
-				if (SearchString.Length == 0)
-				{
-					IsFound = Option.None<bool>();
-				}
-				if (IsFound.Contains(false) && SearchString.Length > 0)
-				{
-					IsFound = Option.None<bool>();
-				}
+				// if the search string change, reset to none to hide either the error message view/the result view
+				IsFound = Option.None<bool>();
 			}
 		}
 

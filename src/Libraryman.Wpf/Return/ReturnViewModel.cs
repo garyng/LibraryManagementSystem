@@ -30,17 +30,8 @@ namespace Libraryman.Wpf.Return
 			{
 				Set(ref _barcodeSearchString, value);
 				SearchCommand?.RaiseCanExecuteChanged();
-				if (BarcodeSearchString.Length == 0)
-				{
-					IsFound = Option.None<bool>();
-				}
-				
-				// if previous search = not found
-				// then changing the search string will hide the warning
-				if (IsFound.Contains(false) && BarcodeSearchString.Length > 0)
-				{
-					IsFound = Option.None<bool>();
-				}
+				// if the search string change, reset to none to hide either the error message view/the result view
+				IsFound = Option.None<bool>();
 			}
 		}
 
