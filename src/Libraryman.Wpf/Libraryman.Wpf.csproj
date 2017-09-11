@@ -121,8 +121,14 @@
     </ApplicationDefinition>
     <Compile Include="CommandQueryResolver.cs" />
     <Compile Include="Command\AsyncCommandDispatcher.cs" />
+    <Compile Include="Controls\BorrowedBookDtoControl.xaml.cs">
+      <DependentUpon>BorrowedBookDtoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ErrorMessageControl.xaml.cs">
       <DependentUpon>ErrorMessageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RecordDtoControl.xaml.cs">
+      <DependentUpon>RecordDtoControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ReportCardControl.xaml.cs">
       <DependentUpon>ReportCardControl.xaml</DependentUpon>
@@ -133,12 +139,17 @@
     <Compile Include="Controls\UserInfoControl.xaml.cs">
       <DependentUpon>UserInfoControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DateToDaysFromTodayConverter.cs" />
     <Compile Include="Converters\GenderToPackIconKindConverter.cs" />
+    <Compile Include="Converters\RecordTypeToPackIconKindConverter.cs" />
     <Compile Include="Dashboard\DashboardInfo.cs" />
     <Compile Include="Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\DashboardViewModel.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Faker\BorrowedBookDtoFaker.cs" />
+    <Compile Include="Faker\RecordDtoFaker.cs" />
     <Compile Include="Query\GetUserDetailsById.cs" />
     <Compile Include="Query\GetUserDetailsByIdQueryHandler.cs" />
     <Compile Include="Issue\IssueView.xaml.cs">
@@ -196,7 +207,6 @@
     <Compile Include="Command\AsyncCommandHandlerBase.cs" />
     <Compile Include="Query\AsyncQueryHandlerBase.cs" />
     <Compile Include="Converters\OptionalToVisibilityConverter.cs" />
-    <Compile Include="Converters\OptionalToVisibilityConverterExtension.cs" />
     <Compile Include="Command\ReturnBorrowedBookByRecordIdCommandHandler.cs" />
     <Compile Include="Dto\BorrowedBookDto.cs" />
     <Compile Include="Return\ReturnView.xaml.cs">
@@ -225,7 +235,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\BorrowedBookDtoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ErrorMessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RecordDtoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

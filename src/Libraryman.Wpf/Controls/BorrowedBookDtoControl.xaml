@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="Libraryman.Wpf.Controls.BorrowedBookDtoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Libraryman.Wpf.Controls"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:c="http://schemas.kent.boogaart.com/converters"
+             xmlns:lc="clr-namespace:Libraryman.Wpf.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="500">
+	<Grid
+		VerticalAlignment="Center"
+		d:DataContext="{d:DesignInstance {x:Type local:DesignBorrowedBookDtoControl}, d:IsDesignTimeCreatable=True}"
+		DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<StackPanel
+				Margin="5"
+				VerticalAlignment="Center">
+				<TextBlock
+					Margin="10"
+					TextWrapping="Wrap"
+					TextAlignment="Center"
+					Style="{DynamicResource MaterialDesignHeadlineTextBlock}">
+					<TextBlock.Text>
+						<Binding Path="BorrowedBookDto.RecordId" StringFormat="#{0}" />
+					</TextBlock.Text>
+				</TextBlock>
+				<md:ColorZone
+					Margin="10 0"
+					Mode="Dark"
+					Background="{DynamicResource ValidationErrorBrush}">
+					<TextBlock
+						Text="Overdue"
+						Padding="5"
+						VerticalAlignment="Center"
+						TextAlignment="Center"
+						HorizontalAlignment="Stretch"
+						Foreground="{DynamicResource MaterialDesignDarkForeground}"
+						Background="{DynamicResource ValidationErrorBrush}"
+						Visibility="{Binding BorrowedBookDto.IsOverdue, Converter={c:BooleanToVisibilityConverter}}" />
+				</md:ColorZone>
+				<md:ColorZone
+					Margin="10 0"
+					Mode="Accent">
+					<TextBlock
+						Text="Due in"
+						Padding="5"
+						TextAlignment="Center"
+						Visibility="{Binding BorrowedBookDto.IsOverdue, Converter={c:BooleanToVisibilityConverter IsReversed=True}}" />
+				</md:ColorZone>
+				<md:ColorZone
+					Margin="10 0"
+					Mode="Dark">
+					<md:ColorZone.ToolTip>
+						<Binding Path="BorrowedBookDto.DueDate" StringFormat="{}{0:dd/MM/yyyy}" />
+					</md:ColorZone.ToolTip>
+					<TextBlock
+						Padding="5"
+						TextAlignment="Center">
+						<TextBlock.Text>
+							<Binding
+								Path="BorrowedBookDto.DueDate"
+								Converter="{lc:DateToDaysFromTodayConverterExtensions}"
+								StringFormat="{}{0} day(s)" />
+						</TextBlock.Text>
+					</TextBlock>
+				</md:ColorZone>
+			</StackPanel>
+			<Grid
+				Grid.Column="1"
+				VerticalAlignment="Center">
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<TextBlock
+					Grid.Row="0"
+					TextWrapping="Wrap"
+					Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
+					Text="{Binding BorrowedBookDto.BookTitle}" />
+				<StackPanel
+					Grid.Row="1"
+					Orientation="Horizontal">
+					<TextBlock
+						TextWrapping="Wrap"
+						VerticalAlignment="Center"
+						Style="{DynamicResource MaterialDesignBody1TextBlock}"
+						Text="{Binding BorrowedBookDto.BookISBN}" />
+					<TextBlock
+						TextWrapping="Wrap"
+						VerticalAlignment="Center"
+						Style="{DynamicResource MaterialDesignBody1TextBlock}"
+						Text="{Binding BorrowedBookDto.BookEdition}" />
+				</StackPanel>
+				<TextBlock
+					Grid.Row="2"
+					VerticalAlignment="Center"
+					TextWrapping="Wrap"
+					Style="{DynamicResource MaterialDesignBody2TextBlock}"
+					Text="{Binding BorrowedBookDto.BookBarcode, StringFormat=Barcode {0}}" />
+			</Grid>
+
+		</Grid>
+	</Grid>
+</UserControl>

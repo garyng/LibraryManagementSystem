@@ -15,6 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"
+		WindowState="Maximized"
         Title="Libraryman" Height="500" Width="700">
 	<md:DialogHost>
 		<md:DrawerHost

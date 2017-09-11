@@ -97,7 +97,11 @@ namespace Libraryman.Wpf.Issue
 
 		private void OnGoToIssueBook()
 		{
-			_navigation.GoTo<IssueViewModel>();
+			_navigation.GoTo<IssueViewModel>(vm =>
+			{
+				vm.User = SearchResult;
+				vm.LoadDetailsCommand?.Execute(null);
+			});
 		}
 	}
 }

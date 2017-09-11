@@ -9,6 +9,7 @@ using Libraryman.DataAccess;
 using Libraryman.Entity;
 using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Dashboard;
+using Libraryman.Wpf.Extensions;
 using Libraryman.Wpf.Issue;
 using Libraryman.Wpf.Login;
 using Libraryman.Wpf.Main;
@@ -34,7 +35,7 @@ namespace Libraryman.Wpf
 		public DashboardViewModel DashboardViewModel => this.Container.Resolve<DashboardViewModel>();
 		public ReturnViewModel ReturnViewModel => this.Container.Resolve<ReturnViewModel>();
 		public SearchUserViewModel SearchUserViewModel => this.Container.Resolve<SearchUserViewModel>();
-
+		public IssueViewModel IssueViewModel => this.Container.Resolve<IssueViewModel>();
 
 		public ViewModelLocator()
 		{
@@ -88,11 +89,20 @@ namespace Libraryman.Wpf
 			cb.RegisterType<AuthenticationService>()
 				.As<IAuthenticationService>();
 
+			cb.RegisterType<AutomateGui>()
+				.AsSelf();
+
 			this.Container = cb.Build();
 
-			this.Container.Resolve<INavigationService<ViewModelBase>>()
-				// .GoTo<SearchUserViewModel>();
-				.GoTo<LoginViewModel>();
+			//this.Container.Resolve<INavigationService<ViewModelBase>>()
+			//	// .GoTo<SearchUserViewModel>();
+			//	.GoTo<LoginViewModel>();
+
+			if (!GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
+			{
+				this.Container.Resolve<AutomateGui>().Automate();
+
+			}
 
 			//using (var context = new LibrarymanContext())
 			//{
@@ -110,6 +120,32 @@ namespace Libraryman.Wpf
 			{
 				navigation.Register(viewModel);
 			}
+		}
+	}
+
+	public class AutomateGui
+	{
+		private readonly INavigationService<ViewModelBase> _navigation;
+		private readonly LoginViewModel _login;
+		private readonly SearchUserViewModel _search;
+
+		public AutomateGui(LoginViewModel login, SearchUserViewModel search)
+		{
+			_login = login;
+			_search = search;
+		}
+
+		public void Automate()
+		{
+			_login.StaffId = "1010";
+			_login.StaffPassword = "garyng".ConvertFromString();
+			
+			_login.LoginCommand.Execute(null);
+
+			_search.SearchString = "1000005";
+			_search.SearchCommand.Execute(null);
+			_search.IssueBookCommand.Execute(null);
+
 		}
 	}
 }

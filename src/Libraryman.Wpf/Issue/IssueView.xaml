@@ -1,12 +1,97 @@
 ﻿<UserControl x:Class="Libraryman.Wpf.Issue.IssueView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Libraryman.Wpf.Issue"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:lc="clr-namespace:Libraryman.Wpf.Converters"
+             xmlns:c="clr-namespace:Libraryman.Wpf.Controls"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DataContext="{Binding Source={StaticResource Locator}, Path=IssueViewModel}"
+             d:DesignHeight="700" d:DesignWidth="700">
 	<Grid>
-		
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<c:UserInfoControl
+			MemberBadgeColorZoneMode="Dark"
+			BackgroundColorZoneMode="Light"
+			User="{Binding User}" />
+		<Grid
+			Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<TextBlock
+				TextWrapping="Wrap"
+				Margin="15"
+				Text="History"
+				Style="{DynamicResource MaterialDesignDisplay1TextBlock}" />
+			<Grid
+				Grid.Row="1"
+				Margin="15 0 0 0">
+				<ScrollViewer
+					HorizontalScrollBarVisibility="Disabled"
+					VerticalScrollBarVisibility="Auto">
+					<ItemsControl
+						ItemsSource="{Binding Records}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border
+									SnapsToDevicePixels="True"
+									BorderThickness="0 1"
+									BorderBrush="{DynamicResource MaterialDesignDivider}">
+									<c:RecordDtoControl
+										RecordDto="{Binding}" />
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Grid>
+		</Grid>
+		<GridSplitter
+			Height="3"
+			HorizontalAlignment="Stretch"
+			Grid.Row="2" />
+		<Grid
+			Grid.Row="3">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<TextBlock
+				TextWrapping="Wrap"
+				Margin="15"
+				Text="Books In Hand"
+				Style="{DynamicResource MaterialDesignDisplay1TextBlock}" />
+			<Grid
+				Grid.Row="1"
+				Margin="15 0 0 0">
+				<ScrollViewer
+					HorizontalScrollBarVisibility="Disabled"
+					VerticalScrollBarVisibility="Auto">
+					<ItemsControl
+						ItemsSource="{Binding BorrowedBooks}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border
+									SnapsToDevicePixels="True"
+									BorderThickness="0 1"
+									BorderBrush="{DynamicResource MaterialDesignDivider}">
+									<c:BorrowedBookDtoControl
+										BorrowedBookDto="{Binding}" />
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Grid>
+		</Grid>
 	</Grid>
 </UserControl>
