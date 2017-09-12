@@ -102,13 +102,12 @@ namespace Libraryman.Wpf
 
 			this.Container = cb.Build();
 
-			//this.Container.Resolve<INavigationService<ViewModelBase>>()
-			//	// .GoTo<SearchUserViewModel>();
-			//	.GoTo<LoginViewModel>();
+			this.Container.Resolve<INavigationService<ViewModelBase>>()
+				.GoTo<LoginViewModel>();
 
 			if (!GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
 			{
-				this.Container.Resolve<AutomateGui>().Automate();
+				// this.Container.Resolve<AutomateGui>().Automate();
 			}
 
 			//using (var context = new LibrarymanContext())
