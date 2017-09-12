@@ -139,10 +139,7 @@
 				Margin="10"
 				Visibility="{Binding Searcher.IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
 				<controls:ErrorMessageControl.ErrorMessage>
-					<MultiBinding
-						StringFormat="User with id '{0}' not found.">
-						<Binding Path="Searcher.SearchString" />
-					</MultiBinding>
+					<Binding Path="Searcher.SearchString" StringFormat="User with id '{0}' not found."/>
 				</controls:ErrorMessageControl.ErrorMessage>
 			</controls:ErrorMessageControl>
 		</Grid>

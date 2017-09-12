@@ -36,6 +36,7 @@ namespace Libraryman.Wpf
 		public ReturnViewModel ReturnViewModel => this.Container.Resolve<ReturnViewModel>();
 		public SearchUserViewModel SearchUserViewModel => this.Container.Resolve<SearchUserViewModel>();
 		public IssueViewModel IssueViewModel => this.Container.Resolve<IssueViewModel>();
+		public AddBookViewModel AddBookViewModel => this.Container.Resolve<AddBookViewModel>();
 
 		public ViewModelLocator()
 		{
@@ -125,15 +126,17 @@ namespace Libraryman.Wpf
 
 	public class AutomateGui
 	{
-		private readonly INavigationService<ViewModelBase> _navigation;
 		private readonly LoginViewModel _login;
 		private readonly SearchUserViewModel _searchUser;
 		private readonly IssueViewModel _issue;
+		private readonly AddBookViewModel _addBook;
 
-		public AutomateGui(LoginViewModel login, SearchUserViewModel searchUser)
+		public AutomateGui(LoginViewModel login, SearchUserViewModel searchUser, IssueViewModel issue, AddBookViewModel addBook)
 		{
 			_login = login;
 			_searchUser = searchUser;
+			_issue = issue;
+			_addBook = addBook;
 		}
 
 		public void Automate()
@@ -147,6 +150,10 @@ namespace Libraryman.Wpf
 			_searchUser.Searcher.SearchCommand.Execute(null);
 			_searchUser.IssueBookCommand.Execute(null);
 
+			_issue.GoToAddBookCommand.Execute(null);
+
+			_addBook.Searcher.SearchString = "123";
+			_addBook.Searcher.SearchCommand.Execute(null);
 		}
 	}
 }

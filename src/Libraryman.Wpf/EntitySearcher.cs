@@ -9,6 +9,7 @@ namespace Libraryman.Wpf
 	public class EntitySearcher<TSearchResult> : ObservableObject
 	{
 		private readonly Func<string, Task<Option<TSearchResult>>> _onAsyncSearchFunc;
+		private readonly Action _onSearched;
 		private readonly Func<string, bool> _canSearchFunc;
 		private string _searchString;
 
@@ -42,9 +43,10 @@ namespace Libraryman.Wpf
 		public RelayCommand SearchCommand { get; set; }
 
 		public EntitySearcher(Func<string, Task<Option<TSearchResult>>> onAsyncSearchFunc,
-			Func<string, bool> canSearchFunc = null)
+			Func<string, bool> canSearchFunc = null, Action onSearched = null)
 		{
 			_onAsyncSearchFunc = onAsyncSearchFunc;
+			_onSearched = onSearched;
 			_canSearchFunc = canSearchFunc ??
 			                 (search => search?.Length > 0 && int.TryParse(search, out int _));
 
@@ -71,6 +73,8 @@ namespace Libraryman.Wpf
 					return Option.Some(true);
 				},
 				none: () => Option.Some(false));
+
+			_onSearched?.Invoke();
 		}
 	}
 }

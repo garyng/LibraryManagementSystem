@@ -161,6 +161,10 @@
     <Compile Include="Faker\BorrowedBookDtoFaker.cs" />
     <Compile Include="Faker\RecordDtoFaker.cs" />
     <Compile Include="Dto\RecordDto.cs" />
+    <Compile Include="Issue\AddBookView.xaml.cs">
+      <DependentUpon>AddBookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Issue\AddBookViewModel.cs" />
     <Compile Include="Query\GetAllRecordByUserId.cs" />
     <Compile Include="Query\GetAllBorrowedBooksByUserId.cs" />
     <Compile Include="Query\GetAllBorrowedBooksByUserIdQueryHandler.cs" />
@@ -283,6 +287,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dashboard\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Issue\AddBookView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

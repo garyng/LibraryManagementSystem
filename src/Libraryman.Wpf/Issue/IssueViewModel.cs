@@ -49,6 +49,7 @@ namespace Libraryman.Wpf.Issue
 
 
 		public RelayCommand LoadDetailsCommand { get; set; }
+		public RelayCommand GoToAddBookCommand { get; set; }
 
 		public IssueViewModel(INavigationService<ViewModelBase> navigation,
 			IAsyncQueryDispatcher queryDispatcher, IAsyncCommandDispatcher commandDispatcher)
@@ -57,6 +58,8 @@ namespace Libraryman.Wpf.Issue
 			_queryDispatcher = queryDispatcher;
 			_commandDispatcher = commandDispatcher;
 			LoadDetailsCommand = new RelayCommand(async () => await OnLoadDetails().ConfigureAwait(false));
+			GoToAddBookCommand = new RelayCommand(OnGoToAddBook);
+
 			_records = new ObservableCollection<RecordDto>();
 #if DEBUG
 			if (IsInDesignModeStatic)
@@ -95,6 +98,15 @@ namespace Libraryman.Wpf.Issue
 				.Select(bb => new BorrowedBookDto(bb))
 				.OrderBy(bb => bb.DueDate);
 			BorrowedBooks = borrowedBooks.ToObservableCollection();
+		}
+
+		private void OnGoToAddBook()
+		{
+			_navigation.GoTo<AddBookViewModel>(vm =>
+			{
+				vm.UserId = _user.UserId;
+				vm.Searcher.ClearSearchString();
+			});
 		}
 	}
 }

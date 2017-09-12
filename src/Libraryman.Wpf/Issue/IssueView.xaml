@@ -86,7 +86,8 @@
 						Margin="10"
 						Width="40"
 						Height="40"
-						Style="{DynamicResource MaterialDesignToolForegroundButton}">
+						Style="{DynamicResource MaterialDesignToolForegroundButton}"
+						Command="{Binding GoToAddBookCommand}">
 						<md:PackIcon
 							VerticalAlignment="Center"
 							HorizontalAlignment="Center"

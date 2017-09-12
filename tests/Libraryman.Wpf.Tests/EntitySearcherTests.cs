@@ -15,6 +15,7 @@ namespace Libraryman.Wpf.Tests
 		// - should result IsFound to none at startup
 		// - should result IsFound to none if search string changes
 		// - should raise can execute change if search string changes
+		// will call callback when search result changed
 
 		private Func<string, Task<Option<FakeEntity>>> _onSearch;
 
@@ -122,7 +123,7 @@ namespace Libraryman.Wpf.Tests
 			searcher.SearchString = "123";
 
 			// emulate search
-			
+
 			searcher.SearchCommand.Execute(null);
 
 			// Act
@@ -148,5 +149,22 @@ namespace Libraryman.Wpf.Tests
 			A.CallTo(eventHandler).MustHaveHappened();
 		}
 
+		[Test]
+		public void Should_InvokeCallback_After_Search()
+		{
+			// Arrange
+			var callBack = A.Fake<Action>();
+			EntitySearcher<FakeEntity> searcher = new EntitySearcher<FakeEntity>(_onSearch, onSearched: callBack);
+			A.CallTo(() => _onSearch.Invoke(A<string>._))
+				.Returns(Option.None<FakeEntity>());
+
+			searcher.SearchString = "123";
+
+			// Act
+			searcher.SearchCommand.Execute(null);
+
+			// Assert
+			A.CallTo(() => callBack.Invoke()).MustHaveHappened();
+		}
 	}
 }
