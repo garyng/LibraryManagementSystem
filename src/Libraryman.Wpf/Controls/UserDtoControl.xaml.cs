@@ -18,21 +18,21 @@ using MaterialDesignThemes.Wpf;
 namespace Libraryman.Wpf.Controls
 {
 	/// <summary>
-	/// Interaction logic for UserInfoControl.xaml
+	/// Interaction logic for UserDtoControl.xaml
 	/// </summary>
-	public partial class UserInfoControl : UserControl
+	public partial class UserDtoControl : UserControl
 	{
-		public static readonly DependencyProperty UserProperty = DependencyProperty.Register(
-			"User", typeof(UserDto), typeof(UserInfoControl), new PropertyMetadata(default(UserDto)));
+		public static readonly DependencyProperty UserDtoProperty = DependencyProperty.Register(
+			"UserDto", typeof(UserDto), typeof(UserDtoControl), new PropertyMetadata(default(UserDto)));
 
-		public UserDto User
+		public UserDto UserDto
 		{
-			get { return (UserDto) GetValue(UserProperty); }
-			set { SetValue(UserProperty, value); }
+			get { return (UserDto) GetValue(UserDtoProperty); }
+			set { SetValue(UserDtoProperty, value); }
 		}
 
 		public static readonly DependencyProperty BackgroundColorZoneModeProperty = DependencyProperty.Register(
-			"BackgroundColorZoneMode", typeof(ColorZoneMode), typeof(UserInfoControl), new PropertyMetadata(default(ColorZoneMode)));
+			"BackgroundColorZoneMode", typeof(ColorZoneMode), typeof(UserDtoControl), new PropertyMetadata(default(ColorZoneMode)));
 
 		public ColorZoneMode BackgroundColorZoneMode
 		{
@@ -41,14 +41,14 @@ namespace Libraryman.Wpf.Controls
 		}
 
 		public static readonly DependencyProperty MemberBadgeColorZoneModeProperty = DependencyProperty.Register(
-			"MemberBadgeColorZoneMode", typeof(ColorZoneMode), typeof(UserInfoControl), new PropertyMetadata(default(ColorZoneMode)));
+			"MemberBadgeColorZoneMode", typeof(ColorZoneMode), typeof(UserDtoControl), new PropertyMetadata(default(ColorZoneMode)));
 
 		public ColorZoneMode MemberBadgeColorZoneMode
 		{
 			get { return (ColorZoneMode) GetValue(MemberBadgeColorZoneModeProperty); }
 			set { SetValue(MemberBadgeColorZoneModeProperty, value); }
 		}
-		public UserInfoControl()
+		public UserDtoControl()
 		{
 			InitializeComponent();
 		}
@@ -56,9 +56,9 @@ namespace Libraryman.Wpf.Controls
 
 #if DEBUG
 
-	public class DesignUserInfoControl
+	public class DesignUserDtoControl
 	{
-		public UserDto User { get; set; } = new UserDto()
+		public UserDto UserDto { get; set; } = new UserDto()
 		{
 			UserId = 100001,
 			Email = "email@email.com",

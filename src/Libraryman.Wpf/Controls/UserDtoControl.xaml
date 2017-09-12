@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Libraryman.Wpf.Controls.UserInfoControl"
+﻿<UserControl x:Class="Libraryman.Wpf.Controls.UserDtoControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="500">
 	<md:ColorZone
-		d:DataContext="{d:DesignInstance {x:Type local:DesignUserInfoControl}, d:IsDesignTimeCreatable=True}"
+		d:DataContext="{d:DesignInstance {x:Type local:DesignUserDtoControl}, d:IsDesignTimeCreatable=True}"
 		DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
 		VerticalAlignment="Stretch"
 		Mode="{Binding BackgroundColorZoneMode}">
@@ -32,7 +32,7 @@
 				Padding="10 0"
 				TextWrapping="Wrap"
 				Style="{DynamicResource MaterialDesignDisplay3TextBlock}"
-				Text="{Binding User.UserName}" />
+				Text="{Binding UserDto.UserName}" />
 			<StackPanel
 				Grid.Row="1"
 				Grid.Column="0"
@@ -42,7 +42,7 @@
 					TextWrapping="Wrap"
 					VerticalAlignment="Center"
 					Style="{DynamicResource MaterialDesignBody2TextBlock}"
-					Text="{Binding User.UserId}" />
+					Text="{Binding UserDto.UserId}" />
 				<md:ColorZone
 					Mode="{Binding MemberBadgeColorZoneMode}"
 					VerticalAlignment="Center"
@@ -52,7 +52,7 @@
 						Padding="5 2"
 						TextWrapping="Wrap"
 						VerticalAlignment="Center"
-						Text="{Binding User.MembershipType}" />
+						Text="{Binding UserDto.MembershipType}" />
 				</md:ColorZone>
 			</StackPanel>
 			<StackPanel
@@ -62,11 +62,11 @@
 				<TextBlock
 					Padding="10 0"
 					TextWrapping="Wrap"
-					Text="{Binding User.Email}" />
+					Text="{Binding UserDto.Email}" />
 				<TextBlock
 					Padding="5 0"
 					TextWrapping="Wrap"
-					Text="{Binding User.PhoneNumber}" />
+					Text="{Binding UserDto.PhoneNumber}" />
 			</StackPanel>
 			<md:PackIcon
 				Grid.Row="0"
@@ -78,7 +78,7 @@
 				Width="80"
 				Height="80"
 				Opacity="0.2"
-				Kind="{Binding User.UserGender, Converter={lc:GenderToPackIconKindConverter}}" />
+				Kind="{Binding UserDto.UserGender, Converter={lc:GenderToPackIconKindConverter}}" />
 		</Grid>
 	</md:ColorZone>
 

@@ -64,13 +64,13 @@ namespace Libraryman.Wpf.UserInfo
 
 		private bool CanAddBook()
 		{
-			return Searcher.SearchResult.IsBookBorrowable && Searcher.SearchResult.BookStatus == BookStatus.Available;
+			return Searcher.SearchResult?.IsBookBorrowable == true && Searcher.SearchResult?.BookStatus == BookStatus.Available;
 		}
 
 		private async Task<Option<BookDto>> OnSearch(string search)
 		{
 			Option<Book> book = await _queryDispatcher.DispatchAsync<GetBookByBarcode, Option<Book>>(
-					new GetBookByBarcode() {Barcode = int.Parse(Searcher.SearchString)})
+					new GetBookByBarcode() {Barcode = int.Parse(search)})
 				.ConfigureAwait(false);
 
 			return book.Map(b => new BookDto(b));

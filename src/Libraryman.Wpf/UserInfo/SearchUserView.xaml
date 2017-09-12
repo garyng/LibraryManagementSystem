@@ -35,10 +35,10 @@
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
-				<controls:UserInfoControl
+				<controls:UserDtoControl
 					BackgroundColorZoneMode="Accent"
 					MemberBadgeColorZoneMode="PrimaryMid"
-					User="{Binding Searcher.SearchResult}"></controls:UserInfoControl>
+					UserDto="{Binding Searcher.SearchResult}"></controls:UserDtoControl>
 				<Grid
 					Grid.Row="1">
 					<Grid.ColumnDefinitions>

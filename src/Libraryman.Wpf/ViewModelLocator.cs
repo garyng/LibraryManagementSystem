@@ -20,6 +20,7 @@ using Libraryman.Wpf.Service;
 using Libraryman.Wpf.Shell;
 using MaterialDesignThemes.Wpf;
 using Optional;
+using Libraryman.Wpf.Issue;
 
 namespace Libraryman.Wpf
 {
@@ -38,6 +39,7 @@ namespace Libraryman.Wpf
 		public SearchUserViewModel SearchUserViewModel => this.Container.Resolve<SearchUserViewModel>();
 		public UserInfoViewModel UserInfoViewModel => this.Container.Resolve<UserInfoViewModel>();
 		public AddBookViewModel AddBookViewModel => this.Container.Resolve<AddBookViewModel>();
+		public IssueViewModel IssueViewModel => this.Container.Resolve<IssueViewModel>();
 
 		public ViewModelLocator()
 		{
@@ -107,7 +109,6 @@ namespace Libraryman.Wpf
 			if (!GalaSoft.MvvmLight.ViewModelBase.IsInDesignModeStatic)
 			{
 				this.Container.Resolve<AutomateGui>().Automate();
-
 			}
 
 			//using (var context = new LibrarymanContext())
@@ -131,34 +132,42 @@ namespace Libraryman.Wpf
 
 	public class AutomateGui
 	{
+		private readonly INavigationService<ViewModelBase> _navigation;
 		private readonly LoginViewModel _login;
 		private readonly SearchUserViewModel _searchUser;
 		private readonly UserInfoViewModel _userInfo;
 		private readonly AddBookViewModel _addBook;
+		private readonly IssueViewModel _issue;
 
-		public AutomateGui(LoginViewModel login, SearchUserViewModel searchUser, UserInfoViewModel userInfo, AddBookViewModel addBook)
+		public AutomateGui(INavigationService<ViewModelBase> navigation, LoginViewModel login, SearchUserViewModel searchUser,
+			UserInfoViewModel userInfo, AddBookViewModel addBook, IssueViewModel issue)
 		{
+			_navigation = navigation;
 			_login = login;
 			_searchUser = searchUser;
 			_userInfo = userInfo;
 			_addBook = addBook;
+			_issue = issue;
 		}
 
 		public void Automate()
 		{
 			_login.StaffId = "1010";
 			_login.StaffPassword = "garyng".ConvertFromString();
-			
+
 			_login.LoginCommand.Execute(null);
+			_navigation.GoTo<IssueViewModel>();
+			_issue.UserSearcher.SearchString = "1000000";
+			_issue.UserSearcher.SearchCommand.Execute(null);
 
-			_searchUser.Searcher.SearchString = "1000000";
-			_searchUser.Searcher.SearchCommand.Execute(null);
-			_searchUser.IssueBookCommand.Execute(null);
+			//_searchUser.Searcher.SearchString = "1000000";
+			//_searchUser.Searcher.SearchCommand.Execute(null);
+			//_searchUser.IssueBookCommand.Execute(null);
 
-			_userInfo.GoToAddBookCommand.Execute(null);
+			//_userInfo.GoToAddBookCommand.Execute(null);
 
-			_addBook.Searcher.SearchString = "123";
-			_addBook.Searcher.SearchCommand.Execute(null);
+			//_addBook.Searcher.SearchString = "123";
+			//_addBook.Searcher.SearchCommand.Execute(null);
 		}
 	}
 }

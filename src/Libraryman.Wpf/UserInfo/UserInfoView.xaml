@@ -17,10 +17,10 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<c:UserInfoControl
+		<c:UserDtoControl
 			MemberBadgeColorZoneMode="Dark"
 			BackgroundColorZoneMode="Light"
-			User="{Binding User}" />
+			UserDto="{Binding User}" />
 		<Grid
 			Grid.Row="1">
 			<Grid.RowDefinitions>

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Command;
 using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Dashboard;
+using Libraryman.Wpf.Issue;
 using Libraryman.Wpf.UserInfo;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
@@ -33,6 +34,7 @@ namespace Libraryman.Wpf.Shell
 		{
 			MainMenuEntries = new ObservableCollection<MainMenuEntry>();
 			MainMenuEntries.Add(new MainMenuEntry("Dashboard", new RelayCommand(Go<DashboardViewModel>)));
+			MainMenuEntries.Add(new MainMenuEntry("Quick Issue", new RelayCommand(Go<IssueViewModel>)));
 			MainMenuEntries.Add(new MainMenuEntry("Quick Return", new RelayCommand(Go<ReturnViewModel>)));
 			MainMenuEntries.Add(new MainMenuEntry("User", new RelayCommand(Go<SearchUserViewModel>)));
 #if DEBUG

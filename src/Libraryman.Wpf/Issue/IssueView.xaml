@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="Libraryman.Wpf.Issue.IssueView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Libraryman.Wpf.Issue"
+             xmlns:controls="clr-namespace:Libraryman.Wpf.Controls"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:c="http://schemas.kent.boogaart.com/converters"
+             xmlns:lc="clr-namespace:Libraryman.Wpf.Converters"
+             mc:Ignorable="d"
+             d:DataContext="{Binding Source={StaticResource Locator}, Path=IssueViewModel}"
+             d:DesignHeight="500" d:DesignWidth="700">
+	<md:Transitioner
+		SelectedIndex="0"
+		AutoApplyTransitionOrigins="True">
+		<md:TransitionerSlide>
+			<md:TransitionerSlide.OpeningEffect>
+				<md:TransitionEffect Kind="None" />
+			</md:TransitionerSlide.OpeningEffect>
+			<ScrollViewer
+				VerticalScrollBarVisibility="Auto"
+				HorizontalScrollBarVisibility="Disabled">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<controls:SearchControl
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Hint="Search user ID..."
+						PackIconKind="Magnify"
+						Text="{Binding UserSearcher.SearchString}"
+						Command="{Binding UserSearcher.SearchCommand}" />
+					<controls:UserDtoControl
+						Grid.Row="1"
+						BackgroundColorZoneMode="Accent"
+						MemberBadgeColorZoneMode="PrimaryMid"
+						UserDto="{Binding UserSearcher.SearchResult}"
+						Visibility="{Binding UserSearcher.IsFound, Converter={lc:OptionalToVisibilityConverter}}" />
+					<controls:ErrorMessageControl
+						Grid.Row="2"
+						Margin="10"
+						Visibility="{Binding UserSearcher.IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
+						<controls:ErrorMessageControl.ErrorMessage>
+							<Binding Path="UserSearcher.SearchString" StringFormat="User with id '{0}' not found."/>
+						</controls:ErrorMessageControl.ErrorMessage>
+					</controls:ErrorMessageControl>
+					<Button
+						Grid.Row="3"
+						Command="{x:Static md:Transitioner.MoveNextCommand}"
+						Visibility="{Binding UserSearcher.IsFound, Converter={lc:OptionalToVisibilityConverter}}">
+						<StackPanel
+							VerticalAlignment="Center"
+							Orientation="Horizontal">
+							<TextBlock
+								Margin="5 0"
+								VerticalAlignment="Center"
+								Text="Add a book" />
+							<md:PackIcon
+								VerticalAlignment="Center"
+								Kind="StepForward" />
+						</StackPanel>
+					</Button>
+				</Grid>
+			</ScrollViewer>
+		</md:TransitionerSlide>
+
+		<md:TransitionerSlide>
+			<md:TransitionerSlide.OpeningEffect>
+				<md:TransitionEffect Kind="SlideInFromRight" />
+			</md:TransitionerSlide.OpeningEffect>
+			<ScrollViewer
+				VerticalScrollBarVisibility="Auto"
+				HorizontalScrollBarVisibility="Disabled">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<controls:SearchControl
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Hint="Search barcode..."
+						PackIconKind="Magnify"
+						Text="{Binding BookSearcher.SearchString}"
+						Command="{Binding BookSearcher.SearchCommand}" />
+					<controls:ErrorMessageControl
+						Grid.Row="1"
+						Margin="10"
+						Visibility="{Binding BookSearcher.IsFound, Converter={lc:OptionalToVisibilityConverter IsReversed=True}}">
+						<controls:ErrorMessageControl.ErrorMessage>
+							<Binding Path="BookSearcher.SearchString" StringFormat="Book with barcode '{0}' not found." />
+						</controls:ErrorMessageControl.ErrorMessage>
+					</controls:ErrorMessageControl>
+					<Button
+						Grid.Row="2"
+						Command="{x:Static md:Transitioner.MovePreviousCommand}">
+						<StackPanel
+							VerticalAlignment="Center"
+							Orientation="Horizontal">
+							<md:PackIcon
+								VerticalAlignment="Center"
+								Kind="StepBackward" />
+							<TextBlock
+								Margin="5 0"
+								VerticalAlignment="Center"
+								Text="Back" />
+						</StackPanel>
+					</Button>
+					<md:ColorZone
+						Grid.Row="3"
+						Mode="Dark">
+						<controls:BookDtoControl
+							Margin="20"
+							BookDto="{Binding BookSearcher.SearchResult}"
+							Visibility="{Binding BookSearcher.IsFound, Converter={lc:OptionalToVisibilityConverter}}" />
+					</md:ColorZone>
+					<Button
+						Grid.Row="4"
+						Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+						Visibility="{Binding BookSearcher.IsFound, Converter={lc:OptionalToVisibilityConverter}}"
+						Command="{Binding IssueBookCommand}">
+						<StackPanel
+							VerticalAlignment="Center"
+							Orientation="Horizontal">
+							<md:PackIcon
+								VerticalAlignment="Center"
+								Kind="Plus" />
+							<TextBlock
+								Margin="5 0"
+								VerticalAlignment="Center"
+								Text="Issue" />
+						</StackPanel>
+					</Button>
+				</Grid>
+			</ScrollViewer>
+		</md:TransitionerSlide>
+
+
+	</md:Transitioner>
+
+</UserControl>

@@ -147,8 +147,8 @@
     <Compile Include="Controls\SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\UserInfoControl.xaml.cs">
-      <DependentUpon>UserInfoControl.xaml</DependentUpon>
+    <Compile Include="Controls\UserDtoControl.xaml.cs">
+      <DependentUpon>UserDtoControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BookStatusToVisibilityConverter.cs" />
     <Compile Include="Converters\CountToVisibilityConverter.cs" />
@@ -167,6 +167,11 @@
     <Compile Include="Faker\BorrowedBookDtoFaker.cs" />
     <Compile Include="Faker\RecordDtoFaker.cs" />
     <Compile Include="Dto\RecordDto.cs" />
+    <Compile Include="Faker\UserDtoFaker.cs" />
+    <Compile Include="Issue\IssueView.xaml.cs">
+      <DependentUpon>IssueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Issue\IssueViewModel.cs" />
     <Compile Include="UserInfo\AddBookView.xaml.cs">
       <DependentUpon>AddBookView.xaml</DependentUpon>
     </Compile>
@@ -290,11 +295,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\UserInfoControl.xaml">
+    <Page Include="Controls\UserDtoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dashboard\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Issue\IssueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
