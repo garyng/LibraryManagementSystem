@@ -105,6 +105,14 @@ namespace Libraryman.Wpf.Issue
 
 			if (user == null) return Result.Fail($"User with id '{command.UserId} not found.");
 
+			Book book = await _context
+				.Books
+				.FindAsync(command.BookBarcode)
+				.ConfigureAwait(false);
+
+			if (book == null) return Result.Fail($"Book with barcode '{command.BookBarcode} not found.");
+
+
 
 			DateTime now = DateTime.Now;
 
@@ -127,6 +135,7 @@ namespace Libraryman.Wpf.Issue
 				Record = record
 			};
 
+			book.Status = BookStatus.NotAvailable;
 			_context.BorrowedBooks.Add(borrowedBook);
 			await _context.SaveChangesAsync().ConfigureAwait(false);
 			return Result.Ok();

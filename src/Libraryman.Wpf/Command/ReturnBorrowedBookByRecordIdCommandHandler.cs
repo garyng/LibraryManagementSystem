@@ -54,6 +54,7 @@ namespace Libraryman.Wpf.Command
 				UserId = record.UserId
 			};
 
+			record.Book.Status = BookStatus.Available;
 			_context.BorrowedBooks.Remove(borrowedBook);
 			_context.ReturnedBooks.Add(returnedBook);
 			await _context.SaveChangesAsync().ConfigureAwait(false);
