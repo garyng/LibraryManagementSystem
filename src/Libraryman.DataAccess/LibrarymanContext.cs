@@ -173,7 +173,7 @@ namespace Libraryman.DataAccess
 						.RuleFor(r => r.Timestamp, rf => DateTime.Now)
 						.RuleFor(r => r.User, rf => rf.PickRandom(users))
 						.RuleFor(r => r.Staff, rf => rf.PickRandom(staffs))
-						.RuleFor(r => r.Book, rf => rf.PickRandom(books))
+						.RuleFor(r => r.Book, rf => rf.PickRandom(books.Where(b => b.Status == BookStatus.NotAvailable)))
 						.Generate())
 					.RuleFor(bb => bb.Book, (f, bb) => bb.Record.Book)
 					.RuleFor(bb => bb.User, (f, bb) => bb.Record.User)
