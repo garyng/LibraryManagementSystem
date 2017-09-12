@@ -9,3 +9,8 @@ A simple library management system implemented in C# WPF MVVM.
 
 # Others
 > Todo
+
+# Credits
+## Icons
+![](icon/icon-1.png)  
+King's Books by Alina Oleynik from the Noun Project
