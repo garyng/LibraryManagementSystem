@@ -25,7 +25,8 @@
 				Margin="10"
 				TextWrapping="Wrap"
 				TextAlignment="Center"
-				Style="{DynamicResource MaterialDesignHeadlineTextBlock}">
+				Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+				ToolTip="Barcode">
 				<TextBlock.Text>
 					<Binding Path="BookDto.BookBarcode" StringFormat="#{0}" />
 				</TextBlock.Text>
@@ -87,9 +88,8 @@
 			VerticalAlignment="Center">
 			<Grid>
 				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 				<TextBlock
 					TextWrapping="Wrap"
@@ -99,17 +99,25 @@
 					Grid.Row="1"
 					LastChildFill="False"
 					VerticalAlignment="Center">
+					<md:PackIcon
+						DockPanel.Dock="Left"
+						Height="24"
+						Width="24"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Kind="Barcode" />
 					<TextBlock
 						DockPanel.Dock="Left"
 						TextWrapping="Wrap"
 						VerticalAlignment="Center"
+						Margin="5 0"
 						Style="{DynamicResource MaterialDesignBody1TextBlock}"
 						Text="{Binding BookDto.BookISBN}" />
 					<TextBlock
 						DockPanel.Dock="Left"
 						TextWrapping="Wrap"
 						VerticalAlignment="Center"
-						Margin="10 0">
+						Margin="5 0">
 						<TextBlock.Text>
 							<MultiBinding StringFormat="{}{0} ({1})">
 								<Binding Path="BookDto.BookEdition" />
@@ -124,22 +132,6 @@
 						Margin="20 0"
 						Text="{Binding BookDto.PublisherName}" />
 				</DockPanel>
-				<StackPanel
-					Grid.Row="2"
-					Orientation="Horizontal">
-					<md:PackIcon
-						Height="24"
-						Width="24"
-						VerticalAlignment="Center"
-						Kind="Barcode" />
-					<TextBlock
-						TextWrapping="Wrap"
-						VerticalAlignment="Center"
-						Margin="10 0"
-						Style="{DynamicResource MaterialDesignBody2TextBlock}"
-
-						Text="{Binding BookDto.BookBarcode}" />
-				</StackPanel>
 			</Grid>
 		</Grid>
 	</Grid>
