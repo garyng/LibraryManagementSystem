@@ -121,6 +121,8 @@
     </ApplicationDefinition>
     <Compile Include="CommandQueryResolver.cs" />
     <Compile Include="Command\AsyncCommandDispatcher.cs" />
+    <Compile Include="Command\IssueBookToUser.cs" />
+    <Compile Include="Command\IssueBookToUserCommandHandler.cs" />
     <Compile Include="Controls\BookDtoControl.xaml.cs">
       <DependentUpon>BookDtoControl.xaml</DependentUpon>
     </Compile>
@@ -155,6 +157,7 @@
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\DashboardViewModel.cs" />
+    <Compile Include="Dto\BookDto.cs" />
     <Compile Include="EntitySearcher.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Faker\BookDtoFaker.cs" />
@@ -165,10 +168,12 @@
       <DependentUpon>AddBookView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Issue\AddBookViewModel.cs" />
+    <Compile Include="Query\GetBookByBarcode.cs" />
     <Compile Include="Query\GetAllRecordByUserId.cs" />
     <Compile Include="Query\GetAllBorrowedBooksByUserId.cs" />
     <Compile Include="Query\GetAllBorrowedBooksByUserIdQueryHandler.cs" />
     <Compile Include="Query\GetAllRecordByUserIdQueryHandler.cs" />
+    <Compile Include="Query\GetBookByBarcodeQueryHandler.cs" />
     <Compile Include="Query\GetUserDetailsById.cs" />
     <Compile Include="Query\GetUserDetailsByIdQueryHandler.cs" />
     <Compile Include="Issue\IssueView.xaml.cs">

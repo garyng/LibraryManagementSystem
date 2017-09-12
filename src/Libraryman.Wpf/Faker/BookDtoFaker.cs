@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bogus;
 using Libraryman.Entity;
-using Libraryman.Wpf.Issue;
+using Libraryman.Wpf.Dto;
 
 namespace Libraryman.Wpf.Faker
 {
