@@ -32,7 +32,6 @@ namespace Libraryman.Wpf.Dashboard
 
 		private async Task LoadDashboardInfo()
 		{
-			// todo: dispatch async overload without parameter?
 			DashboardInfo.TotalBooks =
 				await _queryDispatcher.DispatchAsync<GetTotalBookCount, int>(new GetTotalBookCount())
 					.ConfigureAwait(true);
@@ -57,6 +56,8 @@ namespace Libraryman.Wpf.Dashboard
 			DashboardInfo.ThisMonthReturnedBooks =
 				await _queryDispatcher.DispatchAsync<GetThisMonthReturnedBookCount, int>(new GetThisMonthReturnedBookCount())
 					.ConfigureAwait(true);
+
+			_snackbarMessageQueue.Enqueue("Loaded new data from database.");
 		}
 	}
 }

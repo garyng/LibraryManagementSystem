@@ -17,8 +17,7 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         Title="Libraryman" Height="500" Width="700">
-	<md:DialogHost
-		SnackbarMessageQueue="{Binding ElementName=Snackbar, Path=MessageQueue}">
+	<md:DialogHost>
 		<md:DrawerHost
 			IsLeftDrawerOpen="{Binding Source={StaticResource Locator}, Path=ShellHeaderViewModel.IsHamburgerButtonToggled}">
 			<md:DrawerHost.LeftDrawerContent>
@@ -29,17 +28,12 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="*" />
-					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 				<ContentControl
 					Content="{Binding Source={StaticResource Locator}, Path=ShellHeaderViewModel}" />
 				<ContentControl
 					Grid.Row="1"
 					Content="{Binding Source={StaticResource Locator}, Path=MainViewModel}" />
-				<md:Snackbar
-					Grid.Row="2"
-					x:Name="Snackbar"
-					MessageQueue="{md:MessageQueue}" />
 			</Grid>
 		</md:DrawerHost>
 	</md:DialogHost>

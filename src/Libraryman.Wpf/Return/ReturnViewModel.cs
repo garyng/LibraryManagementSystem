@@ -65,13 +65,23 @@ namespace Libraryman.Wpf.Return
 
 		private async Task OnReturnBook()
 		{
-			await _commandDispatcher.DispatchAsync<ReturnBorrowedBookByRecordId, Result>(new ReturnBorrowedBookByRecordId()
-				{
-					RecordId = Searcher.SearchResult.RecordId,
-					StaffId = _as.StaffId
-				})
+			Result result = await _commandDispatcher.DispatchAsync<ReturnBorrowedBookByRecordId, Result>(
+					new ReturnBorrowedBookByRecordId()
+					{
+						RecordId = Searcher.SearchResult.RecordId,
+						StaffId = _as.StaffId
+					})
 				.ConfigureAwait(false);
-			Searcher.ClearSearchString();
+			result.OnSuccess(() =>
+				{
+					Searcher.ClearSearchString();
+					_snackbarMessageQueue.Enqueue("Book returned.");
+				})
+				.OnFailure((string error) =>
+				{
+					_snackbarMessageQueue.Enqueue("Failed to return book.");
+					_snackbarMessageQueue.Enqueue($"Error message: {error}");
+				});
 		}
 	}
 }

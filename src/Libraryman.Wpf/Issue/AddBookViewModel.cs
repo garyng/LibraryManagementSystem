@@ -165,12 +165,21 @@ namespace Libraryman.Wpf.Issue
 			int staffId = _as.StaffId;
 			int bookBarcode = Searcher.SearchResult.BookBarcode;
 
-			await _commandDispatcher.DispatchAsync<IssueBookToUser, Result>(
+			Result result = await _commandDispatcher.DispatchAsync<IssueBookToUser, Result>(
 					new IssueBookToUser() {BookBarcode = bookBarcode, StaffId = staffId, UserId = userId})
 				.ConfigureAwait(false);
-
-			Searcher.ClearSearchString();
-			_navigation.GoBack<IssueViewModel>(vm => { vm.LoadDetailsCommand.Execute(null); });
+			result
+				.OnSuccess(() =>
+				{
+					Searcher.ClearSearchString();
+					_navigation.GoBack<IssueViewModel>(vm => { vm.LoadDetailsCommand.Execute(null); });
+					_snackbarMessageQueue.Enqueue($"Issued book \"{bookBarcode}\" to user \"{userId}\".");
+				})
+				.OnFailure((string error) =>
+				{
+					_snackbarMessageQueue.Enqueue($"Failed to issue book \"{bookBarcode}\" to user \"{userId}\".");
+					_snackbarMessageQueue.Enqueue($"Error message: {error}");
+				});
 		}
 
 		private bool CanAddBook()
