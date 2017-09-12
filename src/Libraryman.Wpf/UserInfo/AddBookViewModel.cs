@@ -11,7 +11,7 @@ using Libraryman.Wpf.Service;
 using MaterialDesignThemes.Wpf;
 using Optional;
 
-namespace Libraryman.Wpf.Issue
+namespace Libraryman.Wpf.UserInfo
 {
 	public class AddBookViewModel : ViewModelBase
 	{
@@ -52,7 +52,7 @@ namespace Libraryman.Wpf.Issue
 				.OnSuccess(() =>
 				{
 					Searcher.ClearSearchString();
-					_navigation.GoBack<IssueViewModel>(vm => { vm.LoadDetailsCommand.Execute(null); });
+					_navigation.GoBack<UserInfoViewModel>(vm => { vm.LoadDetailsCommand.Execute(null); });
 					_snackbarMessageQueue.Enqueue($"Issued book \"{bookBarcode}\" to user \"{userId}\".");
 				})
 				.OnFailure((string error) =>

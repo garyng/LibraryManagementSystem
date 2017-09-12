@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Libraryman.Wpf.Issue
+namespace Libraryman.Wpf.UserInfo
 {
 	/// <summary>
-	/// Interaction logic for AddBookView.xaml
+	/// Interaction logic for SearchUserView.xaml
 	/// </summary>
-	public partial class AddBookView : UserControl
+	public partial class SearchUserView : UserControl
 	{
-		public AddBookView()
+		public SearchUserView()
 		{
 			InitializeComponent();
 		}

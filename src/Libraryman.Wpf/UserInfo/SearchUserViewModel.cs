@@ -8,7 +8,7 @@ using Libraryman.Wpf.Query;
 using MaterialDesignThemes.Wpf;
 using Optional;
 
-namespace Libraryman.Wpf.Issue
+namespace Libraryman.Wpf.UserInfo
 {
 	public class SearchUserViewModel : ViewModelBase
 	{
@@ -50,7 +50,7 @@ namespace Libraryman.Wpf.Issue
 
 		private void OnGoToIssueBook()
 		{
-			_navigation.GoTo<IssueViewModel>(vm =>
+			_navigation.GoTo<UserInfoViewModel>(vm =>
 			{
 				vm.User = Searcher.SearchResult;
 				vm.LoadDetailsCommand?.Execute(null);

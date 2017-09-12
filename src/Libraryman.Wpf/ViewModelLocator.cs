@@ -10,7 +10,7 @@ using Libraryman.Entity;
 using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Dashboard;
 using Libraryman.Wpf.Extensions;
-using Libraryman.Wpf.Issue;
+using Libraryman.Wpf.UserInfo;
 using Libraryman.Wpf.Login;
 using Libraryman.Wpf.Main;
 using Libraryman.Wpf.Navigation;
@@ -36,7 +36,7 @@ namespace Libraryman.Wpf
 		public DashboardViewModel DashboardViewModel => this.Container.Resolve<DashboardViewModel>();
 		public ReturnViewModel ReturnViewModel => this.Container.Resolve<ReturnViewModel>();
 		public SearchUserViewModel SearchUserViewModel => this.Container.Resolve<SearchUserViewModel>();
-		public IssueViewModel IssueViewModel => this.Container.Resolve<IssueViewModel>();
+		public UserInfoViewModel UserInfoViewModel => this.Container.Resolve<UserInfoViewModel>();
 		public AddBookViewModel AddBookViewModel => this.Container.Resolve<AddBookViewModel>();
 
 		public ViewModelLocator()
@@ -133,14 +133,14 @@ namespace Libraryman.Wpf
 	{
 		private readonly LoginViewModel _login;
 		private readonly SearchUserViewModel _searchUser;
-		private readonly IssueViewModel _issue;
+		private readonly UserInfoViewModel _userInfo;
 		private readonly AddBookViewModel _addBook;
 
-		public AutomateGui(LoginViewModel login, SearchUserViewModel searchUser, IssueViewModel issue, AddBookViewModel addBook)
+		public AutomateGui(LoginViewModel login, SearchUserViewModel searchUser, UserInfoViewModel userInfo, AddBookViewModel addBook)
 		{
 			_login = login;
 			_searchUser = searchUser;
-			_issue = issue;
+			_userInfo = userInfo;
 			_addBook = addBook;
 		}
 
@@ -155,7 +155,7 @@ namespace Libraryman.Wpf
 			_searchUser.Searcher.SearchCommand.Execute(null);
 			_searchUser.IssueBookCommand.Execute(null);
 
-			_issue.GoToAddBookCommand.Execute(null);
+			_userInfo.GoToAddBookCommand.Execute(null);
 
 			_addBook.Searcher.SearchString = "123";
 			_addBook.Searcher.SearchCommand.Execute(null);

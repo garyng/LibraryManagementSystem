@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FakeItEasy;
 using Libraryman.Entity;
 using Libraryman.Wpf.Command;
-using Libraryman.Wpf.Issue;
+using Libraryman.Wpf.UserInfo;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
 using MaterialDesignThemes.Wpf;

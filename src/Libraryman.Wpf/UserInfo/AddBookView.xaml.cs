@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Libraryman.Wpf.Issue
+namespace Libraryman.Wpf.UserInfo
 {
 	/// <summary>
-	/// Interaction logic for IssueView.xaml
+	/// Interaction logic for AddBookView.xaml
 	/// </summary>
-	public partial class IssueView : UserControl
+	public partial class AddBookView : UserControl
 	{
-		public IssueView()
+		public AddBookView()
 		{
 			InitializeComponent();
 		}

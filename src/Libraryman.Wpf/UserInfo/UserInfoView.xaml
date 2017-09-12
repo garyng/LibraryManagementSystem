@@ -1,14 +1,14 @@
-﻿<UserControl x:Class="Libraryman.Wpf.Issue.IssueView"
+﻿<UserControl x:Class="Libraryman.Wpf.UserInfo.UserInfoView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Libraryman.Wpf.Issue"
+             xmlns:local="clr-namespace:Libraryman.Wpf.UserInfo"
              xmlns:lc="clr-namespace:Libraryman.Wpf.Converters"
              xmlns:c="clr-namespace:Libraryman.Wpf.Controls"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             d:DataContext="{Binding Source={StaticResource Locator}, Path=IssueViewModel}"
+             d:DataContext="{Binding Source={StaticResource Locator}, Path=UserInfoViewModel}"
              d:DesignHeight="700" d:DesignWidth="700">
 	<Grid>
 		<Grid.RowDefinitions>

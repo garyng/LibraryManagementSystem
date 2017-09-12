@@ -16,9 +16,9 @@ using Libraryman.Wpf.Query;
 using MaterialDesignThemes.Wpf;
 using MoreLinq;
 
-namespace Libraryman.Wpf.Issue
+namespace Libraryman.Wpf.UserInfo
 {
-	public class IssueViewModel : ViewModelBase
+	public class UserInfoViewModel : ViewModelBase
 	{
 		public override bool GoBackOnly { get; } = true;
 
@@ -50,7 +50,7 @@ namespace Libraryman.Wpf.Issue
 		public RelayCommand LoadDetailsCommand { get; set; }
 		public RelayCommand GoToAddBookCommand { get; set; }
 
-		public IssueViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
+		public UserInfoViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
 			IAsyncQueryDispatcher queryDispatcher, ISnackbarMessageQueue snackbarMessageQueue) : base(navigation,
 			commandDispatcher, queryDispatcher, snackbarMessageQueue)
 		{
