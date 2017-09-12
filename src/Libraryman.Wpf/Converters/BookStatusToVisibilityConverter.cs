@@ -3,14 +3,15 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
+using Libraryman.Entity;
 
 namespace Libraryman.Wpf.Converters
 {
-	public class CountToVisibilityConverter : IValueConverter
+	public class BookStatusToVisibilityConverter : IValueConverter
 	{
 		public bool IsReversed { get; set; }
 
-		public CountToVisibilityConverter(bool isReversed)
+		public BookStatusToVisibilityConverter(bool isReversed)
 		{
 			IsReversed = isReversed;
 		}
@@ -18,8 +19,8 @@ namespace Libraryman.Wpf.Converters
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value == null) return value;
-			int count = (int) value;
-			bool visible = count > 0;
+			BookStatus status = (BookStatus) value;
+			bool visible = status == BookStatus.Available;
 			if (IsReversed)
 			{
 				visible = !visible;
@@ -33,23 +34,24 @@ namespace Libraryman.Wpf.Converters
 		}
 	}
 
-	public sealed class CollectionCountToVisibilityConverterExtension : MarkupExtension
+	public sealed class BookStatusToVisibilityConverterExtension : MarkupExtension
 	{
 		[ConstructorArgument("isReversed")]
 		public bool IsReversed { get; set; }
 
-		public CollectionCountToVisibilityConverterExtension()
+		public BookStatusToVisibilityConverterExtension()
 		{
 		}
 
-		public CollectionCountToVisibilityConverterExtension(bool isReversed)
+		public BookStatusToVisibilityConverterExtension(bool isReversed)
 		{
 			IsReversed = isReversed;
 		}
 
 		public override object ProvideValue(IServiceProvider serviceProvider)
 		{
-			return new CountToVisibilityConverter(IsReversed);
+			return new BookStatusToVisibilityConverter(IsReversed);
 		}
 	}
+
 }

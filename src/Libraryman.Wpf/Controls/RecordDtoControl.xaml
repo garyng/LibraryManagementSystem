@@ -17,8 +17,6 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<StackPanel
-			Grid.Row="0"
-			Grid.RowSpan="4"
 			Grid.Column="0"
 			Margin="5"
 			VerticalAlignment="Center">

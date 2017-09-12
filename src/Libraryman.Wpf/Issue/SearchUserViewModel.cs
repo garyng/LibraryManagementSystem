@@ -15,7 +15,6 @@ namespace Libraryman.Wpf.Issue
 		public RelayCommand IssueBookCommand { get; set; }
 		public EntitySearcher<UserDto> Searcher { get; set; }
 
-
 		public SearchUserViewModel(INavigationService<ViewModelBase> navigation,
 			IAsyncQueryDispatcher queryDispatcher)
 			: base(navigation)

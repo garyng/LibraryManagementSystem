@@ -121,6 +121,9 @@
     </ApplicationDefinition>
     <Compile Include="CommandQueryResolver.cs" />
     <Compile Include="Command\AsyncCommandDispatcher.cs" />
+    <Compile Include="Controls\BookDtoControl.xaml.cs">
+      <DependentUpon>BookDtoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\BorrowedBookDtoControl.xaml.cs">
       <DependentUpon>BorrowedBookDtoControl.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,7 @@
     <Compile Include="Controls\UserInfoControl.xaml.cs">
       <DependentUpon>UserInfoControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BookStatusToVisibilityConverter.cs" />
     <Compile Include="Converters\CountToVisibilityConverter.cs" />
     <Compile Include="Converters\DateToDaysFromTodayConverter.cs" />
     <Compile Include="Converters\GenderToPackIconKindConverter.cs" />
@@ -153,6 +157,7 @@
     <Compile Include="Dashboard\DashboardViewModel.cs" />
     <Compile Include="EntitySearcher.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Faker\BookDtoFaker.cs" />
     <Compile Include="Faker\BorrowedBookDtoFaker.cs" />
     <Compile Include="Faker\RecordDtoFaker.cs" />
     <Compile Include="Dto\RecordDto.cs" />
@@ -242,6 +247,10 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModelLocator.cs" />
     <Page Include="Controls\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BookDtoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
