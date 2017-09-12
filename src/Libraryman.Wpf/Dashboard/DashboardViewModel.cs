@@ -9,23 +9,19 @@ using Libraryman.Entity;
 using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
+using MaterialDesignThemes.Wpf;
 
 namespace Libraryman.Wpf.Dashboard
 {
 	public class DashboardViewModel : ViewModelBase
 	{
-		private readonly IAsyncQueryDispatcher _queryDispatcher;
-		private readonly IAsyncCommandDispatcher _commandDispatcher;
 		public DashboardInfo DashboardInfo { get; set; }
 		public RelayCommand LoadDashboardInfoCommand { get; set; }
 
-
-		public DashboardViewModel(INavigationService<ViewModelBase> navigation, IAsyncQueryDispatcher queryDispatcher,
-			IAsyncCommandDispatcher commandDispatcher) : base(navigation)
+		public DashboardViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
+			IAsyncQueryDispatcher queryDispatcher, ISnackbarMessageQueue snackbarMessageQueue) : base(navigation,
+			commandDispatcher, queryDispatcher, snackbarMessageQueue)
 		{
-			_queryDispatcher = queryDispatcher;
-			_commandDispatcher = commandDispatcher;
-
 			DashboardInfo = new DashboardInfo();
 			LoadDashboardInfoCommand = new RelayCommand(async () => await LoadDashboardInfo().ConfigureAwait(false));
 			if (!IsInDesignModeStatic)

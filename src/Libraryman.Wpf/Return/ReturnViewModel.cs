@@ -11,6 +11,7 @@ using Libraryman.Wpf.Dto;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;
+using MaterialDesignThemes.Wpf;
 using Optional;
 
 namespace Libraryman.Wpf.Return
@@ -18,18 +19,15 @@ namespace Libraryman.Wpf.Return
 	public class ReturnViewModel : ViewModelBase
 	{
 		private readonly AuthenticationState _as;
-		private readonly IAsyncQueryDispatcher _queryDispatcher;
-		private readonly IAsyncCommandDispatcher _commandDispatcher;
 
 		public RelayCommand ReturnBookCommand { get; set; }
 		public EntitySearcher<BorrowedBookDto> Searcher { get; set; }
 
-		public ReturnViewModel(INavigationService<ViewModelBase> navigation, AuthenticationState @as,
-			IAsyncQueryDispatcher queryDispatcher, IAsyncCommandDispatcher commandDispatcher) : base(navigation)
+		public ReturnViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
+			IAsyncQueryDispatcher queryDispatcher, ISnackbarMessageQueue snackbarMessageQueue, AuthenticationState @as) : base(
+			navigation, commandDispatcher, queryDispatcher, snackbarMessageQueue)
 		{
 			_as = @as;
-			_queryDispatcher = queryDispatcher;
-			_commandDispatcher = commandDispatcher;
 			Searcher = new EntitySearcher<BorrowedBookDto>(async search => await OnSearch(search).ConfigureAwait(false));
 			ReturnBookCommand = new RelayCommand(async () => await OnReturnBook().ConfigureAwait(false));
 #if DEBUG

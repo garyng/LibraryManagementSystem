@@ -2,10 +2,13 @@
 using System.Threading.Tasks;
 using FakeItEasy;
 using Libraryman.Common.Result;
+using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Extensions;
 using Libraryman.Wpf.Login;
 using Libraryman.Wpf.Navigation;
+using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;
+using MaterialDesignThemes.Wpf;
 using NUnit.Framework;
 
 namespace Libraryman.Wpf.Tests
@@ -13,20 +16,25 @@ namespace Libraryman.Wpf.Tests
 	public class LoginViewModelTests
 	{
 		private INavigationService<ViewModelBase> _navigation;
-
 		private IAuthenticationService _authentication;
-
+		private IAsyncQueryDispatcher _queryDispatcher;
+		private IAsyncCommandDispatcher _commandDispatcher;
 		private AuthenticationState _state;
+		private ISnackbarMessageQueue _snackbarMessageQueue;
+
 		// - CanLogin is true is staffId is int and staffpassword is not zero length
 		// - will set authentication state after successful/unsuccessful login
 		// - will set IsLoginSuccessful after login
-		// will set LoginErrorMessage if failed
+		// - will set LoginErrorMessage if failed
 
 		[SetUp]
 		public void Setup()
 		{
 			_navigation = A.Fake<INavigationService<ViewModelBase>>();
 			_authentication = A.Fake<IAuthenticationService>();
+			_commandDispatcher = A.Fake<IAsyncCommandDispatcher>();
+			_queryDispatcher = A.Fake<IAsyncQueryDispatcher>();
+			_snackbarMessageQueue = A.Fake<ISnackbarMessageQueue>();
 			_state = new AuthenticationState();
 		}
 
@@ -38,7 +46,8 @@ namespace Libraryman.Wpf.Tests
 		public void Should_AbleToValidateStaffIdAndAPassword(string staffId, string staffPasword, bool expected)
 		{
 			// Arrange
-			var loginViewModel = new LoginViewModel(_navigation, _authentication, _state)
+			var loginViewModel = new LoginViewModel(_navigation, _commandDispatcher, _queryDispatcher, _snackbarMessageQueue,
+				_authentication, _state)
 			{
 				StaffId = staffId,
 				StaffPassword = staffPasword.ConvertFromString()
@@ -56,7 +65,9 @@ namespace Libraryman.Wpf.Tests
 		public void Should_ReflectLoginResult_In_AuthenticationState(bool returns, bool expected)
 		{
 			// Arrange
-			var loginViewModel = new LoginViewModel(_navigation, _authentication, _state)
+			var loginViewModel = new LoginViewModel(_navigation, _commandDispatcher, _queryDispatcher, _snackbarMessageQueue,
+				_authentication, _state)
+
 			{
 				StaffId = "1",
 				StaffPassword = "hash".ConvertFromString()
@@ -77,7 +88,8 @@ namespace Libraryman.Wpf.Tests
 		public void Should_SetErrorMessage_If_LoginFailed()
 		{
 			// Arrange
-			var loginViewModel = new LoginViewModel(_navigation, _authentication, _state)
+			var loginViewModel = new LoginViewModel(_navigation, _commandDispatcher, _queryDispatcher, _snackbarMessageQueue,
+				_authentication, _state)
 			{
 				StaffId = "1",
 				StaffPassword = "hash".ConvertFromString()

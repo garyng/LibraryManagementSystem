@@ -12,6 +12,7 @@ using Libraryman.Wpf.Faker;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;
+using MaterialDesignThemes.Wpf;
 using Optional;
 
 namespace Libraryman.Wpf.Issue
@@ -134,8 +135,6 @@ namespace Libraryman.Wpf.Issue
 
 	public class AddBookViewModel : ViewModelBase
 	{
-		private readonly IAsyncQueryDispatcher _queryDispatcher;
-		private readonly IAsyncCommandDispatcher _commandDispatcher;
 		private readonly AuthenticationState _as;
 		public override bool GoBackOnly { get; } = true;
 
@@ -144,12 +143,10 @@ namespace Libraryman.Wpf.Issue
 		public EntitySearcher<BookDto> Searcher { get; set; }
 		public RelayCommand AddBookCommand { get; set; }
 
-		public AddBookViewModel(INavigationService<ViewModelBase> navigation,
-			IAsyncQueryDispatcher queryDispatcher, IAsyncCommandDispatcher commandDispatcher,
-			AuthenticationState @as) : base(navigation)
+		public AddBookViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
+			IAsyncQueryDispatcher queryDispatcher, ISnackbarMessageQueue snackbarMessageQueue, AuthenticationState @as) : base(
+			navigation, commandDispatcher, queryDispatcher, snackbarMessageQueue)
 		{
-			_queryDispatcher = queryDispatcher;
-			_commandDispatcher = commandDispatcher;
 			_as = @as;
 			Searcher = new EntitySearcher<BookDto>(async search => await OnSearch(search).ConfigureAwait(false),
 				onSearched: () => AddBookCommand?.RaiseCanExecuteChanged());

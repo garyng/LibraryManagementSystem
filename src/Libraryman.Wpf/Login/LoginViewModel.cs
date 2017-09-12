@@ -7,17 +7,20 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Libraryman.Common.Result;
 using Libraryman.Entity;
+using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Dashboard;
 using Libraryman.Wpf.Extensions;
 using Libraryman.Wpf.Navigation;
+using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;
+using MaterialDesignThemes.Wpf;
 
 namespace Libraryman.Wpf.Login
 {
 	public class LoginViewModel : ViewModelBase
 	{
 		private readonly IAuthenticationService _authentication;
-		private AuthenticationState _as;
+		private readonly AuthenticationState _as;
 		private string _staffId;
 
 		public string StaffId
@@ -60,8 +63,11 @@ namespace Libraryman.Wpf.Login
 
 		public RelayCommand LoginCommand { get; set; }
 
-		public LoginViewModel(INavigationService<ViewModelBase> navigation, IAuthenticationService authentication,
-			AuthenticationState @as) : base(navigation)
+
+		public LoginViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
+			IAsyncQueryDispatcher queryDispatcher, ISnackbarMessageQueue snackbarMessageQueue,
+			IAuthenticationService authentication, AuthenticationState @as) : base(navigation, commandDispatcher,
+			queryDispatcher, snackbarMessageQueue)
 		{
 			_authentication = authentication;
 			_as = @as;
@@ -85,7 +91,8 @@ namespace Libraryman.Wpf.Login
 					_as.StaffId = staffId;
 					_navigation.GoTo<DashboardViewModel>();
 				})
-				.OnFailure(e => LoginErrorMessage = e.Error).ConfigureAwait(true);
+				.OnFailure(e => LoginErrorMessage = e.Error)
+				.ConfigureAwait(true);
 			IsLoginSuccessful = result.IsSuccess;
 			_as.IsLoggedIn = result.IsSuccess;
 			_as.IsLoggedOut = result.IsFailure;

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using FakeItEasy;
 using Libraryman.Entity;
+using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Issue;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
+using MaterialDesignThemes.Wpf;
 using NUnit.Framework;
 using Optional;
 
@@ -21,12 +23,16 @@ namespace Libraryman.Wpf.Tests
 
 		private INavigationService<ViewModelBase> _navigationService;
 		private IAsyncQueryDispatcher _queryDispatcher;
+		private IAsyncCommandDispatcher _commandDispatcher;
+		private ISnackbarMessageQueue _snackbarMessageQueue;
 
 		[SetUp]
 		public void Setup()
 		{
 			_navigationService = A.Fake<INavigationService<ViewModelBase>>();
 			_queryDispatcher = A.Fake<IAsyncQueryDispatcher>();
+			_commandDispatcher = A.Fake<IAsyncCommandDispatcher>();
+			_snackbarMessageQueue = A.Fake<ISnackbarMessageQueue>();
 		}
 
 		[TestCase("123", true)]
@@ -38,7 +44,8 @@ namespace Libraryman.Wpf.Tests
 
 
 			// Act
-			var searchUserViewModel = new SearchUserViewModel(_navigationService, _queryDispatcher);
+			var searchUserViewModel = new SearchUserViewModel(_navigationService, _commandDispatcher, _queryDispatcher,
+				_snackbarMessageQueue);
 			searchUserViewModel.Searcher.SearchString = searchString;
 
 			// Assert
@@ -62,7 +69,8 @@ namespace Libraryman.Wpf.Tests
 					BorrowedBooks = new List<BorrowedBook>()
 				}));
 
-			var searchUserViewModel = new SearchUserViewModel(_navigationService, _queryDispatcher);
+			var searchUserViewModel = new SearchUserViewModel(_navigationService, _commandDispatcher, _queryDispatcher,
+				_snackbarMessageQueue);
 			searchUserViewModel.Searcher.SearchString = "123";
 			// Act
 
@@ -79,7 +87,8 @@ namespace Libraryman.Wpf.Tests
 			A.CallTo(() => _queryDispatcher.DispatchAsync<GetUserDetailsById, Option<User>>(A<GetUserDetailsById>._))
 				.Returns(Option.None<User>());
 
-			var searchUserViewModel = new SearchUserViewModel(_navigationService, _queryDispatcher);
+			var searchUserViewModel = new SearchUserViewModel(_navigationService, _commandDispatcher, _queryDispatcher,
+				_snackbarMessageQueue);
 			searchUserViewModel.Searcher.SearchString = "123";
 
 			// Act
@@ -94,7 +103,8 @@ namespace Libraryman.Wpf.Tests
 		public void Should_SetIsFoundToNone_AtStartup()
 		{
 			// Arrange
-			var searchUserViewModel = new SearchUserViewModel(_navigationService, _queryDispatcher);
+			var searchUserViewModel = new SearchUserViewModel(_navigationService, _commandDispatcher, _queryDispatcher,
+				_snackbarMessageQueue);
 
 			// Act
 
@@ -107,7 +117,8 @@ namespace Libraryman.Wpf.Tests
 		public void Should_SetIsFoundToNone_If_SearchStringChanges()
 		{
 			// Arrange
-			var searchUserViewModel = new SearchUserViewModel(_navigationService, _queryDispatcher);
+			var searchUserViewModel = new SearchUserViewModel(_navigationService, _commandDispatcher, _queryDispatcher,
+				_snackbarMessageQueue);
 			searchUserViewModel.Searcher.SearchString = "123";
 
 			// emulate search
@@ -127,7 +138,8 @@ namespace Libraryman.Wpf.Tests
 		public void Should_RaiseCanExecuteChange_If_SearchStringChanges()
 		{
 			// Arrange
-			var searchUserViewModel = new SearchUserViewModel(_navigationService, _queryDispatcher);
+			var searchUserViewModel = new SearchUserViewModel(_navigationService, _commandDispatcher, _queryDispatcher,
+				_snackbarMessageQueue);
 			var eventHandler = A.Fake<EventHandler>();
 			searchUserViewModel.Searcher.SearchCommand.CanExecuteChanged += eventHandler;
 

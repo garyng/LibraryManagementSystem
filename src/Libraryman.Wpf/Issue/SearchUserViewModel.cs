@@ -1,25 +1,25 @@
 ﻿using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Libraryman.Entity;
+using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Dto;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
+using MaterialDesignThemes.Wpf;
 using Optional;
 
 namespace Libraryman.Wpf.Issue
 {
 	public class SearchUserViewModel : ViewModelBase
 	{
-		private readonly IAsyncQueryDispatcher _queryDispatcher;
-
 		public RelayCommand IssueBookCommand { get; set; }
+
 		public EntitySearcher<UserDto> Searcher { get; set; }
 
-		public SearchUserViewModel(INavigationService<ViewModelBase> navigation,
-			IAsyncQueryDispatcher queryDispatcher)
-			: base(navigation)
+		public SearchUserViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
+			IAsyncQueryDispatcher queryDispatcher, ISnackbarMessageQueue snackbarMessageQueue) : base(navigation,
+			commandDispatcher, queryDispatcher, snackbarMessageQueue)
 		{
-			_queryDispatcher = queryDispatcher;
 			Searcher = new EntitySearcher<UserDto>(async search => await OnSearch(search).ConfigureAwait(false));
 			IssueBookCommand = new RelayCommand(OnGoToIssueBook);
 #if DEBUG

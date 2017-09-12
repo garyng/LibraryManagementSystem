@@ -1,6 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Libraryman.Wpf.Command;
 using Libraryman.Wpf.Navigation;
+using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Service;
+using MaterialDesignThemes.Wpf;
 
 namespace Libraryman.Wpf.Shell
 {
@@ -18,7 +21,9 @@ namespace Libraryman.Wpf.Shell
 
 		public RelayCommand GoBackCommand { get; set; }
 
-		public ShellHeaderViewModel(INavigationService<ViewModelBase> navigation, AuthenticationState @as) : base(navigation)
+		public ShellHeaderViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
+			IAsyncQueryDispatcher queryDispatcher, ISnackbarMessageQueue snackbarMessageQueue, AuthenticationState @as) : base(
+			navigation, commandDispatcher, queryDispatcher, snackbarMessageQueue)
 		{
 			AuthenticationState = @as;
 			GoBackCommand = new RelayCommand(OnGoBack);
@@ -30,6 +35,7 @@ namespace Libraryman.Wpf.Shell
 
 #endif
 		}
+
 		private void OnGoBack()
 		{
 			if (_navigation.CanGoBack())

@@ -13,14 +13,13 @@ using Libraryman.Wpf.Extensions;
 using Libraryman.Wpf.Faker;
 using Libraryman.Wpf.Navigation;
 using Libraryman.Wpf.Query;
+using MaterialDesignThemes.Wpf;
 using MoreLinq;
 
 namespace Libraryman.Wpf.Issue
 {
 	public class IssueViewModel : ViewModelBase
 	{
-		private readonly IAsyncQueryDispatcher _queryDispatcher;
-		private readonly IAsyncCommandDispatcher _commandDispatcher;
 		public override bool GoBackOnly { get; } = true;
 
 		private UserDto _user;
@@ -51,12 +50,10 @@ namespace Libraryman.Wpf.Issue
 		public RelayCommand LoadDetailsCommand { get; set; }
 		public RelayCommand GoToAddBookCommand { get; set; }
 
-		public IssueViewModel(INavigationService<ViewModelBase> navigation,
-			IAsyncQueryDispatcher queryDispatcher, IAsyncCommandDispatcher commandDispatcher)
-			: base(navigation)
+		public IssueViewModel(INavigationService<ViewModelBase> navigation, IAsyncCommandDispatcher commandDispatcher,
+			IAsyncQueryDispatcher queryDispatcher, ISnackbarMessageQueue snackbarMessageQueue) : base(navigation,
+			commandDispatcher, queryDispatcher, snackbarMessageQueue)
 		{
-			_queryDispatcher = queryDispatcher;
-			_commandDispatcher = commandDispatcher;
 			LoadDetailsCommand = new RelayCommand(async () => await OnLoadDetails().ConfigureAwait(false));
 			GoToAddBookCommand = new RelayCommand(OnGoToAddBook);
 
@@ -80,6 +77,7 @@ namespace Libraryman.Wpf.Issue
 				BorrowedBooks = BorrowedBookDtoFaker.Generate(10).ToObservableCollection();
 			}
 #endif
+
 		}
 
 		private async Task OnLoadDetails()

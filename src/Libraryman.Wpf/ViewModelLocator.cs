@@ -18,6 +18,7 @@ using Libraryman.Wpf.Query;
 using Libraryman.Wpf.Return;
 using Libraryman.Wpf.Service;
 using Libraryman.Wpf.Shell;
+using MaterialDesignThemes.Wpf;
 using Optional;
 
 namespace Libraryman.Wpf
@@ -41,6 +42,10 @@ namespace Libraryman.Wpf
 		public ViewModelLocator()
 		{
 			var cb = new ContainerBuilder();
+
+			cb.RegisterType<SnackbarMessageQueue>()
+				.As<ISnackbarMessageQueue>()
+				.SingleInstance();
 
 			cb.RegisterType<NavigationService<ViewModelBase>>()
 				.As<INavigationService<ViewModelBase>>()
