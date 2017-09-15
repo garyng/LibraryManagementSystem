@@ -14,7 +14,7 @@ namespace Libraryman.DataAccess
 	{
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-			// System.Data.Entity.Database.SetInitializer(new LibrarymanInitializer());
+			System.Data.Entity.Database.SetInitializer(new LibrarymanInitializer());
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
 			modelBuilder.Entity<Book>()
@@ -59,7 +59,7 @@ namespace Libraryman.DataAccess
 		public DbSet<BorrowedBook> BorrowedBooks { get; set; }
 		public DbSet<ReturnedBook> ReturnedBooks { get; set; }
 
-		private class LibrarymanInitializer : DropCreateDatabaseAlways<LibrarymanContext>
+		private class LibrarymanInitializer : CreateDatabaseIfNotExists<LibrarymanContext>
 		{
 			protected override void Seed(LibrarymanContext context)
 			{
@@ -83,6 +83,16 @@ namespace Libraryman.DataAccess
 					Gender = Gender.Male,
 					PhoneNumber = "+012-345677890",
 					PasswordHash = "garyng".ToSHA256(),
+					LastLogin = DateTime.Now,
+					Library = libraries[0]
+				});
+
+				staffs.Add(new Staff()
+				{
+					Name = "admin",
+					Gender = Gender.Male,
+					PhoneNumber = "+012-345677890",
+					PasswordHash = "admin".ToSHA256(),
 					LastLogin = DateTime.Now,
 					Library = libraries[0]
 				});
