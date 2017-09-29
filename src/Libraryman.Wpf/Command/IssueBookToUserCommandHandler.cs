@@ -17,11 +17,13 @@ namespace Libraryman.Wpf.Command
 		{
 			User user = await _context
 				.Users
+				.Include(u => u.BorrowedBooks)
 				.Include(u => u.Type)
 				.SingleOrDefaultAsync(u => u.Id == command.UserId)
 				.ConfigureAwait(false);
 
 			if (user == null) return Result.Fail($"User with id '{command.UserId} not found.");
+			if (user.BorrowedBooks.Count >= user.Type.MaximumBooks) return Result.Fail($"User with id '{user.Id}' has borrowed the maximum allowed books!");
 
 			Book book = await _context
 				.Books
@@ -29,8 +31,6 @@ namespace Libraryman.Wpf.Command
 				.ConfigureAwait(false);
 
 			if (book == null) return Result.Fail($"Book with barcode '{command.BookBarcode} not found.");
-
-
 
 			DateTime now = DateTime.Now;
 
